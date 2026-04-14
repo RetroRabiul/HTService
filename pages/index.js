@@ -29,10 +29,10 @@ export default function Home() {
           <h2 className={styles.sectionTitle}>Our Services</h2>
           <p className={styles.sectionSubtitle}>Comprehensive cleaning solutions tailored to your needs</p>
           <div className={styles.serviceGrid}>
-            <ServiceCard title="Residential Cleaning" description="Deep cleaning for homes, apartments, and condos. Keep your living space fresh and healthy." icon="ðŸ " />
-            <ServiceCard title="Office Cleaning" description="Maintain a professional and productive workplace with our commercial cleaning services." icon="ðŸ¢" />
-            <ServiceCard title="Pest Prevention" description="Specialized cleaning to reduce mosquitoes and prevent pest infestations in your home." icon="ðŸ¦Ÿ" />
-            <ServiceCard title="Deep Sanitization" description="Thorough sanitization services for a healthier, germ-free environment." icon="âœ¨" />
+            <ServiceCard title="Residential Cleaning" description="Deep cleaning for homes, apartments, and condos. Keep your living space fresh and healthy." icon="🏠" />
+            <ServiceCard title="Office Cleaning" description="Maintain a professional and productive workplace with our commercial cleaning services." icon="🏢" />
+            <ServiceCard title="Pest Prevention" description="Specialized cleaning to reduce mosquitoes and prevent pest infestations in your home." icon="🦟" />
+            <ServiceCard title="Deep Sanitization" description="Thorough sanitization services for a healthier, germ-free environment." icon="✨" />
           </div>
         </section>
 
