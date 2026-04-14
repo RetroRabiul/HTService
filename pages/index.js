@@ -53,9 +53,9 @@ export default function Home() {
           <p className={styles.contactSubtitle}>Contact HT Service today for a free consultation and quote.</p>
           <div className={styles.contactCard}>
             <h3 className={styles.contactCardTitle}>HT Service</h3>
-            <p className={styles.contactInfo}>ðŸ“ Dhaka, Bangladesh</p>
-            <p className={styles.contactInfo}>ðŸ“ž Contact us for inquiries</p>
-            <p className={styles.contactInfo}>âœ‰ï¸ info@htservice.com</p>
+            <p className={styles.contactInfo}>📍 Dhaka, Bangladesh</p>
+            <p className={styles.contactInfo}>📞 Contact us for inquiries</p>
+            <p className={styles.contactInfo}>✉️ info@htservice.com</p>
           </div>
           <div className={styles.contactBtns}>
             <a href="tel:+880" className={styles.btnPrimary} style={{ background: '#00B4D8', color: '#fff', boxShadow: '0 4px 12px rgba(0,180,216,0.3)' }}>
