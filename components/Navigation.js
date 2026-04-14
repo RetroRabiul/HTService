@@ -1,61 +1,43 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import styles from '../styles/Navigation.module.css';
 
 export default function Navigation() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <nav style={{
-      background: 'linear-gradient(135deg, #004080 0%, #0066cc 100%)',
-      padding: '16px 40px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-      }}>
-        <Link href="/" style={{display: 'flex', alignItems: 'center'}}>
-          <Image 
-            src="/home_page/logo.jpg" 
-            alt="HT Service Logo" 
-            width={120} 
+    <nav className={styles.nav}>
+      <div className={styles.container}>
+        <Link href="/" className={styles.logo}>
+          <Image
+            src="/home_page/logo.jpg"
+            alt="HT Service Logo"
+            width={120}
             height={50}
-            style={{objectFit: 'contain'}}
+            style={{ objectFit: 'contain' }}
           />
         </Link>
-        
-        <div style={{display: 'flex', gap: '32px', alignItems: 'center'}}>
-          <Link href="/" style={{
-            color: 'white',
-            fontSize: '16px',
-            fontWeight: '500',
-            transition: 'color 0.2s',
-            ':hover': {color: '#00B4D8'}
-          }}>
+
+        <button
+          className={styles.hamburger}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen1 : ''}`} />
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen2 : ''}`} />
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen3 : ''}`} />
+        </button>
+
+        <div className={`${styles.links} ${menuOpen ? styles.linksOpen : ''}`}>
+          <Link href="/" className={styles.link} onClick={() => setMenuOpen(false)}>
             Home
           </Link>
-          <Link href="/news" style={{
-            color: 'white',
-            fontSize: '16px',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}>
-            News & Tips
+          <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
+            News &amp; Tips
           </Link>
-          <a href="#contact" style={{
-            background: '#00B4D8',
-            color: 'white',
-            padding: '10px 24px',
-            borderRadius: '8px',
-            fontSize: '16px',
-            fontWeight: '600',
-            transition: 'transform 0.2s, box-shadow 0.2s',
-            boxShadow: '0 4px 12px rgba(0,180,216,0.3)'
-          }}>
+          <a href="/#contact" className={styles.contactBtn} onClick={() => setMenuOpen(false)}>
             Contact Us
           </a>
         </div>

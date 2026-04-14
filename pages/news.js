@@ -1,5 +1,6 @@
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
+import styles from '../styles/News.module.css';
 
 export default function News() {
   const articles = [
@@ -161,135 +162,50 @@ Remember: Prevention through cleanliness is always more effective and less expen
   return (
     <>
       <Navigation />
-      <main style={{fontFamily: 'Inter, system-ui, Arial', minHeight: '100vh', background: '#f8fafc'}}>
+      <main className={styles.main}>
+
         {/* Page Header */}
-        <section style={{
-          background: 'linear-gradient(135deg, #004080 0%, #0066cc 100%)',
-          padding: '80px 20px 60px',
-          textAlign: 'center',
-          color: 'white'
-        }}>
-          <h1 style={{fontSize: 48, fontWeight: 700, marginBottom: 16}}>
-            News & Cleaning Tips
-          </h1>
-          <p style={{fontSize: 20, maxWidth: 700, margin: '0 auto', opacity: 0.95}}>
-            Expert advice on maintaining a clean, healthy home in Dhaka
-          </p>
+        <section className={styles.pageHeader} style={{ background: 'linear-gradient(135deg, #004080 0%, #0066cc 100%)' }}>
+          <h1 className={styles.pageTitle}>News &amp; Cleaning Tips</h1>
+          <p className={styles.pageSubtitle}>Expert advice on maintaining a clean, healthy home in Dhaka</p>
         </section>
 
-        {/* Articles Section */}
-        <section style={{padding: '60px 20px', maxWidth: 1000, margin: '0 auto'}}>
-          {articles.map((article, index) => (
-            <article key={article.id} style={{
-              background: 'white',
-              borderRadius: 16,
-              padding: 40,
-              marginBottom: 40,
-              boxShadow: '0 4px 12px rgba(0,64,128,0.1)',
-              border: '1px solid #e8f4f8'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                marginBottom: 20,
-                fontSize: 14,
-                color: '#64748b'
-              }}>
-                <span>📅 {article.date}</span>
-                <span>•</span>
-                <span>👤 {article.author}</span>
+        {/* Articles */}
+        <section className={styles.articlesSection}>
+          {articles.map((article) => (
+            <article key={article.id} className={styles.article}>
+              <div className={styles.articleMeta}>
+                <span>&#x1F4C5; {article.date}</span>
+                <span>&bull;</span>
+                <span>&#x1F464; {article.author}</span>
               </div>
 
-              <h2 style={{
-                fontSize: 32,
-                fontWeight: 700,
-                color: '#004080',
-                marginBottom: 16,
-                lineHeight: 1.3
-              }}>
-                {article.title}
-              </h2>
+              <h2 className={styles.articleTitle}>{article.title}</h2>
+              <p className={styles.articleExcerpt}>{article.excerpt}</p>
 
-              <p style={{
-                fontSize: 18,
-                color: '#475569',
-                marginBottom: 24,
-                fontWeight: 500,
-                lineHeight: 1.6
-              }}>
-                {article.excerpt}
-              </p>
-
-              <div style={{
-                position: 'relative',
-                width: '100%',
-                height: 300,
-                marginBottom: 30,
-                borderRadius: 12,
-                overflow: 'hidden'
-              }}>
-                <Image 
-                  src={article.image}
-                  alt={article.title}
-                  fill
-                  style={{objectFit: 'cover'}}
-                />
+              <div className={styles.articleImageWrap}>
+                <Image src={article.image} alt={article.title} fill style={{ objectFit: 'cover' }} />
               </div>
 
-              <div style={{
-                fontSize: 16,
-                lineHeight: 1.8,
-                color: '#334155',
-                whiteSpace: 'pre-line'
-              }}>
-                {article.content}
-              </div>
-
-              {index < articles.length - 1 && (
-                <div style={{
-                  marginTop: 40,
-                  paddingTop: 40,
-                  borderTop: '2px solid #e8f4f8'
-                }} />
-              )}
+              <div className={styles.articleContent}>{article.content}</div>
             </article>
           ))}
         </section>
 
-        {/* Call to Action */}
-        <section style={{
-          padding: '60px 20px',
-          textAlign: 'center',
-          background: 'linear-gradient(135deg, #004080 0%, #0066cc 100%)',
-          color: 'white'
-        }}>
-          <h2 style={{fontSize: 36, marginBottom: 16, fontWeight: 700}}>
-            Ready for a Cleaner, Healthier Home?
-          </h2>
-          <p style={{fontSize: 18, marginBottom: 32, opacity: 0.95}}>
-            Let HT Service help you maintain a mosquito-free, pristine living space
-          </p>
-          <a href="/#contact" style={{
-            display: 'inline-block',
-            padding: '16px 40px',
-            background: '#00B4D8',
-            color: 'white',
-            fontSize: 18,
-            fontWeight: 600,
-            borderRadius: 10,
-            textDecoration: 'none',
-            boxShadow: '0 6px 20px rgba(0,180,216,0.3)',
-            transition: 'transform 0.2s'
-          }}>
+        {/* CTA */}
+        <section className={styles.ctaSection} style={{ background: 'linear-gradient(135deg, #004080 0%, #0066cc 100%)' }}>
+          <h2 className={styles.ctaTitle}>Ready for a Cleaner, Healthier Home?</h2>
+          <p className={styles.ctaSubtitle}>Let HT Service help you maintain a mosquito-free, pristine living space</p>
+          <a href="/#contact" className={styles.ctaBtn} style={{ background: '#00B4D8', color: 'white', boxShadow: '0 6px 20px rgba(0,180,216,0.3)' }}>
             Schedule a Cleaning
           </a>
         </section>
 
-        <footer style={{padding: '40px 20px', textAlign: 'center', background: '#001a33', color: '#94a3b8'}}>
-          <p style={{marginBottom: 8}}>HT Service - House to Service by Khan</p>
+        <footer className={styles.footer}>
+          <p className={styles.footerText}>HT Service - House to Service by Khan</p>
           <small>&copy; 2026 HT Service. All rights reserved. Serving Dhaka, Bangladesh.</small>
         </footer>
+
       </main>
     </>
   );

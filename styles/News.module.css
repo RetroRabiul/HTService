@@ -1,0 +1,192 @@
+.main {
+  font-family: 'Inter', system-ui, Arial;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ── Page Header ────────────────────────── */
+.pageHeader {
+  padding: 72px 24px 56px;
+  text-align: center;
+  color: white;
+}
+
+.pageTitle {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.pageSubtitle {
+  font-size: 18px;
+  max-width: 680px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* ── Articles ───────────────────────────── */
+.articlesSection {
+  padding: 56px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.article {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 36px;
+  box-shadow: 0 4px 16px rgba(0, 64, 128, 0.09);
+  border: 1px solid #e8f4f8;
+}
+
+.articleMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.articleTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #004080;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.articleExcerpt {
+  font-size: 17px;
+  color: #475569;
+  font-weight: 500;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.articleImageWrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-bottom: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.articleContent {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #334155;
+  white-space: pre-line;
+}
+
+/* ── CTA Section ────────────────────────── */
+.ctaSection {
+  padding: 64px 24px;
+  text-align: center;
+  color: white;
+}
+
+.ctaTitle {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.ctaSubtitle {
+  font-size: 17px;
+  margin-bottom: 28px;
+  opacity: 0.95;
+}
+
+.ctaBtn {
+  display: inline-block;
+  padding: 15px 36px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* ── Footer ─────────────────────────────── */
+.footer {
+  padding: 36px 24px;
+  text-align: center;
+  background: #001a33;
+  color: #94a3b8;
+}
+
+.footerText {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* ── Mobile (≤640px) ────────────────────── */
+@media (max-width: 640px) {
+  .pageHeader {
+    padding: 52px 16px 40px;
+  }
+
+  .pageTitle {
+    font-size: 26px;
+  }
+
+  .pageSubtitle {
+    font-size: 15px;
+  }
+
+  .articlesSection {
+    padding: 32px 12px;
+  }
+
+  .article {
+    padding: 24px 16px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+  }
+
+  .articleTitle {
+    font-size: 20px;
+  }
+
+  .articleExcerpt {
+    font-size: 15px;
+  }
+
+  .articleImageWrap {
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  .articleContent {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .ctaSection {
+    padding: 48px 16px;
+  }
+
+  .ctaTitle {
+    font-size: 22px;
+  }
+
+  .ctaSubtitle {
+    font-size: 15px;
+  }
+
+  .ctaBtn {
+    padding: 13px 28px;
+    font-size: 15px;
+    width: 100%;
+    max-width: 280px;
+  }
+}
