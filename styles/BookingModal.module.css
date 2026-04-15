@@ -74,6 +74,8 @@
   padding: 20px;
   overflow-y: auto;
   flex: 1;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: #2e3050 transparent;
 }
