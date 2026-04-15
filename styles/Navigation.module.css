@@ -1,7 +1,7 @@
 .nav {
-  background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+  background: #ffffff;
   padding: 14px 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -29,7 +29,7 @@
 }
 
 .link {
-  color: white;
+  color: #004080;
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
@@ -51,12 +51,13 @@
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
-  transition: opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.18);
+  transition: opacity 0.2s, transform 0.15s;
 }
 
 .contactBtn:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-1px);
 }
 
 /* Hamburger button — hidden on desktop */
@@ -76,7 +77,7 @@
   display: block;
   width: 25px;
   height: 2px;
-  background: white;
+  background: #004080;
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
