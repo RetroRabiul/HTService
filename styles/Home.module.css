@@ -4,6 +4,142 @@
   overflow-x: hidden;
 }
 
+/* ── Booking Confirmation Banner ────────── */
+.bookingConfirmation {
+  background: #f0fdf4;
+  border-top: 3px solid #00B4D8;
+  padding: 20px 40px;
+}
+
+.bookingConfirmCard {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+}
+
+.bookingConfirmIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #00B4D8;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bookingConfirmBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookingConfirmHeading {
+  font-size: 16px;
+  color: #1a2e44;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.bookingServiceList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bookingServiceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #334155;
+  background: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #e0f0f8;
+}
+
+.bookingServicePrice {
+  font-weight: 700;
+  color: #004080;
+  white-space: nowrap;
+  margin-left: 12px;
+}
+
+.bookingDateLine {
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.bookingNotes {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-style: normal;
+}
+
+.bookingNotes em {
+  font-style: italic;
+  color: #475569;
+}
+
+.bookingTotal {
+  font-size: 15px;
+  color: #004080;
+  padding-top: 10px;
+  border-top: 1px solid #c8e8f4;
+  margin-top: 4px;
+}
+
+.bookingDismiss {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.bookingDismiss:hover {
+  color: #334155;
+  background: rgba(0,0,0,0.06);
+}
+
+@media (max-width: 640px) {
+  .bookingConfirmation {
+    padding: 16px;
+  }
+  .bookingConfirmCard {
+    gap: 12px;
+  }
+  .bookingConfirmIcon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  .bookingConfirmHeading {
+    font-size: 15px;
+    padding-right: 24px;
+  }
+  .bookingServiceItem {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}
+
 /* ── Hero ───────────────────────────────── */
 .hero {
   position: relative;

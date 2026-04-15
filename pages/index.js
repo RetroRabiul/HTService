@@ -24,10 +24,52 @@ const popularServices = [
 
 export default function Home() {
   const [booking, setBooking] = useState(false);
+  const [confirmedBooking, setConfirmedBooking] = useState(null);
+
+  function handleBook(data) {
+    setConfirmedBooking(data);
+    setBooking(false);
+  }
   return (
     <>
       <Navigation />
       <main className={styles.main}>
+
+        {/* Booking Confirmation */}
+        {confirmedBooking && (
+          <section className={styles.bookingConfirmation}>
+            <div className={styles.bookingConfirmCard}>
+              <div className={styles.bookingConfirmIcon}>&#10003;</div>
+              <div className={styles.bookingConfirmBody}>
+                <p className={styles.bookingConfirmHeading}>
+                  <strong>{confirmedBooking.name || 'A customer'}</strong> has requested the following services:
+                </p>
+                <ul className={styles.bookingServiceList}>
+                  {confirmedBooking.services.map(s => (
+                    <li key={s.id} className={styles.bookingServiceItem}>
+                      <span>{s.name}</span>
+                      <span className={styles.bookingServicePrice}>Tk {s.price.toLocaleString()}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className={styles.bookingDateLine}>
+                  At the following date &amp; time: <strong>{confirmedBooking.time}, {confirmedBooking.date}</strong>
+                </p>
+                {confirmedBooking.notes ? (
+                  <p className={styles.bookingNotes}>
+                    Notes from customer: <em>{confirmedBooking.notes}</em>
+                  </p>
+                ) : null}
+                <p className={styles.bookingTotal}>
+                  Total: <strong>Tk {confirmedBooking.total.toLocaleString()}</strong>
+                </p>
+              </div>
+              <button className={styles.bookingDismiss} onClick={() => setConfirmedBooking(null)} aria-label="Dismiss">
+                &#10005;
+              </button>
+            </div>
+          </section>
+        )}
 
         {/* Hero */}
         <section className={styles.hero}>
@@ -112,7 +154,7 @@ export default function Home() {
         </footer>
 
       </main>
-      {booking && <BookingModal onClose={() => setBooking(false)} />}
+      {booking && <BookingModal onClose={() => setBooking(false)} onBook={handleBook} />}
     </>
   );
 }

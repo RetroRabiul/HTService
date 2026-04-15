@@ -29,7 +29,7 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-export default function BookingModal({ onClose }) {
+export default function BookingModal({ onClose, onBook }) {
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -46,7 +46,6 @@ export default function BookingModal({ onClose }) {
   const [selTime, setSelTime] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
   const [form, setForm] = useState({ name: '', phone: '', notes: '' });
-  const [submitted, setSubmitted] = useState(false);
 
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);
@@ -69,21 +68,17 @@ export default function BookingModal({ onClose }) {
     ? `${DAY_NAMES[new Date(selDate.year, selDate.month, selDate.day).getDay()]}, ${MONTHS[selDate.month].slice(0, 3)} ${selDate.day}, ${selDate.year}`
     : '';
 
-  if (submitted) {
-    return (
-      <div className={styles.overlay} onClick={onClose}>
-        <div className={styles.modal} onClick={e => e.stopPropagation()}>
-          <div className={styles.successScreen}>
-            <div className={styles.successIcon}>&#10003;</div>
-            <h2 className={styles.successTitle}>Request Sent!</h2>
-            <p className={styles.successText}>
-              HT Service will review your request and contact you to confirm the appointment.
-            </p>
-            <button className={styles.nextBtn} onClick={onClose}>Close</button>
-          </div>
-        </div>
-      </div>
-    );
+  function handleSubmit() {
+    onBook({
+      name: form.name,
+      phone: form.phone,
+      notes: form.notes,
+      time: selTime,
+      date: friendlyDate,
+      services: pickedServices,
+      total,
+    });
+    onClose();
   }
 
   return (
@@ -281,7 +276,7 @@ export default function BookingModal({ onClose }) {
                 Info you provide will be shared with HT Service so they can contact you.
               </p>
 
-              <button className={styles.nextBtn} onClick={() => setSubmitted(true)}>
+              <button className={styles.nextBtn} onClick={handleSubmit}>
                 Request appointment
               </button>
             </>
