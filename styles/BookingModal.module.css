@@ -456,13 +456,68 @@
 
 /* ── Mobile ──────────────────────────────── */
 @media (max-width: 480px) {
-  .modal { max-height: 95vh; }
+  .overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
 
-  .timeGrid { grid-template-columns: repeat(3, 1fr); }
+  .modal {
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+  }
+
+  .header {
+    padding: 16px 16px 0;
+  }
+
+  .body {
+    padding: 16px;
+  }
+
+  .calendar {
+    padding: 12px;
+  }
 
   .calDay {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .calDayName {
+    font-size: 10px;
+    padding: 4px 0 6px;
+  }
+
+  .timeGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .timeSlot {
     font-size: 12px;
+    padding: 11px 4px;
+  }
+
+  .serviceItem {
+    padding: 11px 10px;
+  }
+
+  .serviceName {
+    font-size: 13px;
+  }
+
+  .serviceDesc {
+    font-size: 11px;
+  }
+
+  .servicePrice {
+    font-size: 12px;
+  }
+
+  .nextBtn {
+    font-size: 15px;
+    padding: 14px;
   }
 }
