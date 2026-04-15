@@ -86,7 +86,7 @@ export default function Home() {
           </div>
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Your Home Cleaning Expert</h1>
+            <h1 className={styles.heroTitle}>Your Cleaning Expert</h1>
             <p className={styles.heroSubtitle}>
               One-stop solution for all cleaning needs. Book any service, anytime.
             </p>
