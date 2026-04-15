@@ -437,7 +437,7 @@
   padding: 12px 14px;
   font-size: 14px;
   color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   outline: none;
   transition: border-color 0.2s;
   box-sizing: border-box;
@@ -445,6 +445,33 @@
 }
 .input::placeholder { color: #4a4f6a; }
 .input:focus { border-color: #00B4D8; }
+
+.inputError {
+  border-color: #3a3d5e;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a80a0;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.required {
+  color: #f87171;
+  margin-left: 2px;
+}
+
+.optional {
+  color: #4a4f6a;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+}
 
 .textarea {
   resize: vertical;

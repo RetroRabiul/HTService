@@ -45,7 +45,9 @@ export default function BookingModal({ onClose, onBook }) {
   const [selDate, setSelDate] = useState({ year: now.getFullYear(), month: now.getMonth(), day: now.getDate() });
   const [selTime, setSelTime] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
-  const [form, setForm] = useState({ name: '', phone: '', notes: '' });
+  const [form, setForm] = useState({ name: '', phone: '', address: '', notes: '' });
+
+  const formValid = form.name.trim() && form.phone.trim() && form.address.trim();
 
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);
@@ -70,9 +72,10 @@ export default function BookingModal({ onClose, onBook }) {
 
   function handleSubmit() {
     onBook({
-      name: form.name,
-      phone: form.phone,
-      notes: form.notes,
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      address: form.address.trim(),
+      notes: form.notes.trim(),
       time: selTime,
       date: friendlyDate,
       services: pickedServices,
@@ -249,23 +252,34 @@ export default function BookingModal({ onClose, onBook }) {
 
               <div className={styles.reviewSection}>
                 <h3 className={styles.reviewSectionTitle}>Your contact info</h3>
+                <label className={styles.fieldLabel}>Full name <span className={styles.required}>*</span></label>
                 <input
-                  className={styles.input}
+                  className={[styles.input, !form.name.trim() && styles.inputError].filter(Boolean).join(' ')}
                   type="text"
                   placeholder="Full name"
                   value={form.name}
                   onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                 />
+                <label className={styles.fieldLabel}>Phone number <span className={styles.required}>*</span></label>
                 <input
-                  className={styles.input}
+                  className={[styles.input, !form.phone.trim() && styles.inputError].filter(Boolean).join(' ')}
                   type="tel"
-                  placeholder="Phone number (optional)"
+                  placeholder="e.g. 01700000000"
                   value={form.phone}
                   onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                 />
+                <label className={styles.fieldLabel}>Address <span className={styles.required}>*</span></label>
+                <input
+                  className={[styles.input, !form.address.trim() && styles.inputError].filter(Boolean).join(' ')}
+                  type="text"
+                  placeholder="House, Road, Area, Dhaka"
+                  value={form.address}
+                  onChange={e => setForm(f => ({ ...f, address: e.target.value }))}
+                />
+                <label className={styles.fieldLabel}>Appointment notes <span className={styles.optional}>(optional)</span></label>
                 <textarea
                   className={[styles.input, styles.textarea].join(' ')}
-                  placeholder="Appointment notes (optional)"
+                  placeholder="Any special requests or instructions"
                   value={form.notes}
                   onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                   rows={3}
@@ -276,7 +290,7 @@ export default function BookingModal({ onClose, onBook }) {
                 Info you provide will be shared with HT Service so they can contact you.
               </p>
 
-              <button className={styles.nextBtn} onClick={handleSubmit}>
+              <button className={styles.nextBtn} onClick={handleSubmit} disabled={!formValid}>
                 Request appointment
               </button>
             </>

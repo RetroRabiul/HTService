@@ -55,6 +55,14 @@ export default function Home() {
                 <p className={styles.bookingDateLine}>
                   At the following date &amp; time: <strong>{confirmedBooking.time}, {confirmedBooking.date}</strong>
                 </p>
+                <p className={styles.bookingDateLine}>
+                  Address: <strong>{confirmedBooking.address}</strong>
+                </p>
+                {confirmedBooking.phone && (
+                  <p className={styles.bookingDateLine}>
+                    Phone: <strong>{confirmedBooking.phone}</strong>
+                  </p>
+                )}
                 {confirmedBooking.notes ? (
                   <p className={styles.bookingNotes}>
                     Notes from customer: <em>{confirmedBooking.notes}</em>
