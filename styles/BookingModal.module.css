@@ -1,3 +1,29 @@
+/* ── Floating close button (always visible) ── */
+.floatClose {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 2100;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(30, 31, 50, 0.92);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: background 0.2s, transform 0.15s;
+  backdrop-filter: blur(6px);
+}
+.floatClose:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.1);
+}
+
 /* ── Overlay & Modal ─────────────────────── */
 .overlay {
   position: fixed;

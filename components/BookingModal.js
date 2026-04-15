@@ -88,6 +88,10 @@ export default function BookingModal({ onClose }) {
 
   return (
     <div className={styles.overlay} onClick={onClose}>
+      {/* Always-visible floating close button */}
+      <button className={styles.floatClose} onClick={onClose} aria-label="Close booking">
+        &#10005;
+      </button>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
 
         {/* Header */}
