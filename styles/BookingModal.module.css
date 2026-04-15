@@ -1,0 +1,468 @@
+/* ── Overlay & Modal ─────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: #1a1b2e;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  scrollbar-width: thin;
+  scrollbar-color: #2e3050 transparent;
+}
+
+/* ── Header ─────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 0;
+  position: relative;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.backBtn {
+  position: absolute;
+  left: 14px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+.backBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.closeBtn {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+.closeBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+/* ── Body ────────────────────────────────── */
+.body {
+  padding: 20px;
+}
+
+/* ── Calendar ────────────────────────────── */
+.calendar {
+  background: #22243a;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.calHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calMonth {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.calNav {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 2px 10px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: color 0.2s, background 0.2s;
+}
+.calNav:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calDayName {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5a5f7a;
+  text-align: center;
+  padding: 4px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.calDay {
+  background: none;
+  border: none;
+  color: #c9d0e0;
+  font-size: 13px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin: 1px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+.calDay:hover:not(:disabled) { background: rgba(0, 180, 216, 0.2); color: #fff; }
+
+.calSelected {
+  background: #00B4D8 !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.calPast {
+  color: #38395a;
+  cursor: not-allowed;
+}
+
+/* ── Timezone ────────────────────────────── */
+.timezone {
+  font-size: 12px;
+  color: #5a5f7a;
+  margin-bottom: 12px;
+}
+
+/* ── Time Grid ───────────────────────────── */
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.timeSlot {
+  background: #22243a;
+  border: 1.5px solid #2e3050;
+  color: #c9d0e0;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 10px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.timeSlot:hover { background: rgba(0,180,216,0.12); border-color: #00B4D8; color: #fff; }
+
+.timeSelected {
+  background: #00B4D8 !important;
+  border-color: #00B4D8 !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* ── Buttons ─────────────────────────────── */
+.nextBtn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: #00B4D8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 14px;
+}
+.nextBtn:hover:not(:disabled) { background: #009abd; transform: translateY(-1px); }
+.nextBtn:disabled { background: #2a2c44; color: #4a4f6a; cursor: not-allowed; transform: none; }
+
+/* ── Footer Note ─────────────────────────── */
+.footerNote {
+  font-size: 12px;
+  color: #5a5f7a;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+/* ── Step hint ───────────────────────────── */
+.stepHint {
+  font-size: 13px;
+  color: #7a80a0;
+  margin-bottom: 12px;
+}
+
+/* ── Service List ────────────────────────── */
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.serviceItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #22243a;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 13px 12px;
+  cursor: pointer;
+  gap: 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.serviceItem:hover { background: #252742; border-color: rgba(0,180,216,0.3); }
+
+.serviceSelected {
+  border-color: #00B4D8 !important;
+  background: rgba(0,180,216,0.07) !important;
+}
+
+.serviceDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.serviceName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.serviceDesc {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.serviceRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.servicePrice {
+  font-size: 13px;
+  font-weight: 700;
+  color: #00B4D8;
+  white-space: nowrap;
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #3a3d5e;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.checkboxChecked {
+  background: #00B4D8;
+  border-color: #00B4D8;
+}
+
+/* ── Total Bar ───────────────────────────── */
+.totalBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #22243a;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.totalAmount {
+  font-size: 20px;
+  font-weight: 800;
+  color: #00B4D8;
+}
+
+/* ── Review ──────────────────────────────── */
+.reviewTopRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2a2c44;
+  margin-bottom: 16px;
+}
+
+.reviewLogo {
+  width: 40px;
+  height: 40px;
+  background: #004080;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.reviewBrand {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.reviewSection {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #2a2c44;
+  margin-bottom: 14px;
+}
+
+.reviewSectionTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.reviewRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #c9d0e0;
+  margin-bottom: 6px;
+}
+
+.reviewPrice {
+  color: #00B4D8;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reviewTotal {
+  border-top: 1px solid #2a2c44;
+  padding-top: 8px;
+  margin-top: 6px;
+  font-size: 15px;
+  color: #fff;
+}
+
+/* ── Contact Form ────────────────────────── */
+.input {
+  display: block;
+  width: 100%;
+  background: #22243a;
+  border: 1.5px solid #2e3050;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.input::placeholder { color: #4a4f6a; }
+.input:focus { border-color: #00B4D8; }
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── Success ─────────────────────────────── */
+.successScreen {
+  padding: 48px 20px 32px;
+  text-align: center;
+}
+
+.successIcon {
+  width: 68px;
+  height: 68px;
+  background: #00B4D8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #fff;
+  margin: 0 auto 24px;
+}
+
+.successTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.successText {
+  font-size: 15px;
+  color: #7a80a0;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Mobile ──────────────────────────────── */
+@media (max-width: 480px) {
+  .modal { max-height: 95vh; }
+
+  .timeGrid { grid-template-columns: repeat(3, 1fr); }
+
+  .calDay {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}

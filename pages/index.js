@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import BookingModal from '../components/BookingModal';
 
 const categories = [
   { icon: '🏠', label: 'Residential Cleaning' },
@@ -21,6 +23,7 @@ const popularServices = [
 ];
 
 export default function Home() {
+  const [booking, setBooking] = useState(false);
   return (
     <>
       <Navigation />
@@ -37,6 +40,9 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               One-stop solution for all cleaning needs. Book any service, anytime.
             </p>
+            <button className={styles.bookBtn} onClick={() => setBooking(true)}>
+              Book a Cleaning
+            </button>
           </div>
         </section>
 
@@ -106,6 +112,7 @@ export default function Home() {
         </footer>
 
       </main>
+      {booking && <BookingModal onClose={() => setBooking(false)} />}
     </>
   );
 }
