@@ -51,72 +51,7 @@
   line-height: 1.6;
 }
 
-/* ── Search Bar ─────────────────────────── */
-.searchBar {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 720px;
-  margin: 0 auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
-}
-
-.locationPill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 20px;
-  white-space: nowrap;
-  color: #004080;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  min-width: 120px;
-}
-
-.locationText {
-  color: #004080;
-}
-
-.searchDivider {
-  width: 1px;
-  height: 28px;
-  background: #dde6f0;
-  flex-shrink: 0;
-}
-
-.searchInput {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 18px 16px;
-  font-size: 15px;
-  color: #333;
-  background: transparent;
-}
-
-.searchInput::placeholder {
-  color: #aab4c0;
-}
-
-.searchBtn {
-  background: #004080;
-  border: none;
-  padding: 0 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  align-self: stretch;
-  transition: background 0.2s;
-}
-
-.searchBtn:hover {
-  background: #00B4D8;
-}
+/* Search removed — kept styles intentionally trimmed */
 
 /* ── Category Tiles ─────────────────────── */
 .categoriesWrap {

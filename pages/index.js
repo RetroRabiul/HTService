@@ -37,23 +37,6 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               One-stop solution for all cleaning needs. Book any service, anytime.
             </p>
-            <div className={styles.searchBar}>
-              <div className={styles.locationPill}>
-                <span>📍</span>
-                <span className={styles.locationText}>Dhaka</span>
-              </div>
-              <div className={styles.searchDivider} />
-              <input
-                className={styles.searchInput}
-                type="text"
-                placeholder="Find your service e.g. Home Cleaning, Pest..."
-              />
-              <button className={styles.searchBtn} aria-label="Search">
-                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                </svg>
-              </button>
-            </div>
           </div>
         </section>
 
