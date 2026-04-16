@@ -71,7 +71,7 @@ export default function BookingModal({ onClose, onBook }) {
     : '';
 
   function handleSubmit() {
-    onBook({
+    const bookingData = {
       name: form.name.trim(),
       phone: form.phone.trim(),
       address: form.address.trim(),
@@ -80,7 +80,16 @@ export default function BookingModal({ onClose, onBook }) {
       date: friendlyDate,
       services: pickedServices,
       total,
-    });
+    };
+
+    // Fire Facebook Messenger notification in the background (non-blocking)
+    fetch('/api/booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData),
+    }).catch(err => console.error('Booking notification error:', err));
+
+    onBook(bookingData);
     onClose();
   }
 
