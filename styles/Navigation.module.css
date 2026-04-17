@@ -23,6 +23,11 @@
   flex-shrink: 0;
 }
 
+.logo img {
+  height: 64px;
+  width: auto;
+}
+
 .links {
   display: flex;
   gap: 32px;

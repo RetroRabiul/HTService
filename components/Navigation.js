@@ -13,8 +13,8 @@ export default function Navigation() {
           <Image
             src="/home_page/logo.jpg"
             alt="HT Service Logo"
-            width={120}
-            height={50}
+            width={160}
+            height={64}
             style={{ objectFit: 'contain' }}
           />
         </Link>
