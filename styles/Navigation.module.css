@@ -76,28 +76,28 @@
 .bookNow {
   background: #00B4D8;
   color: white;
-  padding: 8px 18px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   border: none;
   cursor: pointer;
-  margin-left: 12px;
-  /* absolutely positioned so it doesn't change layout */
-  position: absolute;
-  right: -6px; /* slight overlap so it sits just to the right */
-  top: 50%;
-  transform: translateY(-50%) translateX(12px);
+  /* keep in flow so it pushes other elements; animate via max-width and padding */
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  padding: 0 0;
+  margin-left: 0;
   opacity: 0;
-  visibility: hidden;
-  transition: transform 320ms cubic-bezier(.2,.8,.2,1), opacity 260ms ease, visibility 0ms linear 320ms;
   box-shadow: 0 6px 20px rgba(0,180,216,0.22);
+  transition: max-width 340ms cubic-bezier(.2,.8,.2,1), padding 300ms ease, opacity 260ms ease, margin-left 260ms ease;
 }
 .bookNowShow {
-  transform: translateY(-50%) translateX(0);
+  max-width: 260px; /* roomy enough for the label */
+  padding: 8px 18px;
+  margin-left: 12px;
   opacity: 1;
-  visibility: visible;
-  transition-delay: 0ms;
 }
 
 @media (max-width: 768px) {
