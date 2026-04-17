@@ -114,9 +114,9 @@
 /* Hide animation: small upward then fall + fade, then contract */
 .bookNowHide {
   /* play the hide animation first, then allow transitions to contract */
-  animation: navHide 420ms cubic-bezier(.2,.8,.2,1);
+  animation: navHide 700ms cubic-bezier(.2,.8,.2,1);
   /* delay contraction until after the hide animation completes */
-  transition-delay: 420ms;
+  transition-delay: 700ms;
 }
 
 @media (max-width: 768px) {

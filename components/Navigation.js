@@ -33,7 +33,7 @@ export default function Navigation({ onBookClick }) {
   // Drive the visual state for the nav button so we can animate hide/show
   useEffect(() => {
     // durations must match CSS: show expands via transition; hide runs animation then contracts
-    const HIDE_ANIM_MS = 420; // matches CSS navHide
+    const HIDE_ANIM_MS = 700; // matches CSS navHide (increased for slower hide bounce)
     const CONTRACTION_MS = 340; // matches max-width transition
 
     if (showBookNow) {
