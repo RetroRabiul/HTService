@@ -31,7 +31,7 @@ export default function Home() {
   }
   return (
     <>
-      <Navigation />
+      <Navigation onBookClick={() => { setInitialServiceId(null); setBooking(true); }} />
       <main className={styles.main}>
 
         {/* Booking Confirmation */}

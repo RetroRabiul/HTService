@@ -3,8 +3,31 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Navigation.module.css';
 
-export default function Navigation() {
+export default function Navigation({ onBookClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showBookNow, setShowBookNow] = useState(false);
+
+  useEffect(() => {
+    function checkHeroButton() {
+      try {
+        const btn = document.querySelector('.bookBtn');
+        if (!btn) { setShowBookNow(false); return; }
+        const rect = btn.getBoundingClientRect();
+        // show when the button is scrolled above the viewport (out of view)
+        setShowBookNow(rect.bottom < 0 || rect.top > window.innerHeight);
+      } catch (e) {
+        setShowBookNow(false);
+      }
+    }
+
+    checkHeroButton();
+    window.addEventListener('scroll', checkHeroButton, { passive: true });
+    window.addEventListener('resize', checkHeroButton);
+    return () => {
+      window.removeEventListener('scroll', checkHeroButton);
+      window.removeEventListener('resize', checkHeroButton);
+    };
+  }, []);
 
   return (
     <nav className={styles.nav}>
@@ -37,6 +60,15 @@ export default function Navigation() {
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
           </Link>
+          <button
+            type="button"
+            className={`${styles.bookNow} ${showBookNow ? styles.bookNowShow : ''}`}
+            onClick={() => { setMenuOpen(false); if (onBookClick) onBookClick(); }}
+            aria-hidden={!showBookNow}
+          >
+            Book a Cleaning
+          </button>
+
           <a href="/#contact" className={styles.contactBtn} onClick={() => setMenuOpen(false)}>
             Contact Us
           </a>

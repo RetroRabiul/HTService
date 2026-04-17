@@ -66,6 +66,27 @@
   transform: translateY(-1px);
 }
 
+/* Small inline book-now button that appears when hero CTA is out of view */
+.bookNow {
+  display: none;
+  background: #00B4D8;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  margin-right: 12px;
+}
+.bookNowShow {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .bookNow { display: none !important; }
+}
+
 /* Hamburger button — hidden on desktop */
 .hamburger {
   display: none;
