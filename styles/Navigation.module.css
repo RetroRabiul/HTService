@@ -107,6 +107,8 @@
   padding: 10px 20px;
   margin-left: 12px;
   opacity: 1;
+  /* small bounce on reveal */
+  animation: navBounce 420ms cubic-bezier(.2,.8,.2,1);
 }
 
 @media (max-width: 768px) {
@@ -115,7 +117,14 @@
 
 /* Make links and buttons animate smoothly to avoid gaps */
 .link, .contactBtn, .bookNow, .hamburger, .line {
-  transition: transform 180ms ease, opacity 180ms ease;
+  transition: transform 240ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease;
+  will-change: transform, opacity;
+}
+
+@keyframes navBounce {
+  0% { transform: translateY(-6px) scale(0.98); opacity: 0.0 }
+  60% { transform: translateY(3px) scale(1.03); opacity: 1 }
+  100% { transform: translateY(0) scale(1); opacity: 1 }
 }
 
 /* Hamburger button — hidden on desktop */
