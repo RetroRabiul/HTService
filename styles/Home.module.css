@@ -207,31 +207,35 @@
 }
 
 /* ── Category Tiles ─────────────────────── */
+
 .categoriesWrap {
   background: white;
-  margin: -52px 40px 0;
+  margin: -52px auto 0;
+  max-width: 1200px;
   border-radius: 18px;
   box-shadow: 0 4px 28px rgba(0,64,128,0.13);
-  padding: 32px 40px;
+  padding: 28px 24px;
   position: relative;
   z-index: 10;
 }
 
 .categoriesGrid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px 28px;
+  justify-items: center;
+  align-items: center;
 }
 
 .categoryTile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
-  padding: 12px 6px;
+  padding: 10px 8px;
   border-radius: 10px;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.12s;
 }
 
 .categoryTile:hover {
@@ -239,16 +243,16 @@
 }
 
 .categoryIcon {
-  width: 62px;
-  height: 62px;
+  width: 64px;
+  height: 64px;
   border-radius: 14px;
   border: 1.5px solid #dde8f4;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 30px;
   background: #f6f9fd;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.12s;
 }
 
 .categoryTile:hover .categoryIcon {
@@ -257,11 +261,11 @@
 }
 
 .categoryLabel {
-  font-size: 11.5px;
-  font-weight: 500;
-  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.35;
   transition: color 0.2s;
 }
 
