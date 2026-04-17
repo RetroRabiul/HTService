@@ -17,18 +17,21 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  position: relative;
+    gap: 22px;
 }
 
+    align-items: start;
 .bookingConfirmIcon {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   background: #00B4D8;
   color: #fff;
-  font-size: 22px;
+    height: 200px;
   display: flex;
   align-items: center;
+    display: flex;
+    align-items: flex-end;
   justify-content: center;
   flex-shrink: 0;
   margin-top: 2px;
@@ -37,19 +40,20 @@
 .bookingConfirmBody {
   flex: 1;
   min-width: 0;
-}
+    background: linear-gradient(to top, rgba(0,0,0,0.56) 0%, transparent 100%);
 
+    width: 100%;
 .bookingConfirmHeading {
   font-size: 16px;
   color: #1a2e44;
-  margin-bottom: 12px;
+    font-size: 18px;
   line-height: 1.5;
-}
+    margin-bottom: 6px;
 
 .bookingServiceList {
   list-style: none;
-  padding: 0;
-  margin: 0 0 12px;
+    font-size: 13px;
+    opacity: 0.95;
   display: flex;
   flex-direction: column;
   gap: 6px;

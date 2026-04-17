@@ -26,7 +26,7 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-export default function BookingModal({ onClose, onBook }) {
+export default function BookingModal({ onClose, onBook, initialSelected = null }) {
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -36,15 +36,25 @@ export default function BookingModal({ onClose, onBook }) {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prev; };
   }, []);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(initialSelected ? 2 : 1);
   const [calYear, setCalYear] = useState(now.getFullYear());
   const [calMonth, setCalMonth] = useState(now.getMonth());
   const [selDate, setSelDate] = useState({ year: now.getFullYear(), month: now.getMonth(), day: now.getDate() });
   const [selTime, setSelTime] = useState(null);
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedIds, setSelectedIds] = useState(initialSelected ? [initialSelected] : []);
   const [form, setForm] = useState({ name: '', phone: '', address: '', notes: '' });
 
   const formValid = form.name.trim() && form.phone.trim() && form.address.trim();
+
+  // Update selection if initialSelected changes while modal is open
+  useEffect(() => {
+    if (initialSelected) {
+      setSelectedIds([initialSelected]);
+      setStep(2);
+    } else {
+      setSelectedIds([]);
+    }
+  }, [initialSelected]);
 
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);

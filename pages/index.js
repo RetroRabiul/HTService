@@ -13,15 +13,17 @@ const categories = [
 ];
 
 const popularServices = [
-  { title: 'Home Cleaning', desc: 'Full home deep clean', color: '#004080' },
-  { title: 'Office Cleaning', desc: 'Keep workspaces spotless', color: '#0066cc' },
-  { title: 'Pest Prevention', desc: 'Mosquito & pest control', color: '#005fa3' },
-  { title: 'Deep Sanitization', desc: 'Germ-free environments', color: '#00B4D8' },
+  { id: 1, title: 'Cleaning service', desc: 'General cleaning for homes & offices', color: '#0077c8' },
+  { id: 2, title: 'Pest control service', desc: 'Mosquito and pest treatment', color: '#005fa3' },
+  { id: 3, title: 'Shifting Service', desc: 'Packing, loading and moving assistance', color: '#00a3b4' },
+  { id: 4, title: 'AC Service', desc: 'AC maintenance, cleaning and repair', color: '#00B4D8' },
+  { id: 5, title: 'Construction Service', desc: 'Post-construction cleaning & debris removal', color: '#004080' },
 ];
 
 export default function Home() {
   const [booking, setBooking] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
+  const [initialServiceId, setInitialServiceId] = useState(null);
 
   function handleBook(data) {
     setConfirmedBooking(data);
@@ -112,10 +114,19 @@ export default function Home() {
             <a href="#contact" className={styles.viewAll}>View All</a>
           </div>
           <div className={styles.popularGrid}>
-            {popularServices.map(({ title, desc, color }) => (
-              <div key={title} className={styles.popularCard} style={{ background: color }}>
+            {popularServices.map(({ id, title, desc, color }) => (
+              <div
+                key={title}
+                className={styles.popularCard}
+                style={{ background: color }}
+                role="button"
+                tabIndex={0}
+                onClick={() => { setInitialServiceId(id); setBooking(true); }}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (setInitialServiceId(id), setBooking(true))}
+                aria-label={`Book ${title}`}
+              >
                 <div className={styles.popularBg}>
-                  <Image src="/home_page/ht_bg.png" alt={title} fill style={{ objectFit: 'cover', opacity: 0.2 }} />
+                  <Image src="/home_page/ht_bg.png" alt={title} fill style={{ objectFit: 'cover', opacity: 0.18 }} />
                 </div>
                 <div className={styles.popularContent}>
                   <h3 className={styles.popularTitle}>{title}</h3>
