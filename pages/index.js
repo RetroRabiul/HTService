@@ -89,7 +89,7 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               One-stop solution for all cleaning needs. Book any service, anytime.
             </p>
-            <button className={styles.bookBtn} onClick={() => setBooking(true)}>
+            <button id="hero-book-btn" className={styles.bookBtn} onClick={() => setBooking(true)}>
               Book a Cleaning
             </button>
           </div>

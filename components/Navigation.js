@@ -10,10 +10,10 @@ export default function Navigation({ onBookClick }) {
   useEffect(() => {
     function checkHeroButton() {
       try {
-        const btn = document.querySelector('.bookBtn');
+        const btn = document.getElementById('hero-book-btn');
         if (!btn) { setShowBookNow(false); return; }
         const rect = btn.getBoundingClientRect();
-        // show when the button is scrolled above the viewport (out of view)
+        // show when the button is scrolled above or below the viewport (out of view)
         setShowBookNow(rect.bottom < 0 || rect.top > window.innerHeight);
       } catch (e) {
         setShowBookNow(false);
