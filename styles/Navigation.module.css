@@ -68,7 +68,7 @@
 
 /* Small inline book-now button that appears when hero CTA is out of view */
 .bookNow {
-  display: none;
+  /* Keep in flow but hidden by default; animate with transform+opacity */
   background: #00B4D8;
   color: white;
   padding: 8px 18px;
@@ -77,10 +77,16 @@
   font-weight: 700;
   border: none;
   cursor: pointer;
-  margin-right: 12px;
+  margin-left: 12px;
+  opacity: 0;
+  transform: translateX(12px);
+  transition: transform 320ms cubic-bezier(.2,.8,.2,1), opacity 260ms ease;
+  visibility: hidden;
 }
 .bookNowShow {
-  display: inline-block;
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
 }
 
 @media (max-width: 768px) {

@@ -60,6 +60,10 @@ export default function Navigation({ onBookClick }) {
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
           </Link>
+          <a href="/#contact" className={styles.contactBtn} onClick={() => setMenuOpen(false)}>
+            Contact Us
+          </a>
+
           <button
             type="button"
             className={`${styles.bookNow} ${showBookNow ? styles.bookNowShow : ''}`}
@@ -68,10 +72,6 @@ export default function Navigation({ onBookClick }) {
           >
             Book a Cleaning
           </button>
-
-          <a href="/#contact" className={styles.contactBtn} onClick={() => setMenuOpen(false)}>
-            Contact Us
-          </a>
         </div>
       </div>
     </nav>
