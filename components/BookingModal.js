@@ -2,14 +2,11 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/BookingModal.module.css';
 
 const SERVICES = [
-  { id: 1, name: 'Residential Deep Clean', desc: 'Full home clean — all rooms, surfaces and floors', price: 2500 },
-  { id: 2, name: 'Office Cleaning', desc: 'Professional workplace cleaning and sanitization', price: 3500 },
-  { id: 3, name: 'Pest Prevention', desc: 'Mosquito & pest treatment for all areas', price: 1800 },
-  { id: 4, name: 'Deep Sanitization', desc: 'Full home sanitization & disinfection', price: 2000 },
-  { id: 5, name: 'Bathroom Cleaning', desc: 'Deep scrub, descale and disinfect', price: 800 },
-  { id: 6, name: 'Kitchen Cleaning', desc: 'Deep clean, degreasing and appliance wipe-down', price: 1200 },
-  { id: 7, name: 'Sofa & Upholstery', desc: 'Sofa, carpet and fabric deep cleaning', price: 1500 },
-  { id: 8, name: 'Window Cleaning', desc: 'Interior and exterior window cleaning', price: 1000 },
+  { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
+  { id: 2, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
+  { id: 3, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
+  { id: 4, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
+  { id: 5, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
 ];
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];

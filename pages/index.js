@@ -5,14 +5,11 @@ import styles from '../styles/Home.module.css';
 import BookingModal from '../components/BookingModal';
 
 const categories = [
-  { icon: '🏠', label: 'Residential Cleaning' },
-  { icon: '🏢', label: 'Office Cleaning' },
-  { icon: '🦟', label: 'Pest Prevention' },
-  { icon: '✨', label: 'Deep Sanitization' },
-  { icon: '🚿', label: 'Bathroom Cleaning' },
-  { icon: '🍳', label: 'Kitchen Cleaning' },
-  { icon: '🛋️', label: 'Sofa & Upholstery' },
-  { icon: '🪟', label: 'Window Cleaning' },
+  { icon: '🧹', label: 'Cleaning service' },
+  { icon: '🦟', label: 'Pest control service' },
+  { icon: '🚚', label: 'Shifting Service' },
+  { icon: '❄️', label: 'AC Service' },
+  { icon: '🏗️', label: 'Construction Service' },
 ];
 
 const popularServices = [
