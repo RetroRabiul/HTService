@@ -202,7 +202,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
         </section>
 
         <footer className={styles.footer}>
-          <p className={styles.footerText}>HT Service - House to Service by Khan</p>
+          <p className={styles.footerText}>HT Service - Honest & Trusted service by Bipul</p>
           <small>&copy; 2026 HT Service. All rights reserved. Serving Dhaka, Bangladesh.</small>
         </footer>
 

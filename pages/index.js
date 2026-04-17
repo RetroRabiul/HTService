@@ -155,17 +155,17 @@ export default function Home() {
           <div className={styles.contactCard}>
             <h3 className={styles.contactCardTitle}>HT Service</h3>
             <p className={styles.contactInfo}>📍 Dhaka, Bangladesh</p>
-            <p className={styles.contactInfo}>📞 Contact us for inquiries</p>
+            <p className={styles.contactInfo}>📞 01795180400</p>
             <p className={styles.contactInfo}>✉️ info@htservice.com</p>
           </div>
           <div className={styles.contactBtns}>
-            <a href="tel:+880" className={styles.btnPrimary}>Call Now</a>
+            <a href="tel:+8801795180400" className={styles.btnPrimary}>Call Now</a>
             <a href="mailto:info@htservice.com" className={styles.btnSecondary}>Email Us</a>
           </div>
         </section>
 
-        <footer className={styles.footer}>
-          <p className={styles.footerText}>HT Service - House to Service by Khan</p>
+          <footer className={styles.footer}>
+          <p className={styles.footerText}>HT Service - Honest & Trusted service by Bipul</p>
           <small>&copy; 2026 HT Service. All rights reserved. Serving Dhaka, Bangladesh.</small>
         </footer>
 
