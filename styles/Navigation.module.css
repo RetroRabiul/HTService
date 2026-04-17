@@ -98,7 +98,7 @@
   margin-left: 0;
   opacity: 0;
   box-shadow: 0 6px 20px rgba(0,180,216,0.22);
-  transition: max-width 340ms cubic-bezier(.2,.8,.2,1), padding 300ms ease, opacity 260ms ease, margin-left 260ms ease;
+  transition: max-width 700ms cubic-bezier(.2,.8,.2,1), padding 420ms ease, opacity 360ms ease, margin-left 360ms ease;
   min-height: 44px;
   line-height: 1;
 }
@@ -114,9 +114,9 @@
 /* Hide animation: small upward then fall + fade, then contract */
 .bookNowHide {
   /* play the hide animation first, then allow transitions to contract */
-  animation: navHide 700ms cubic-bezier(.2,.8,.2,1);
+  animation: navHide 1400ms cubic-bezier(.2,.8,.2,1);
   /* delay contraction until after the hide animation completes */
-  transition-delay: 700ms;
+  transition-delay: 1400ms;
 }
 
 @media (max-width: 768px) {
@@ -137,8 +137,8 @@
 
 @keyframes navHide {
   0% { transform: translateY(0) scale(1); opacity: 1 }
-  40% { transform: translateY(-6px) scale(1.03); opacity: 1 }
-  100% { transform: translateY(10px) scale(0.96); opacity: 0 }
+  60% { transform: translateY(-6px) scale(1.03); opacity: 1 }
+  100% { transform: translateY(16px) scale(0.96); opacity: 0 }
 }
 
 /* Hamburger button — hidden on desktop */
