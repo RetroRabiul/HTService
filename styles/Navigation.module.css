@@ -51,14 +51,19 @@
 .contactBtn {
   background: #00B4D8;
   color: white;
-  padding: 10px 22px;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.18);
+  box-shadow: 0 6px 18px rgba(0, 180, 216, 0.18);
   transition: opacity 0.22s ease, transform 220ms cubic-bezier(.2,.8,.2,1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  line-height: 1;
 }
 
 .contactBtn:hover {
@@ -76,14 +81,16 @@
 .bookNow {
   background: #00B4D8;
   color: white;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 15px;
   font-weight: 700;
   border: none;
   cursor: pointer;
   /* keep in flow so it pushes other elements; animate via max-width and padding */
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   white-space: nowrap;
   max-width: 0;
@@ -92,10 +99,12 @@
   opacity: 0;
   box-shadow: 0 6px 20px rgba(0,180,216,0.22);
   transition: max-width 340ms cubic-bezier(.2,.8,.2,1), padding 300ms ease, opacity 260ms ease, margin-left 260ms ease;
+  min-height: 44px;
+  line-height: 1;
 }
 .bookNowShow {
-  max-width: 260px; /* roomy enough for the label */
-  padding: 8px 18px;
+  max-width: 240px; /* roomy enough for the label */
+  padding: 10px 20px;
   margin-left: 12px;
   opacity: 1;
 }
