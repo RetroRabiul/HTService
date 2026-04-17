@@ -6,6 +6,7 @@ import styles from '../styles/Navigation.module.css';
 export default function Navigation({ onBookClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBookNow, setShowBookNow] = useState(false);
+  const [bookNowState, setBookNowState] = useState('hidden'); // 'hidden' | 'showing' | 'hiding'
 
   useEffect(() => {
     function checkHeroButton() {
@@ -28,6 +29,28 @@ export default function Navigation({ onBookClick }) {
       window.removeEventListener('resize', checkHeroButton);
     };
   }, []);
+
+  // Drive the visual state for the nav button so we can animate hide/show
+  useEffect(() => {
+    // durations must match CSS: show expands via transition; hide runs animation then contracts
+    const HIDE_ANIM_MS = 420; // matches CSS navHide
+    const CONTRACTION_MS = 340; // matches max-width transition
+
+    if (showBookNow) {
+      // immediately show
+      setBookNowState('showing');
+      return;
+    }
+
+    // if it was showing and now should hide, play hiding animation then fully hide
+    setBookNowState(prev => (prev === 'showing' ? 'hiding' : 'hidden'));
+
+    if (bookNowState === 'showing' || bookNowState === 'hiding') {
+      const total = HIDE_ANIM_MS + CONTRACTION_MS;
+      const t = setTimeout(() => setBookNowState('hidden'), total);
+      return () => clearTimeout(t);
+    }
+  }, [showBookNow]);
 
   return (
     <nav className={styles.nav}>
@@ -67,9 +90,11 @@ export default function Navigation({ onBookClick }) {
 
             <button
               type="button"
-              className={`${styles.bookNow} ${showBookNow ? styles.bookNowShow : ''}`}
+              className={
+                `${styles.bookNow} ${bookNowState === 'showing' ? styles.bookNowShow : ''} ${bookNowState === 'hiding' ? styles.bookNowHide : ''}`
+              }
               onClick={() => { setMenuOpen(false); if (onBookClick) onBookClick(); }}
-              aria-hidden={!showBookNow}
+              aria-hidden={bookNowState === 'hidden'}
             >
               Book a Cleaning
             </button>
