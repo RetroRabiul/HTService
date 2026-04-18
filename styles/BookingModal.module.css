@@ -398,6 +398,37 @@
   color: #fff;
 }
 
+/* Mobile tweaks: keep header & close button visible when body scrolls */
+@media (max-width: 480px) {
+  .modal {
+    max-height: 100vh;
+    overflow: visible;
+    margin: 8px 0;
+    border-radius: 12px;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 3300;
+    background: #1a1b2e;
+    padding: 14px 20px 6px;
+  }
+
+  .closeBtn {
+    right: 10px;
+    font-size: 20px;
+    padding: 6px 8px;
+    color: #fff;
+  }
+
+  .body {
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
+    padding-bottom: 28px;
+  }
+}
+
 .reviewSection {
   padding-bottom: 14px;
   border-bottom: 1px solid #2a2c44;
