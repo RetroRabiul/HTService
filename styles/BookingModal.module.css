@@ -412,7 +412,7 @@
     top: 0;
     z-index: 3300;
     background: #1a1b2e;
-    padding: 14px 20px 6px;
+    padding: 8px 14px 6px;
   }
 
   .closeBtn {
@@ -423,10 +423,16 @@
   }
 
   .body {
-    max-height: calc(100vh - 72px);
+    max-height: calc(100vh - 64px);
     overflow-y: auto;
     padding-bottom: 28px;
+    padding-top: 8px; /* give content breathing room under sticky header */
   }
+}
+
+@media (max-width: 480px) {
+  .title { font-size: 16px; }
+  .calendar { margin-top: 6px; }
 }
 
 .reviewSection {
