@@ -61,10 +61,13 @@
   padding: 20px 20px 0;
   position: relative;
   flex-shrink: 0;
+  /* keep header visible above body scrolling */
+  z-index: 2200;
+  background: transparent;
 }
 
 .title {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   text-align: center;
@@ -90,14 +93,14 @@
   right: 14px;
   background: none;
   border: none;
-  color: #c9d0e0;
+  color: #fff;
   font-size: 16px;
   cursor: pointer;
   padding: 4px 10px;
   border-radius: 8px;
   transition: color 0.2s, background 0.2s;
   line-height: 1;
-  z-index: 60;
+  z-index: 3200;
 }
 .closeBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
