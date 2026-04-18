@@ -209,6 +209,12 @@
   .section, .sectionAlt { padding:44px 20px; }
 }
 
+/* Ensure desktop shows categories in a single horizontal line */
+@media (min-width: 769px) {
+  .categoriesGrid { display: flex; gap: 18px 28px; justify-content: space-between; align-items: center; }
+  .categoryTile { flex: 0 0 auto; max-width: 200px; }
+}
+
 @media (max-width: 640px) {
   .hero { padding:72px 16px 90px; min-height:360px; }
   .heroTitle { font-size:28px; }
