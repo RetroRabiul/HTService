@@ -1,6 +1,5 @@
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
-import { useState } from 'react';
 import styles from '../styles/News.module.css';
 
 export default function News() {
@@ -160,36 +159,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
     }
   ];
 
-  function BeforeAfter({ beforeSrc, afterSrc, alt }) {
-    const [split, setSplit] = useState(50);
-
-    return (
-      <div className={styles.beforeAfterContainer}>
-        <div className={styles.splitAfter}>
-          <Image src={afterSrc} alt={alt + ' after'} fill style={{ objectFit: 'cover' }} />
-        </div>
-
-        <div className={styles.splitBefore} style={{ width: `${split}%` }}>
-          <Image src={beforeSrc} alt={alt + ' before'} fill style={{ objectFit: 'cover' }} />
-        </div>
-
-        <div className={styles.splitControls}>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={split}
-            onChange={(e) => setSplit(e.target.value)}
-            aria-label="Before/after slider"
-          />
-          <div className={styles.splitLabels}>
-            <span>Before</span>
-            <span>After</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Static before/after pairs will be rendered inline in the JSX below.
 
   return (
     <>
@@ -209,7 +179,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
           <div className={styles.beforeAfterGrid}>
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <BeforeAfter beforeSrc="/info/sofa_before.png" afterSrc="/info/sofa_after.png" alt="Sofa" />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
@@ -218,7 +195,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <BeforeAfter beforeSrc="/info/kitchen_before.png" afterSrc="/info/kitchen_after.png" alt="Kitchen" />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
@@ -227,7 +211,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <BeforeAfter beforeSrc="/info/stove_before.jpeg" afterSrc="/info/stove_after.jpeg" alt="Stove" />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
