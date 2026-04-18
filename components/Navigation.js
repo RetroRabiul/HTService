@@ -90,6 +90,7 @@ export default function Navigation({ onBookClick }) {
 
             <button
               type="button"
+              aria-label="Book a Service"
               className={
                 `${styles.bookNow} ${bookNowState === 'showing' ? styles.bookNowShow : ''} ${bookNowState === 'hiding' ? styles.bookNowHide : ''}`
               }

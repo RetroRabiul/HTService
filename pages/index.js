@@ -92,7 +92,7 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               Reliable, fast and available 24/7 for your home and office needs.
             </p>
-            <button id="hero-book-btn" className={styles.bookBtn} onClick={() => setBooking(true)}>
+            <button id="hero-book-btn" aria-label="Book a Service" className={styles.bookBtn} onClick={() => setBooking(true)}>
               Book a Service
             </button>
           </div>
