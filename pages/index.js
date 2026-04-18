@@ -85,9 +85,10 @@ export default function Home() {
           </div>
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Your Cleaning Expert</h1>
+            <h1 className={styles.heroTitle}>Your Complete Service Partner</h1>
             <p className={styles.heroSubtitle}>
-              One-stop solution for all cleaning needs. Book any service, anytime.
+              One-stop solution for Cleaning, Pest Control, Construction, Shifting &amp; AC Service.
+              Reliable, fast and available 24/7 for your home and office needs.
             </p>
             <button id="hero-book-btn" className={styles.bookBtn} onClick={() => setBooking(true)}>
               Book a Cleaning
