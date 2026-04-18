@@ -140,9 +140,7 @@
   position: relative;
   z-index: 10;
 }
-.categoriesGrid { display: flex; flex-direction: column; gap: 14px; }
-.categoriesRow { display: flex; gap: 18px 28px; justify-content: space-between; align-items: center; }
-.centerRow { justify-content: center; gap: 28px; }
+.categoriesGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px 28px; justify-items: center; align-items: center; }
 .categoryTile { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; padding:10px 8px; border-radius:10px; transition: background 0.2s, transform 0.12s; }
 .categoryTile:hover { background: #f0f6ff; }
 .categoryIcon { width:64px; height:64px; border-radius:14px; border:1.5px solid #dde8f4; display:flex; align-items:center; justify-content:center; font-size:30px; background:#f6f9fd; transition: border-color 0.2s, box-shadow 0.2s, transform 0.12s; }
@@ -217,7 +215,10 @@
   .heroSubtitle { font-size:15px; margin-bottom:22px; }
   .bookBtn { width:100%; max-width:320px; padding:14px 24px; font-size:16px; }
   .categoriesWrap { margin: -28px 8px 0; padding:16px 10px; border-radius:14px; }
-  .categoriesGrid { grid-template-columns: repeat(4, 1fr); gap:6px; }
+  /* Phone: show categories as 3 on top, 2 centered below */
+  .categoriesGrid { display: flex; flex-direction: column; gap: 14px; }
+  .categoriesRow { display: flex; gap: 18px 28px; justify-content: space-between; align-items: center; }
+  .centerRow { justify-content: center; gap: 28px; }
   .categoryTile { gap:6px; padding:8px 4px; }
   .categoryIcon { width:44px; height:44px; font-size:20px; border-radius:10px; }
   .categoryLabel { font-size:9.5px; }
