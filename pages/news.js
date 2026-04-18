@@ -169,6 +169,41 @@ Remember: Prevention through cleanliness is always more effective and less expen
           <h1 className={styles.pageTitle}>News &amp; Cleaning Tips</h1>
           <p className={styles.pageSubtitle}>Expert advice on maintaining a clean, healthy home in Dhaka</p>
         </section>
+        {/* Before & After Gallery */}
+        <section className={styles.beforeAfterSection}>
+          <h2 className={styles.sectionTitle}>Before & After Cleaning</h2>
+          <p className={styles.sectionSubtitle}>Real results from recent HT Service cleanings — swipe your eyes across the pairs to see the difference.</p>
+
+          <div className={styles.beforeAfterGrid}>
+            <div className={styles.beforeAfterCard}>
+              <div className={styles.beforeAfterImageWrap}>
+                <Image src="/info/sofa_pair.jpg" alt="Sofa before and after" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div className={styles.beforeAfterCaption}>
+                <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
+              </div>
+            </div>
+
+            <div className={styles.beforeAfterCard}>
+              <div className={styles.beforeAfterImageWrap}>
+                <Image src="/info/kitchen_pair.jpg" alt="Kitchen before and after" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div className={styles.beforeAfterCaption}>
+                <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
+              </div>
+            </div>
+
+            <div className={styles.beforeAfterCard}>
+              <div className={styles.beforeAfterImageWrap}>
+                <Image src="/info/stove_pair.jpg" alt="Stove before and after" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div className={styles.beforeAfterCaption}>
+                <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
+              </div>
+            </div>
+
+          </div>
+        </section>
 
         {/* Articles */}
         <section className={styles.articlesSection}>
@@ -201,42 +236,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
           </a>
         </section>
 
-        {/* Before & After Gallery */}
-        <section className={styles.beforeAfterSection}>
-          <h2 className={styles.sectionTitle}>Before & After Cleaning</h2>
-          <p className={styles.sectionSubtitle}>Real results from recent HT Service cleanings — swipe your eyes across the pairs to see the difference.</p>
-
-          <div className={styles.beforeAfterGrid}>
-            {/* Using the pair images you provided. Please place these files into public/info/ */}
-            <div className={styles.beforeAfterCard}>
-              <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/sofa_pair.jpg" alt="Sofa before and after" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div className={styles.beforeAfterCaption}>
-                <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
-              </div>
-            </div>
-
-            <div className={styles.beforeAfterCard}>
-              <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/kitchen_pair.jpg" alt="Kitchen before and after" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div className={styles.beforeAfterCaption}>
-                <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
-              </div>
-            </div>
-
-            <div className={styles.beforeAfterCard}>
-              <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/stove_pair.jpg" alt="Stove before and after" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div className={styles.beforeAfterCaption}>
-                <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
-              </div>
-            </div>
-
-          </div>
-        </section>
+        
         <footer className={styles.footer}>
           <p className={styles.footerText}>HT Service - Honest & Trusted service by Bipul</p>
           <small>&copy; 2026 HT Service. All rights reserved. Serving Dhaka, Bangladesh.</small>
