@@ -433,6 +433,11 @@
 @media (max-width: 480px) {
   .title { font-size: 16px; }
   .calendar { margin-top: 20px; }
+
+  /* Remove gap above service list / step content */
+  .body { padding-top: 0; }
+  .stepHint { margin-top: 0; }
+  .serviceList { margin-top: 0; }
 }
 
 .reviewSection {
