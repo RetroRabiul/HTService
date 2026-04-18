@@ -140,7 +140,9 @@
   position: relative;
   z-index: 10;
 }
-.categoriesGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px 28px; justify-items: center; align-items: center; }
+.categoriesGrid { display: flex; flex-direction: column; gap: 14px; }
+.categoriesRow { display: flex; gap: 18px 28px; justify-content: space-between; align-items: center; }
+.centerRow { justify-content: center; gap: 28px; }
 .categoryTile { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; padding:10px 8px; border-radius:10px; transition: background 0.2s, transform 0.12s; }
 .categoryTile:hover { background: #f0f6ff; }
 .categoryIcon { width:64px; height:64px; border-radius:14px; border:1.5px solid #dde8f4; display:flex; align-items:center; justify-content:center; font-size:30px; background:#f6f9fd; transition: border-color 0.2s, box-shadow 0.2s, transform 0.12s; }

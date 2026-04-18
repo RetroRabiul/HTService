@@ -98,12 +98,22 @@ export default function Home() {
         {/* Category Tiles */}
         <div className={styles.categoriesWrap}>
           <div className={styles.categoriesGrid}>
-            {categories.map(({ icon, label }) => (
-              <div key={label} className={styles.categoryTile}>
-                <div className={styles.categoryIcon}>{icon}</div>
-                <span className={styles.categoryLabel}>{label}</span>
-              </div>
-            ))}
+            <div className={styles.categoriesRow}>
+              {categories.slice(0, 3).map(({ icon, label }) => (
+                <div key={label} className={styles.categoryTile}>
+                  <div className={styles.categoryIcon}>{icon}</div>
+                  <span className={styles.categoryLabel}>{label}</span>
+                </div>
+              ))}
+            </div>
+            <div className={`${styles.categoriesRow} ${styles.centerRow}`}>
+              {categories.slice(3).map(({ icon, label }) => (
+                <div key={label} className={styles.categoryTile}>
+                  <div className={styles.categoryIcon}>{icon}</div>
+                  <span className={styles.categoryLabel}>{label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
