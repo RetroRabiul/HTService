@@ -172,6 +172,23 @@
   height: 170px;
 }
 
+.pairImages {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.pairImgWrap {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pairImgWrap + .pairImgWrap {
+  border-left: 1px solid #eef6fb;
+}
+
 .beforeAfterCaption {
   padding: 12px 14px;
   font-size: 14px;

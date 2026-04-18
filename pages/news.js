@@ -177,7 +177,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
           <div className={styles.beforeAfterGrid}>
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/sofa_pair.jpg" alt="Sofa before and after" fill style={{ objectFit: 'cover' }} />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
@@ -186,7 +193,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/kitchen_pair.jpg" alt="Kitchen before and after" fill style={{ objectFit: 'cover' }} />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
@@ -195,7 +209,14 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <Image src="/info/stove_pair.jpg" alt="Stove before and after" fill style={{ objectFit: 'cover' }} />
+                <div className={styles.pairImages}>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={styles.pairImgWrap}>
+                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
