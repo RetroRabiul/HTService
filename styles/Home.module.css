@@ -222,9 +222,10 @@
   .bookBtn { width:100%; max-width:320px; padding:14px 24px; font-size:16px; }
   .categoriesWrap { margin: -28px 8px 0; padding:16px 10px; border-radius:14px; }
   /* Phone: show categories as 3 on top, 2 centered below */
-  .categoriesGrid { display: flex; flex-direction: column; gap: 14px; }
-  .categoriesRow { display: flex; gap: 18px 28px; justify-content: space-between; align-items: center; }
-  .centerRow { justify-content: center; gap: 28px; }
+  .categoriesGrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .categoriesGrid > .categoryTile { flex: 0 0 30%; max-width: 30%; }
+  /* make last two items wider so they center on second row */
+  .categoriesGrid > .categoryTile:nth-child(n+4) { flex: 0 0 44%; max-width: 44%; }
   .categoryTile { gap:6px; padding:8px 4px; }
   .categoryIcon { width:44px; height:44px; font-size:20px; border-radius:10px; }
   .categoryLabel { font-size:9.5px; }
