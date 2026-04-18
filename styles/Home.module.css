@@ -127,6 +127,9 @@
 .heroTitle { font-size: 54px; font-weight: 800; color: white; margin-bottom: 10px; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 .heroSubtitle { font-size: 18px; color: rgba(255,255,255,0.9); margin-bottom: 12px; line-height: 1.6; }
 .heroSubtitle + .heroSubtitle { margin-top: 6px; margin-bottom: 12px; }
+.heroActions { display:flex; gap:16px; justify-content:center; align-items:center; margin-top:6px; }
+.callBtn { display:inline-block; background: #ffffff; color: #00345f; border: none; padding: 14px 34px; font-size: 17px; font-weight: 700; border-radius: 12px; cursor: pointer; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transition: transform 0.18s, opacity 0.18s; }
+.callBtn:hover { transform: translateY(-2px); opacity: 0.94; }
 .bookBtn { display: inline-block; background: #00B4D8; color: #fff; border: none; padding: 16px 44px; font-size: 17px; font-weight: 700; border-radius: 12px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,180,216,0.4); transition: transform 0.2s, opacity 0.2s; }
 .bookBtn:hover { transform: translateY(-2px); opacity: 0.92; }
 
@@ -221,6 +224,8 @@
   .heroTitle { font-size:28px; }
   .heroSubtitle { font-size:15px; margin-bottom:14px; }
   .bookBtn { width:100%; max-width:320px; padding:14px 24px; font-size:16px; }
+  .heroActions { flex-direction: column; gap:12px; }
+  .callBtn { width:100%; max-width:320px; padding:14px 24px; }
   .categoriesWrap { margin: -28px 8px 0; padding:16px 10px; border-radius:14px; }
   /* Phone: show categories as 3 on top, 2 centered below */
   .categoriesGrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }

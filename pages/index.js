@@ -92,9 +92,14 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               Reliable, fast and available 24/7 for your home and office needs.
             </p>
-            <button id="hero-book-btn" aria-label="Book a Service" className={styles.bookBtn} onClick={() => setBooking(true)}>
-              Book a Service
-            </button>
+            <div className={styles.heroActions}>
+              <button id="hero-book-btn" aria-label="Book a Service" className={styles.bookBtn} onClick={() => setBooking(true)}>
+                Book a Service
+              </button>
+              <a href="tel:+8801795180400" aria-label="Call HT Service" className={styles.callBtn}>
+                Call Now
+              </a>
+            </div>
           </div>
         </section>
 
