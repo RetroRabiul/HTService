@@ -96,7 +96,7 @@ export default function Navigation({ onBookClick }) {
               onClick={() => { setMenuOpen(false); if (onBookClick) onBookClick(); }}
               aria-hidden={bookNowState === 'hidden'}
             >
-              Book a Cleaning
+              Book a Service
             </button>
           </div>
         </div>

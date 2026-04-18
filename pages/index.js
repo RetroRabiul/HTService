@@ -93,7 +93,7 @@ export default function Home() {
               Reliable, fast and available 24/7 for your home and office needs.
             </p>
             <button id="hero-book-btn" className={styles.bookBtn} onClick={() => setBooking(true)}>
-              Book a Cleaning
+              Book a Service
             </button>
           </div>
         </section>
