@@ -88,6 +88,8 @@ export default function Home() {
             <h1 className={styles.heroTitle}>Your Complete Service Partner</h1>
             <p className={styles.heroSubtitle}>
               One-stop solution for Cleaning, Pest Control, Construction, Shifting &amp; AC Service.
+            </p>
+            <p className={styles.heroSubtitle}>
               Reliable, fast and available 24/7 for your home and office needs.
             </p>
             <button id="hero-book-btn" className={styles.bookBtn} onClick={() => setBooking(true)}>
