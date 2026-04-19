@@ -37,10 +37,11 @@ export default function AllServices() {
   // collapsed visual state when an item is expanded (controlled separately)
   const collapsed = navCollapsed;
 
-  // title style: large single-line when collapsed (single-column), smaller two-line when two-column
+  // title style: smaller and wraps up to two lines when two-column (nav visible),
+  // medium and single-line with ellipsis when collapsed.
   const titleStyle = collapsed
-    ? { marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
-    : { marginTop: 0, fontSize: 18, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'normal', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' };
+    ? { marginTop: 0, fontSize: 20, fontWeight: 800, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+    : { marginTop: 0, fontSize: 16, fontWeight: 800, lineHeight: 1.1, whiteSpace: 'normal', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' };
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
