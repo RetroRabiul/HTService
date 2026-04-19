@@ -109,7 +109,7 @@ export default function AllServices() {
                 return (
                   <div key={s.id}>
                     <div
-                      className={styles.subserviceCardDark}
+                      className={`${styles.subserviceCardDark} ${isOpen ? styles.subserviceOpen : ''}`}
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                     >
                       <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>

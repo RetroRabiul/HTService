@@ -119,6 +119,17 @@
 }
 .subserviceCardDark:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
 
+/* open state for subservice card: lighter background and visible border */
+.subserviceOpen {
+  background: linear-gradient(180deg, #072433, #041827);
+  color: #e9fbff;
+  border: 1px solid rgba(0,180,216,0.22);
+  box-shadow: 0 18px 40px rgba(0,20,30,0.45);
+}
+
+/* also make the list text inside slightly lighter when open */
+.subserviceOpen > div { color: #e9fbff; }
+
 /* ── Header ─────────────────────────────── */
 .header {
   display: flex;
