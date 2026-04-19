@@ -56,24 +56,33 @@ export default function AllServices() {
 
       <main style={{ padding: 12 }}>
         <div className={`${styles.servicesBody} ${collapsed ? styles.servicesBodyCollapsed : ''}`}>
-          <nav className={styles.servicesLeft}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {MAIN_SERVICES.map(m => (
-                <button
-                  key={m.id}
-                  onClick={() => router.push(`/all-services?category=${m.id}`)}
-                  className={`${styles.serviceNavItem} ${m.id === activeId ? styles.serviceNavItemActive : ''}`}
-                >
-                  <div style={{ fontSize: 20 }}>{m.icon}</div>
-                  {renderLabelSplit(m.label)}
-                </button>
-              ))}
-            </div>
-          </nav>
+          {!collapsed && (
+            <nav className={styles.servicesLeft}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {MAIN_SERVICES.map(m => (
+                  <button
+                    key={m.id}
+                    onClick={() => router.push(`/all-services?category=${m.id}`)}
+                    className={`${styles.serviceNavItem} ${m.id === activeId ? styles.serviceNavItemActive : ''}`}
+                  >
+                    <div style={{ fontSize: 20 }}>{m.icon}</div>
+                    {renderLabelSplit(m.label)}
+                  </button>
+                ))}
+              </div>
+            </nav>
+          )}
 
-          <section className={styles.servicesRight}>
+          <section className={`${styles.servicesRight} ${collapsed ? styles.servicesRightCollapsed : ''}`}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                {collapsed && (
+                  <button onClick={() => setExpandedId(null)} className={styles.backBtn} style={{ position: 'relative', left: 0 }}>
+                    ‹
+                  </button>
+                )}
+                <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+              </div>
             </div>
 
             {/* list of subservices; show price on right, click card to open details */}
