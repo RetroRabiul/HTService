@@ -46,7 +46,7 @@ export default function AllServices() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f1626', color: '#fff' }}>
+    <div style={{ minHeight: '100vh', background: '#0f1626', color: '#fff', overflowX: 'hidden' }}>
       <header style={{ padding: '14px 16px', background: '#1a1b2e', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Services</h1>
         <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Close</Link>
@@ -74,28 +74,23 @@ export default function AllServices() {
               <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
             </div>
 
-            {/* list of subservices; no prices shown, add chevron button to drill in */}
+            {/* list of subservices; show price on right, click card to open details */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
               {main.subs.map(s => (
-                <div key={s.id} className={styles.subserviceItem} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div
+                  key={s.id}
+                  className={styles.subserviceCardDark}
+                  onClick={() => setDetailFor(s.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setDetailFor(s.id); }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                >
                   <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                  <button
-                    onClick={() => setDetailFor(s.id)}
-                    aria-label={`Open ${s.name}`}
-                    style={{
-                      background: 'transparent',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      color: '#cfeafd',
-                      padding: '8px 12px',
-                      borderRadius: 8,
-                      cursor: 'pointer',
-                      fontSize: 18,
-                      lineHeight: 1
-                    }}
-                  >
-                    &gt;
-                  </button>
+                  <div style={{ color: '#00B4D8', fontWeight: 900, textAlign: 'right', minWidth: 64 }}>
+                    Tk {s.price}
+                  </div>
                 </div>
               ))}
             </div>

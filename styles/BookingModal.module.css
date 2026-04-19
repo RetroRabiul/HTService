@@ -99,6 +99,21 @@
 .subserviceItem { background: #fff; color: #00345f; padding: 12px 14px; border-radius: 10px; border: 1px solid #e6f8ff; font-weight: 700; text-align: left; cursor: pointer; box-shadow: 0 8px 20px rgba(3,26,44,0.06); transition: transform 0.14s, box-shadow 0.14s; }
 .subserviceItem:hover { background: #f6fdff; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(3,26,44,0.12); }
 
+/* dark variant for subservice cards used on the services page */
+.subserviceCardDark {
+  background: #071324;
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+}
+.subserviceCardDark:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
+
 /* ── Header ─────────────────────────────── */
 .header {
   display: flex;
