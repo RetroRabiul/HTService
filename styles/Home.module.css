@@ -152,6 +152,27 @@
 .categoryLabel { font-size:13px; font-weight:600; color:#2b3b4f; text-align:center; line-height:1.35; transition: color 0.18s; margin-top:6px; }
 .categoryTile:hover .categoryLabel { color: #004080; }
 
+/* ── Subservice row shown when a category (Cleaning) is active ── */
+.subserviceRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.subserviceItem {
+  background: #ffffff;
+  border: 1px solid #e6f8ff;
+  color: #004080;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,64,128,0.06);
+  transition: transform 0.12s, background 0.12s;
+}
+.subserviceItem:hover { transform: translateY(-3px); background: #f4fbff; }
+
 /* ── Sections ───────────────────────────── */
 .section, .sectionAlt { padding: 60px 40px; }
 .sectionAlt { background: #f4f8fc; }
@@ -235,5 +256,6 @@
   .categoryTile { gap:6px; padding:8px 4px; }
   .categoryIcon { width:44px; height:44px; font-size:20px; border-radius:10px; }
   .categoryLabel { font-size:9.5px; }
+  .subserviceItem { padding: 8px 10px; font-size: 13px; }
   .popularGrid { grid-template-columns: repeat(2, 1fr); gap:10px; }
 }

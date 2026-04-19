@@ -24,6 +24,7 @@ export default function Home() {
   const [booking, setBooking] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
   const [initialServiceId, setInitialServiceId] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
 
   function handleBook(data) {
     setConfirmedBooking(data);
@@ -107,13 +108,38 @@ export default function Home() {
         <div className={styles.categoriesWrap}>
           <div className={styles.categoriesGrid}>
             {categories.map(({ icon, label }) => (
-              <div key={label} className={styles.categoryTile}>
+              <div
+                key={label}
+                className={styles.categoryTile}
+                role="button"
+                tabIndex={0}
+                onClick={() => setActiveCategory(prev => (prev === label ? null : label))}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setActiveCategory(prev => (prev === label ? null : label))}
+                aria-pressed={activeCategory === label}
+              >
                 <div className={styles.categoryIcon}>{icon}</div>
                 <span className={styles.categoryLabel}>{label}</span>
               </div>
             ))}
           </div>
         </div>
+          {/* Subservice row for Cleaning service */}
+          {activeCategory === 'Cleaning service' && (
+            <div className={styles.subserviceRow}>
+              {[
+                'Bathroom Deep Cleaning',
+                'Kitchen Deep Cleaning Service',
+                'Floor Deep Cleaning (4 Options available)',
+                'Full Home Deep Cleaning',
+                'Window Cleaning',
+                'Thai Glass Cleaning (2 Options available)'
+              ].map(item => (
+                <button key={item} className={styles.subserviceItem} onClick={() => { setInitialServiceId(1); setBooking(true); }}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          )}
 
         {/* Popular Services */}
         <section className={styles.section}>
