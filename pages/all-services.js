@@ -31,6 +31,7 @@ export default function AllServices() {
   const main = MAIN_SERVICES.find(m => m.id === activeId) || MAIN_SERVICES[0];
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
+  const [expandedId, setExpandedId] = useState(null);
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
@@ -77,31 +78,43 @@ export default function AllServices() {
             {/* list of subservices; show price on right, click card to open details */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
-              {main.subs.map(s => (
-                <div
-                  key={s.id}
-                  className={styles.subserviceCardDark}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                >
-                  <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                  <button
-                    onClick={() => setDetailFor(s.id)}
-                    aria-label={`Open ${s.name}`}
-                    style={{
-                      background: 'transparent',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      color: '#cfeafd',
-                      padding: '8px 12px',
-                      borderRadius: 8,
-                      cursor: 'pointer',
-                      fontSize: 18,
-                      lineHeight: 1
-                    }}
-                  >
-                    &gt;
-                  </button>
-                </div>
-              ))}
+              {main.subs.map(s => {
+                const isOpen = expandedId === s.id;
+                return (
+                  <div key={s.id}>
+                    <div
+                      className={styles.subserviceCardDark}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                    >
+                      <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
+                      <button
+                        onClick={() => setExpandedId(isOpen ? null : s.id)}
+                        aria-expanded={isOpen}
+                        aria-label={`Toggle ${s.name}`}
+                        style={{
+                          background: 'transparent',
+                          border: '1px solid rgba(255,255,255,0.06)',
+                          color: '#cfeafd',
+                          padding: '8px 12px',
+                          borderRadius: 8,
+                          cursor: 'pointer',
+                          fontSize: 18,
+                          lineHeight: 1,
+                          transform: isOpen ? 'rotate(180deg)' : 'none'
+                        }}
+                      >
+                        ▾
+                      </button>
+                    </div>
+
+                    {isOpen && (
+                      <div style={{ marginTop: 10 }}>
+                        <DetailInline id={s.id} />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
           </section>
@@ -191,6 +204,23 @@ function DetailView({ id, onBack }) {
               <div style={{ fontSize: 15, fontWeight: it.price ? 700 : 600, color: it.price ? '#fff' : '#cfeafd', flex: 1 }}>{it.label}</div>
               {it.price && <div style={{ color: '#00B4D8', fontWeight: 900, marginLeft: 12 }}>{it.price}</div>}
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DetailInline({ id }) {
+  const data = DETAILS[id] || { title: 'Details', items: [] };
+  return (
+    <div style={{ background: '#041220', padding: 12, borderRadius: 10, border: '1px solid rgba(255,255,255,0.03)' }}>
+      <div style={{ fontWeight: 800, marginBottom: 8 }}>{data.title}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {data.items.map((it, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, padding: '10px 8px', borderRadius: 8, background: '#071324' }}>
+            <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
+            {it.price && <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>}
           </div>
         ))}
       </div>
