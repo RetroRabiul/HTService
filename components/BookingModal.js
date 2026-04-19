@@ -216,98 +216,72 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                 {SERVICES.map(s => {
                   const checked = selectedIds.includes(s.id);
                   return (
-                    <div
-                      key={s.id}
-                      className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                      onClick={() => toggleService(s.id)}
-                      role="checkbox"
-                      aria-checked={checked}
-                      tabIndex={0}
-                      onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
-                    >
-                      <div className={styles.serviceDetails}>
-                        <span className={styles.serviceName}>{s.name}</span>
-                        <span className={styles.serviceDesc}>{s.desc}</span>
+                    <>
+                      <div
+                        key={s.id}
+                        className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                        onClick={() => toggleService(s.id)}
+                        role="checkbox"
+                        aria-checked={checked}
+                        tabIndex={0}
+                        onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
+                      >
+                        <div className={styles.serviceDetails}>
+                          <span className={styles.serviceName}>{s.name}</span>
+                          <span className={styles.serviceDesc}>{s.desc}</span>
+                        </div>
+                        <div className={styles.serviceRight}>
+                          {/* removed top-level prices per design */}
+                          {s.id === 1 ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <button
+                                type="button"
+                                aria-label="Open cleaning details"
+                                className={styles.serviceChevron}
+                                onClick={(e) => { e.stopPropagation(); setShowCleaningDetails(prev => !prev); }}
+                              >
+                                {showCleaningDetails ? '▴' : '▾'}
+                              </button>
+                            </div>
+                          ) : (
+                            <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                              {checked && '✓'}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div className={styles.serviceRight}>
-                        {/* removed top-level prices per design */}
-                        {s.id === 1 ? (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <button
-                              type="button"
-                              aria-label="Open cleaning details"
-                              className={styles.serviceChevron}
-                              onClick={(e) => { e.stopPropagation(); setShowCleaningDetails(prev => !prev); }}
-                            >
-                              {showCleaningDetails ? '▴' : '▾'}
-                            </button>
-                          </div>
-                        ) : (
-                          <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                            {checked && '✓'}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {/* show cleaning DETAILS inline under the Cleaning service */}
-                    {s.id === 1 && showCleaningDetails && (
-                      <div style={{ marginTop: 10, paddingLeft: 8 }}>
-                        {Object.entries(DETAILS).map(([subId, group]) => (
-                          <div key={subId} style={{ marginBottom: 12 }}>
-                            <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                              {group.items.map((it, idx) => {
-                                const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
-                                return (
-                                  <div key={idx} className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checkedDetail} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
-                                    <div className={styles.serviceDetails}>
-                                      <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
-                                    </div>
-                                    <div className={styles.serviceRight}>
-                                      <span className={styles.servicePrice}>{it.price}</span>
-                                      <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                        {checkedDetail && '✓'}
+                      {s.id === 1 && showCleaningDetails && (
+                        <div style={{ marginTop: 10, paddingLeft: 8 }}>
+                          {Object.entries(DETAILS).map(([subId, group]) => (
+                            <div key={subId} style={{ marginBottom: 12 }}>
+                              <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                {group.items.map((it, idx) => {
+                                  const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
+                                  return (
+                                    <div key={idx} className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checkedDetail} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
+                                      <div className={styles.serviceDetails}>
+                                        <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
+                                      </div>
+                                      <div className={styles.serviceRight}>
+                                        <span className={styles.servicePrice}>{it.price}</span>
+                                        <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                          {checkedDetail && '✓'}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  );
+                                })}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          ))}
+                        </div>
+                      )}
+                    </>
                   );
                 })}
               </div>
-              {/* Detailed service lists (from DETAILS) — only shown when toggled for cleaning */}
-              {showCleaningDetails && (
-                <div style={{ marginTop: 18 }}>
-                  {Object.entries(DETAILS).map(([subId, group]) => (
-                    <div key={subId} style={{ marginBottom: 12 }}>
-                      <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        {group.items.map((it, idx) => {
-                          const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
-                          return (
-                            <div key={idx} className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checked} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
-                              <div className={styles.serviceDetails}>
-                                <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
-                              </div>
-                              <div className={styles.serviceRight}>
-                                <span className={styles.servicePrice}>{it.price}</span>
-                                <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                  {checked && '✓'}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              
 
               <div className={styles.totalBar}>
                 <span className={styles.totalLabel}>Total</span>
