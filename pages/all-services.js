@@ -53,9 +53,6 @@ export default function AllServices() {
     <div style={{ minHeight: '100vh', background: '#0f1626', color: '#fff', overflowX: 'hidden' }}>
       <header style={{ padding: '14px 16px', background: '#1a1b2e', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {collapsed && (
-            <button className={styles.headerBackProminent} onClick={() => setExpandedId(null)} aria-label="Back to services">‹ Back</button>
-          )}
           <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Services</h1>
         </div>
         <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Close</Link>
