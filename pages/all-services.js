@@ -176,6 +176,22 @@ export default function AllServices() {
       </main>
 
       {/* no restore button; left nav stays mounted */}
+
+      {showBookingModal && (
+        <BookingModal
+          onClose={() => setShowBookingModal(false)}
+          onBook={(data) => {
+            // clear selections after booking
+            clearSelections();
+            setShowBookingModal(false);
+            console.log('Booked:', data);
+          }}
+          preselectedItems={getSelectedItems()}
+          skipServices={true}
+          startStep={1}
+        />
+      )}
+
     </div>
   );
 }
@@ -203,18 +219,7 @@ function DetailView({ id, onBack }) {
           </div>
         ))}
       </div>
-      {showBookingModal && (
-        <BookingModal
-          onClose={() => setShowBookingModal(false)}
-          onBook={(data) => {
-            // clear selections after booking
-            clearSelections();
-            setShowBookingModal(false);
-            console.log('Booked:', data);
-          }}
-          preselectedItems={getSelectedItems()}
-        />
-      )}
+      
     </div>
   );
 }

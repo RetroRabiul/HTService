@@ -28,7 +28,7 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-export default function BookingModal({ onClose, onBook, initialSelected = null, preselectedItems = null }) {
+export default function BookingModal({ onClose, onBook, initialSelected = null, preselectedItems = null, skipServices = false, startStep = null }) {
   const bookingCtx = useBooking();
   // if parent didn't pass preselectedItems, read from context
   const contextItems = bookingCtx ? bookingCtx.getSelectedItems() : [];
@@ -42,7 +42,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prev; };
   }, []);
-  const [step, setStep] = useState(initialSelected ? 2 : (effectivePreselected && effectivePreselected.length ? 2 : 1));
+  const initialStep = startStep || (initialSelected ? 2 : (effectivePreselected && effectivePreselected.length ? 2 : 1));
+  const [step, setStep] = useState(initialStep);
   const [calYear, setCalYear] = useState(now.getFullYear());
   const [calMonth, setCalMonth] = useState(now.getMonth());
   const [selDate, setSelDate] = useState({ year: now.getFullYear(), month: now.getMonth(), day: now.getDate() });
@@ -195,7 +196,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
               <button
                 className={styles.nextBtn}
                 disabled={!selTime}
-                onClick={() => setStep(2)}
+                onClick={() => setStep(skipServices ? 3 : 2)}
               >
                 Next
               </button>
