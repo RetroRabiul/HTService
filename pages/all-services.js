@@ -108,7 +108,6 @@ export default function AllServices() {
               {inDetail && <DetailView id={detailFor} onBack={() => setDetailFor(null)} />}
             </div>
           </div>
-          </section>
         </div>
       </main>
     </div>
