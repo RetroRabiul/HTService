@@ -301,7 +301,16 @@
   .beforeAfterGrid {
     grid-template-columns: 1fr;
   }
-  .beforeAfterImageWrap { height: 240px; }
+  .beforeAfterImageWrap { height: 260px; }
+  /* Make handle larger and touch-friendly */
+  .baHandle { width: 56px; }
+  .baHandle::before { top: 6px; height: calc(100% - 12px); }
+  .baHandleDot { width: 48px; height: 48px; }
+  .baHandleDot::before { top: 17px; }
+  .baHandleDot::after { top: 29px; }
+  /* Make hidden range interactive on touch devices */
+  .baRange { opacity: 0; pointer-events: auto; height: 36px; }
+  .baLabelLeft, .baLabelRight { font-size: 12px; padding: 6px 10px; top: 8px; }
 }
 
 /* ── Mobile (≤640px) ────────────────────── */
