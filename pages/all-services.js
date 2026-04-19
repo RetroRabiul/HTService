@@ -37,6 +37,11 @@ export default function AllServices() {
   // collapsed visual state when an item is expanded (controlled separately)
   const collapsed = navCollapsed;
 
+  // title style: large single-line when collapsed (single-column), smaller two-line when two-column
+  const titleStyle = collapsed
+    ? { marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+    : { marginTop: 0, fontSize: 18, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'normal', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' };
+
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
     const parts = label.split(' ');
@@ -92,7 +97,7 @@ export default function AllServices() {
                     ‹ Back
                   </button>
                 )}
-                <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{main.label}</h2>
+                <h2 style={titleStyle}>{main.label}</h2>
             </div>
 
             {/* list of subservices; show price on right, click card to open details */}
