@@ -32,6 +32,9 @@ export default function AllServices() {
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
   const [expandedId, setExpandedId] = useState(null);
+  const [navUnmounted, setNavUnmounted] = useState(false);
+  
+  // collapsed visual state when an item is expanded
   const collapsed = expandedId !== null;
 
   // helper to split label into two lines (first word and rest)
@@ -56,7 +59,8 @@ export default function AllServices() {
 
       <main style={{ padding: 12 }}>
         <div className={`${styles.servicesBody} ${collapsed ? styles.servicesBodyCollapsed : ''}`}>
-          <nav className={styles.servicesLeft}>
+          {!navUnmounted && (
+            <nav className={styles.servicesLeft}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {MAIN_SERVICES.map(m => (
                 <button
@@ -69,11 +73,22 @@ export default function AllServices() {
                 </button>
               ))}
             </div>
-          </nav>
+            </nav>
+          )}
 
           <section className={`${styles.servicesRight} ${collapsed ? styles.servicesRightCollapsed : ''}`}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+                {collapsed && !navUnmounted && (
+                  <button
+                    className={styles.navToggleBtn}
+                    onClick={() => setNavUnmounted(true)}
+                    aria-label="Hide main services"
+                    style={{ marginRight: 6 }}
+                  >
+                    Hide
+                  </button>
+                )}
+                <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
             </div>
 
             {/* list of subservices; show price on right, click card to open details */}
@@ -128,6 +143,10 @@ export default function AllServices() {
           </div>
         </div>
       </main>
+
+      {navUnmounted && (
+        <button className={styles.restoreNav} onClick={() => setNavUnmounted(false)} aria-label="Restore main services">☰</button>
+      )}
     </div>
   );
 }
