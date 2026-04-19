@@ -5,11 +5,6 @@
   overflow-x: hidden;
 }
 
-:root {
-  --brand-primary: #00B4D8;
-  --brand-dark: #004080;
-}
-
 /* ── Booking Confirmation Banner ────────── */
 .bookingConfirmation {
   background: #f0fdf4;
@@ -165,7 +160,6 @@
   transition: border-color 0.18s, box-shadow 0.18s, transform 0.12s, background 0.12s;
   box-shadow: 0 18px 48px rgba(0,64,128,0.14), inset 0 6px 16px rgba(255,255,255,0.6);
 }
-.categoryIcon svg { width:36px; height:36px; color: var(--brand-dark); }
 .categoryTile:hover .categoryIcon {
   border-color: rgba(0,180,216,0.18);
   box-shadow: 0 22px 56px rgba(0,180,216,0.16), inset 0 8px 20px rgba(255,255,255,0.7);
@@ -181,7 +175,6 @@
   border-color: rgba(0,180,216,0.22);
   background: linear-gradient(180deg, #ffffff 0%, #e9fbff 100%);
 }
-.categoryTileActive .categoryIcon svg { color: var(--brand-primary); }
 
 /* Hover: show cyan curved border/glow around the tile */
 .categoryTile::after {

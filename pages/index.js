@@ -6,57 +6,12 @@ import BookingModal from '../components/BookingModal';
 import ServicesModal from '../components/ServicesModal';
 
 const categories = [
-  { label: 'Cleaning service' },
-  { label: 'Pest control service' },
-  { label: 'Shifting Service' },
-  { label: 'AC Service' },
-  { label: 'Construction Service' },
+  { icon: '🧹', label: 'Cleaning service' },
+  { icon: '🦟', label: 'Pest control service' },
+  { icon: '🚚', label: 'Shifting Service' },
+  { icon: '❄️', label: 'AC Service' },
+  { icon: '🏗️', label: 'Construction Service' },
 ];
-
-function renderIcon(label) {
-  const common = { width: 36, height: 36, viewBox: '0 0 36 36', fill: 'none', xmlns: 'http://www.w3.org/2000/svg' };
-  switch (label) {
-    case 'Cleaning service':
-      return (
-        <svg {...common} aria-hidden>
-          <rect x="6" y="6" width="18" height="12" rx="2" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-          <rect x="22" y="18" width="6" height="12" rx="2" transform="rotate(-20 22 18)" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-        </svg>
-      );
-    case 'Pest control service':
-      return (
-        <svg {...common} aria-hidden>
-          <circle cx="18" cy="18" r="6" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-          <path d="M6 18h6M24 18h6M18 6v6M18 24v6" strokeWidth="2" stroke="currentColor" strokeLinecap="round" />
-        </svg>
-      );
-    case 'Shifting Service':
-      return (
-        <svg {...common} aria-hidden>
-          <rect x="4" y="12" width="22" height="10" rx="2" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-          <rect x="26" y="8" width="6" height="8" rx="1" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-          <circle cx="10" cy="26" r="2" fill="currentColor" />
-          <circle cx="24" cy="26" r="2" fill="currentColor" />
-        </svg>
-      );
-    case 'AC Service':
-      return (
-        <svg {...common} aria-hidden>
-          <circle cx="18" cy="18" r="10" strokeWidth="2" stroke="currentColor" />
-          <path d="M18 8v8l6 6" strokeWidth="2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      );
-    case 'Construction Service':
-      return (
-        <svg {...common} aria-hidden>
-          <rect x="6" y="12" width="20" height="12" rx="1.5" strokeWidth="2" stroke="currentColor" fill="currentColor" />
-          <path d="M6 12 L18 4 L30 12" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
 
 const popularServices = [
   { id: 1, title: 'Cleaning service', desc: 'General cleaning for homes & offices', color: '#0077c8' },
@@ -154,7 +109,7 @@ export default function Home() {
         {/* Category Tiles */}
         <div className={styles.categoriesWrap}>
           <div className={styles.categoriesGrid}>
-            {categories.map(({ label }) => (
+            {categories.map(({ icon, label }) => (
               <div
                 key={label}
                 className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
@@ -172,7 +127,7 @@ export default function Home() {
                 }}
                 aria-pressed={activeCategory === label}
               >
-                <div className={styles.categoryIcon} aria-hidden>{renderIcon(label)}</div>
+                <div className={styles.categoryIcon}>{icon}</div>
                 <span className={styles.categoryLabel}>{label}</span>
               </div>
             ))}
