@@ -144,9 +144,9 @@ export default function Home() {
         {showSubservice && (
           <SubserviceModal
             onClose={() => setShowSubservice(false)}
-            onSelect={name => {
-              // For now map all cleaning subservices to the main Cleaning service id
-              setInitialServiceId(1);
+            onSelect={svc => {
+              // Map selected subservice to BookingModal by id
+              setInitialServiceId(svc.id);
               setBooking(true);
               setShowSubservice(false);
             }}
@@ -216,7 +216,13 @@ export default function Home() {
         </footer>
 
       </main>
-      {booking && <BookingModal onClose={() => setBooking(false)} onBook={handleBook} />}
+      {booking && (
+        <BookingModal
+          onClose={() => { setBooking(false); setInitialServiceId(null); }}
+          onBook={handleBook}
+          initialSelected={initialServiceId}
+        />
+      )}
     </>
   );
 }

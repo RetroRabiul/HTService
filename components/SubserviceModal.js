@@ -1,12 +1,12 @@
 import styles from '../styles/BookingModal.module.css';
 
 const SUBSERVICES = [
-  'Bathroom Deep Cleaning',
-  'Kitchen Deep Cleaning Service',
-  'Floor Deep Cleaning (4 Options available)',
-  'Full Home Deep Cleaning',
-  'Window Cleaning',
-  'Thai Glass Cleaning (2 Options available)'
+  { id: 101, name: 'Bathroom Deep Cleaning', price: 800 },
+  { id: 102, name: 'Kitchen Deep Cleaning Service', price: 1200 },
+  { id: 103, name: 'Floor Deep Cleaning (4 Options available)', price: 1500 },
+  { id: 104, name: 'Full Home Deep Cleaning', price: 5000 },
+  { id: 105, name: 'Window Cleaning', price: 700 },
+  { id: 106, name: 'Thai Glass Cleaning (2 Options available)', price: 900 }
 ];
 
 export default function SubserviceModal({ onClose, onSelect }) {
@@ -22,7 +22,7 @@ export default function SubserviceModal({ onClose, onSelect }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {SUBSERVICES.map(s => (
               <button
-                key={s}
+                key={s.id}
                 onClick={() => onSelect(s)}
                 style={{
                   textAlign: 'left',
@@ -35,7 +35,7 @@ export default function SubserviceModal({ onClose, onSelect }) {
                   cursor: 'pointer'
                 }}
               >
-                {s}
+                {s.name}
               </button>
             ))}
           </div>
