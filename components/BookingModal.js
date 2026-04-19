@@ -303,59 +303,98 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                       {cleaningOpen ? '\u2212' : '\u002B'}
                     </button>
                   </div>
-                          {/* Render remaining service groups (each with collapse) */}
-                          {SERVICE_GROUPS.filter(g => !['bathroom','kitchen','floor','fullhome','window','thaiglass'].includes(g.id)).map(group => (
+                    {cleaningOpen && (
+                      <div id="cleaning-subgroups" className={styles.serviceCategoryInner}>
+                        {['bathroom','kitchen','floor','fullhome','window','thaiglass'].map(gid => {
+                          const group = SERVICE_GROUPS.find(x => x.id === gid);
+                          if (!group) return null;
+                          return (
                             <div key={group.id} className={styles.serviceGroup}>
-                              <div className={styles.serviceGroupTitle}>
-                                <span>{group.name}</span>
-                                <button
-                                  className={styles.collapseBtn}
-                                  onClick={() => toggleGroup(group.id)}
-                                  aria-expanded={!!openGroups[group.id]}
-                                  aria-controls={`grp-${group.id}`}
-                                  type="button"
-                                >
-                                  {openGroups[group.id] ? '\u2212' : '\u002B'}
-                                </button>
-                              </div>
-                              {openGroups[group.id] && (
-                                <div id={`grp-${group.id}`} className={styles.nestedList}>
-                                  {group.items.map(s => {
-                                    const checked = selectedIds.includes(s.id);
-                                    return (
-                                      <div
-                                        key={s.id}
-                                        className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                                        onClick={() => toggleService(s.id)}
-                                        role="checkbox"
-                                        aria-checked={checked}
-                                        tabIndex={0}
-                                        onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
-                                      >
-                                        <div className={styles.serviceDetails}>
-                                          <span className={styles.serviceName}>{s.name}</span>
-                                          <span className={styles.serviceDesc}>{s.desc}</span>
-                                        </div>
-                                        <div className={styles.serviceRight}>
-                                          <span className={styles.servicePrice}>
-                                            {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                                          </span>
-                                          <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                            {checked && '✓'}
-                                          </div>
+                              <div className={styles.serviceGroupTitle}>{group.name}</div>
+                              <div className={styles.nestedList}>
+                                {group.items.map(s => {
+                                  const checked = selectedIds.includes(s.id);
+                                  return (
+                                    <div
+                                      key={s.id}
+                                      className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                                      onClick={() => toggleService(s.id)}
+                                      role="checkbox"
+                                      aria-checked={checked}
+                                      tabIndex={0}
+                                      onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
+                                    >
+                                      <div className={styles.serviceDetails}>
+                                        <span className={styles.serviceName}>{s.name}</span>
+                                        <span className={styles.serviceDesc}>{s.desc}</span>
+                                      </div>
+                                      <div className={styles.serviceRight}>
+                                        <span className={styles.servicePrice}>
+                                          {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                                        </span>
+                                        <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                          {checked && '✓'}
                                         </div>
                                       </div>
-                                    );
-                                  })}
-                                </div>
-                              )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </div>
-                          ))}
-                    </div>
-                  )}
-                </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
 
-                {/* Remaining service groups rendered above (no separate 'Other Services' title) */}
+                {/* Remaining service groups rendered below (no separate 'Other Services' title) */}
+                {SERVICE_GROUPS.filter(g => !['bathroom','kitchen','floor','fullhome','window','thaiglass'].includes(g.id)).map(group => (
+                  <div key={group.id} className={styles.serviceGroup}>
+                    <div className={styles.serviceGroupTitle}>
+                      <span>{group.name}</span>
+                      <button
+                        className={styles.collapseBtn}
+                        onClick={() => toggleGroup(group.id)}
+                        aria-expanded={!!openGroups[group.id]}
+                        aria-controls={`grp-${group.id}`}
+                        type="button"
+                      >
+                        {openGroups[group.id] ? '\u2212' : '\u002B'}
+                      </button>
+                    </div>
+                    {openGroups[group.id] && (
+                      <div id={`grp-${group.id}`} className={styles.nestedList}>
+                        {group.items.map(s => {
+                          const checked = selectedIds.includes(s.id);
+                          return (
+                            <div
+                              key={s.id}
+                              className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                              onClick={() => toggleService(s.id)}
+                              role="checkbox"
+                              aria-checked={checked}
+                              tabIndex={0}
+                              onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
+                            >
+                              <div className={styles.serviceDetails}>
+                                <span className={styles.serviceName}>{s.name}</span>
+                                <span className={styles.serviceDesc}>{s.desc}</span>
+                              </div>
+                              <div className={styles.serviceRight}>
+                                <span className={styles.servicePrice}>
+                                  {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                                </span>
+                                <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                  {checked && '✓'}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
               <div className={styles.totalBar}>
