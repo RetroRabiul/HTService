@@ -111,33 +111,30 @@ export default function AllServices() {
                     <div
                       className={`${styles.subserviceCardDark} ${isOpen ? styles.subserviceOpen : ''}`}
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                    >
-                      <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                      <button
-                        onClick={() => {
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => {
+                        if (!isOpen) {
+                          setOpenIds(prev => [...prev, s.id]);
+                          setNavCollapsed(true);
+                        } else {
+                          setOpenIds(prev => prev.filter(id => id !== s.id));
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
                           if (!isOpen) {
                             setOpenIds(prev => [...prev, s.id]);
                             setNavCollapsed(true);
                           } else {
                             setOpenIds(prev => prev.filter(id => id !== s.id));
                           }
-                        }}
-                        aria-expanded={isOpen}
-                        aria-label={`Toggle ${s.name}`}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid rgba(255,255,255,0.06)',
-                          color: '#cfeafd',
-                          padding: '8px 12px',
-                          borderRadius: 8,
-                          cursor: 'pointer',
-                          fontSize: 18,
-                          lineHeight: 1,
-                          transform: isOpen ? 'rotate(180deg)' : 'none'
-                        }}
-                      >
-                        ▾
-                      </button>
+                        }
+                      }}
+                    >
+                      <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
+                      <div className={styles.cardChevron} aria-hidden style={{ fontSize: 18, color: 'rgba(207,234,253,0.9)' }}>{isOpen ? '▴' : '▾'}</div>
                     </div>
 
                     {isOpen && (
