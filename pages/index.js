@@ -107,62 +107,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Before & After Gallery (from News) */}
-        <section className={newsStyles.beforeAfterSection}>
-          <h2 className={newsStyles.sectionTitle}>Before & After Cleaning</h2>
-          <p className={newsStyles.sectionSubtitle}>Real results from recent HT Service cleanings — swipe your eyes across the pairs to see the difference.</p>
-
-          <div className={newsStyles.beforeAfterGrid}>
-            <div className={newsStyles.beforeAfterCard}>
-              <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
-              </div>
-              <div className={newsStyles.beforeAfterCaption}>
-                <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
-              </div>
-            </div>
-
-            <div className={newsStyles.beforeAfterCard}>
-              <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
-              </div>
-              <div className={newsStyles.beforeAfterCaption}>
-                <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
-              </div>
-            </div>
-
-            <div className={newsStyles.beforeAfterCard}>
-              <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
-              </div>
-              <div className={newsStyles.beforeAfterCaption}>
-                <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
-              </div>
-            </div>
-
-          </div>
-        </section>
+        
 
         {/* Category Tiles */}
         <div className={styles.categoriesWrap}>
@@ -229,6 +174,63 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Before & After Gallery (from News) */}
+        <section className={newsStyles.beforeAfterSection}>
+          <h2 className={newsStyles.sectionTitle}>Before & After Cleaning</h2>
+          <p className={newsStyles.sectionSubtitle}>Real results from recent HT Service cleanings — swipe your eyes across the pairs to see the difference.</p>
+
+          <div className={newsStyles.beforeAfterGrid}>
+            <div className={newsStyles.beforeAfterCard}>
+              <div className={newsStyles.beforeAfterImageWrap}>
+                <div className={newsStyles.pairImages}>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
+              </div>
+              <div className={newsStyles.beforeAfterCaption}>
+                <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
+              </div>
+            </div>
+
+            <div className={newsStyles.beforeAfterCard}>
+              <div className={newsStyles.beforeAfterImageWrap}>
+                <div className={newsStyles.pairImages}>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
+              </div>
+              <div className={newsStyles.beforeAfterCaption}>
+                <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
+              </div>
+            </div>
+
+            <div className={newsStyles.beforeAfterCard}>
+              <div className={newsStyles.beforeAfterImageWrap}>
+                <div className={newsStyles.pairImages}>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className={newsStyles.pairImgWrap}>
+                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
+                  </div>
+                </div>
+              </div>
+              <div className={newsStyles.beforeAfterCaption}>
+                <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
+              </div>
+            </div>
+
           </div>
         </section>
 
