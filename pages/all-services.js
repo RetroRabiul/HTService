@@ -239,14 +239,30 @@ function DetailView({ id, onBack }) {
 
 function DetailInline({ id }) {
   const data = DETAILS[id] || { title: 'Details', items: [] };
+  const [checkedMap, setCheckedMap] = useState({});
+  const toggleChecked = (idx) => {
+    setCheckedMap(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
   return (
     <div style={{ background: '#041220', padding: 12, borderRadius: 10, border: '1px solid rgba(255,255,255,0.03)' }}>
       <div style={{ fontWeight: 800, marginBottom: 8 }}>{data.title}</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {data.items.map((it, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, padding: '10px 8px', borderRadius: 8, background: '#071324' }}>
-            <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
-            {it.price && <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>}
+          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '10px 8px', borderRadius: 8, background: '#071324' }}>
+            <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600, flex: 1 }}>{it.label}</div>
+            {it.price && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                <button
+                  type="button"
+                  onClick={() => toggleChecked(i)}
+                  aria-pressed={!!checkedMap[i]}
+                  className={checkedMap[i] ? styles.checkboxChecked : styles.checkbox}
+                >
+                  {checkedMap[i] ? '✓' : ''}
+                </button>
+                <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>
+              </div>
+            )}
           </div>
         ))}
       </div>
