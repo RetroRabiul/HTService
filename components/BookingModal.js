@@ -300,7 +300,11 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                       aria-controls="cleaning-subgroups"
                       type="button"
                     >
-                      {cleaningOpen ? '▾' : '+'}
+                      <span className={styles.caret} aria-hidden>
+                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6,4 12,10 6,16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
                     </button>
                   </div>
                     {cleaningOpen && (
@@ -359,7 +363,11 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                         aria-controls={`grp-${group.id}`}
                         type="button"
                       >
-                        {openGroups[group.id] ? '▾' : '+'}
+                        <span className={styles.caret} aria-hidden>
+                          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6,4 12,10 6,16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
                       </button>
                     </div>
                     {openGroups[group.id] && (
