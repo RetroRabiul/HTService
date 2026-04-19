@@ -32,6 +32,7 @@ export default function AllServices() {
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
   const [expandedId, setExpandedId] = useState(null);
+  const collapsed = expandedId !== null;
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
@@ -54,7 +55,7 @@ export default function AllServices() {
       </header>
 
       <main style={{ padding: 12 }}>
-        <div className={`${styles.servicesBody} ${inDetail ? styles.servicesBodyCollapsed : ''}`}>
+        <div className={`${styles.servicesBody} ${collapsed ? styles.servicesBodyCollapsed : ''}`}>
           <nav className={styles.servicesLeft}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {MAIN_SERVICES.map(m => (
