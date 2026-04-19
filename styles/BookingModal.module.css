@@ -695,3 +695,37 @@
     padding: 14px;
   }
 }
+
+/* ── Collapsible two-column animation for services page ── */
+.servicesBody {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: all 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.servicesBodyCollapsed .servicesLeft {
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 0;
+  transform: translateX(-8px);
+  pointer-events: none;
+  transition: width 320ms ease, opacity 220ms ease, transform 320ms ease, padding 220ms ease;
+  overflow: hidden;
+}
+
+.servicesBodyCollapsed .servicesRight {
+  flex: 1 1 100% !important;
+  transform: translateX(-0px);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* When collapsed, ensure the right column visually expands to take available space */
+.servicesBodyCollapsed { gap: 0; }
+
+@media (max-width: 640px) {
+  /* On small screens, collapsed detail should make right column full width */
+  .servicesBodyCollapsed .servicesRight { width: 100% !important; }
+}

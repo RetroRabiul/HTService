@@ -53,25 +53,14 @@ export default function AllServices() {
       </header>
 
       <main style={{ padding: 12 }}>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <nav style={{ minWidth: 140, maxWidth: 220 }}>
+        <div className={`${styles.servicesBody} ${inDetail ? styles.servicesBodyCollapsed : ''}`}>
+          <nav className={styles.servicesLeft}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {MAIN_SERVICES.map(m => (
                 <button
                   key={m.id}
                   onClick={() => router.push(`/all-services?category=${m.id}`)}
-                  style={{
-                    background: m.id === activeId ? '#0d2338' : 'transparent',
-                    color: '#fff',
-                    padding: '12px 14px',
-                    borderRadius: 10,
-                    border: 'none',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12
-                  }}
+                  className={`${styles.serviceNavItem} ${m.id === activeId ? styles.serviceNavItemActive : ''}`}
                 >
                   <div style={{ fontSize: 20 }}>{m.icon}</div>
                   {renderLabelSplit(m.label)}
@@ -80,7 +69,7 @@ export default function AllServices() {
             </div>
           </nav>
 
-          <section style={{ flex: 1, transition: 'transform 300ms ease' }}>
+          <section className={styles.servicesRight}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
             </div>
@@ -89,7 +78,7 @@ export default function AllServices() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
               {main.subs.map(s => (
-                <div key={s.id} style={{ background: '#111827', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div key={s.id} className={styles.subserviceItem} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
                   <button
                     onClick={() => setDetailFor(s.id)}
