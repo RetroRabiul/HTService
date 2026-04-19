@@ -112,7 +112,7 @@ export default function Home() {
             {categories.map(({ icon, label }) => (
               <div
                 key={label}
-                className={styles.categoryTile}
+                className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
                 role="button"
                 tabIndex={0}
                 onClick={() => {
