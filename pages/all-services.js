@@ -32,9 +32,10 @@ export default function AllServices() {
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
   const [expandedId, setExpandedId] = useState(null);
-  
-  // collapsed visual state when an item is expanded
-  const collapsed = expandedId !== null;
+  const [navCollapsed, setNavCollapsed] = useState(false);
+
+  // collapsed visual state when an item is expanded (controlled separately)
+  const collapsed = navCollapsed;
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
@@ -80,7 +81,11 @@ export default function AllServices() {
                 {collapsed && (
                   <button
                     className={styles.backBtn}
-                    onClick={() => setExpandedId(null)}
+                    onClick={() => {
+                      // restore the full two-column view when Back is pressed
+                      setExpandedId(null);
+                      setNavCollapsed(false);
+                    }}
                     aria-label="Back to services"
                     style={{ marginRight: 8, position: 'relative', left: 0 }}
                   >
@@ -103,7 +108,15 @@ export default function AllServices() {
                     >
                       <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
                       <button
-                        onClick={() => setExpandedId(isOpen ? null : s.id)}
+                        onClick={() => {
+                          if (!isOpen) {
+                            setExpandedId(s.id);
+                            setNavCollapsed(true);
+                          } else {
+                            // close inline detail but keep left nav collapsed until Back
+                            setExpandedId(null);
+                          }
+                        }}
                         aria-expanded={isOpen}
                         aria-label={`Toggle ${s.name}`}
                         style={{
