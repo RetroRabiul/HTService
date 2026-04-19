@@ -152,26 +152,11 @@
 
 /* Active category tile: cyan curved left accent and stronger icon glow */
 .categoryTileActive { position: relative; }
-.categoryTileActive::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  top: 18px;
-  bottom: 18px;
-  width: 10px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #00D0F0 0%, #00B4D8 60%);
-  box-shadow: 0 6px 20px rgba(0,180,216,0.18), inset 0 0 10px rgba(255,255,255,0.06);
-  transform: translateX(-6px);
-}
 .categoryTileActive .categoryIcon {
   box-shadow: 0 20px 50px rgba(0,180,216,0.14), 0 6px 22px rgba(0,64,128,0.12);
   transform: translateY(-6px);
   border-color: rgba(0,180,216,0.18);
 }
-
-/* Small tweak: move label slightly right when active so it visually balances the accent */
-.categoryTileActive .categoryLabel { transform: translateX(6px); }
 
 /* Hover: show cyan curved border/glow around the tile */
 .categoryTile::after {
