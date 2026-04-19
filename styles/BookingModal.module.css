@@ -29,6 +29,26 @@
   .floatClose { display: none; }
 }
 
+/* Make modal full-screen / bottom sheet on small mobile devices */
+@media (max-width: 640px) {
+  .overlay {
+    align-items: flex-end;
+    padding: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.52));
+  }
+  .modal {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 16px 16px 0 0;
+    margin: 0;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+  }
+  .header { padding: 18px 16px; }
+  .body { padding: 16px; }
+}
+
 /* ── Overlay & Modal ─────────────────────── */
 .overlay {
   position: fixed;
