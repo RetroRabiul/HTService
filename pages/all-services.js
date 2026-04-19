@@ -31,7 +31,7 @@ export default function AllServices() {
   const main = MAIN_SERVICES.find(m => m.id === activeId) || MAIN_SERVICES[0];
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
-  const [expandedId, setExpandedId] = useState(null);
+  const [openIds, setOpenIds] = useState([]);
   const [navCollapsed, setNavCollapsed] = useState(false);
 
   // collapsed visual state when an item is expanded (controlled separately)
@@ -89,7 +89,7 @@ export default function AllServices() {
                     className={styles.backBtn}
                     onClick={() => {
                       // restore the full two-column view when Back is pressed
-                      setExpandedId(null);
+                      setOpenIds([]);
                       setNavCollapsed(false);
                     }}
                     aria-label="Back to services"
@@ -105,7 +105,7 @@ export default function AllServices() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
               {main.subs.map(s => {
-                const isOpen = expandedId === s.id;
+                const isOpen = openIds.includes(s.id);
                 return (
                   <div key={s.id}>
                     <div
@@ -116,11 +116,10 @@ export default function AllServices() {
                       <button
                         onClick={() => {
                           if (!isOpen) {
-                            setExpandedId(s.id);
+                            setOpenIds(prev => [...prev, s.id]);
                             setNavCollapsed(true);
                           } else {
-                            // close inline detail but keep left nav collapsed until Back
-                            setExpandedId(null);
+                            setOpenIds(prev => prev.filter(id => id !== s.id));
                           }
                         }}
                         aria-expanded={isOpen}
