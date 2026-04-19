@@ -29,17 +29,30 @@ export default function AllServices() {
   const activeId = Number(category) || 1;
   const main = MAIN_SERVICES.find(m => m.id === activeId) || MAIN_SERVICES[0];
 
+  // helper to split label into two lines (first word and rest)
+  function renderLabelSplit(label) {
+    const parts = label.split(' ');
+    const first = parts[0] || '';
+    const rest = parts.slice(1).join(' ') || '';
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+        <div style={{ fontSize: 16, fontWeight: 800 }}>{first}</div>
+        {rest && <div style={{ fontSize: 14, fontWeight: 700, color: '#cfeafd' }}>{rest}</div>}
+      </div>
+    );
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#0f1626', color: '#fff' }}>
       <header style={{ padding: '14px 16px', background: '#1a1b2e', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h1 style={{ margin: 0, fontSize: 18 }}>Services</h1>
+        <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Services</h1>
         <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Close</Link>
       </header>
 
       <main style={{ padding: 12 }}>
         <div style={{ display: 'flex', gap: 12 }}>
           <nav style={{ minWidth: 140, maxWidth: 220 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {MAIN_SERVICES.map(m => (
                 <button
                   key={m.id}
@@ -47,33 +60,34 @@ export default function AllServices() {
                   style={{
                     background: m.id === activeId ? '#0d2338' : 'transparent',
                     color: '#fff',
-                    padding: '10px 12px',
-                    borderRadius: 8,
+                    padding: '12px 14px',
+                    borderRadius: 10,
                     border: 'none',
                     textAlign: 'left',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12
                   }}
                 >
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                    <div style={{ fontSize: 18 }}>{m.icon}</div>
-                    <div style={{ fontWeight: 700 }}>{m.label}</div>
-                  </div>
+                  <div style={{ fontSize: 20 }}>{m.icon}</div>
+                  {renderLabelSplit(m.label)}
                 </button>
               ))}
             </div>
           </nav>
 
           <section style={{ flex: 1 }}>
-            <h2 style={{ marginTop: 0 }}>{main.label}</h2>
+            <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
               {main.subs.map(s => (
-                <div key={s.id} style={{ background: '#111827', padding: 12, borderRadius: 10 }}>
+                <div key={s.id} style={{ background: '#111827', padding: 14, borderRadius: 12 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <div style={{ fontWeight: 700 }}>{s.name}</div>
+                      <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
                     </div>
-                    <div style={{ color: '#00B4D8', fontWeight: 800 }}>Tk {s.price}</div>
+                    <div style={{ color: '#00B4D8', fontWeight: 900, fontSize: 16 }}>Tk {s.price}</div>
                   </div>
                 </div>
               ))}
