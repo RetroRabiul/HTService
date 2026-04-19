@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from '../styles/BookingModal.module.css';
 
 const MAIN_SERVICES = [
@@ -28,6 +29,8 @@ export default function AllServices() {
   const { category } = router.query;
   const activeId = Number(category) || 1;
   const main = MAIN_SERVICES.find(m => m.id === activeId) || MAIN_SERVICES[0];
+  const [detailFor, setDetailFor] = useState(null); // subservice id
+  const inDetail = detailFor !== null;
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
@@ -77,24 +80,123 @@ export default function AllServices() {
             </div>
           </nav>
 
-          <section style={{ flex: 1 }}>
-            <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+          <section style={{ flex: 1, transition: 'transform 300ms ease' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+            </div>
+
+            {/* list of subservices; no prices shown, add chevron button to drill in */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {main.subs.length === 0 && <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>}
               {main.subs.map(s => (
-                <div key={s.id} style={{ background: '#111827', padding: 14, borderRadius: 12 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                    </div>
-                    <div style={{ color: '#00B4D8', fontWeight: 900, fontSize: 16 }}>Tk {s.price}</div>
-                  </div>
+                <div key={s.id} style={{ background: '#111827', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
+                  <button
+                    onClick={() => setDetailFor(s.id)}
+                    aria-label={`Open ${s.name}`}
+                    style={{
+                      background: 'transparent',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      color: '#cfeafd',
+                      padding: '8px 12px',
+                      borderRadius: 8,
+                      cursor: 'pointer',
+                      fontSize: 18,
+                      lineHeight: 1
+                    }}
+                  >
+                    &gt;
+                  </button>
                 </div>
               ))}
             </div>
+
+            {/* detail drawer */}
+            {inDetail && (
+              <DetailView id={detailFor} onBack={() => setDetailFor(null)} />
+            )}
           </section>
         </div>
       </main>
+    </div>
+  );
+}
+
+function DetailView({ id, onBack }) {
+  // content mapping based on id
+  const DETAILS = {
+    101: {
+      title: 'Bathroom Deep Cleaning',
+      items: [
+        { label: 'Only Bathroom = Floor + Wall + Single Basin + Single Pan/Commode + Mirror + ventilator', price: '1000' },
+        { label: 'Bathroom With Bathtub', price: '1200' },
+        { label: 'Bathroom With Shower Corner', price: '1500' },
+        { label: 'Bathroom With Bathtub & Shower Corner', price: '1600' }
+      ]
+    },
+    102: {
+      title: 'Kitchen Deep Cleaning Service',
+      items: [
+        { label: 'Only Kitchen = Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: '1500' },
+        { label: 'Kitchen Hood Basic Clean', price: '1000' },
+        { label: 'Kitchen Hood Master Clean', price: '2000' }
+      ]
+    },
+    103: {
+      title: 'Floor Deep Cleaning (4 Options)',
+      items: [
+        { label: 'Tiles', price: '৳3/Sft' },
+        { label: 'Mosaic', price: '৳4/Sft' },
+        { label: 'Marble', price: '৳5/Sft' },
+        { label: 'Wooden', price: '৳10/Sft' }
+      ]
+    },
+    104: {
+      title: 'Full Home Deep Cleaning',
+      items: [
+        { label: '800-1000 (2 bathroom+1 Balcony) ৳4,000', price: '' },
+        { label: '1001-1300 (3 Bathroom+2 balcony) ৳5,000', price: '' },
+        { label: '1301-1500 (4 bathroom+3 balcony) ৳6,000', price: '' },
+        { label: '1501-1700 (4 bathroom+4 balcony) ৳7,000', price: '' },
+        { label: '1701- (Get Quotation) ৳8,000', price: '' }
+      ]
+    },
+    105: {
+      title: 'Window Cleaning',
+      items: [
+        { label: 'Inside Window Cleaning (Minimum 5 Window)', price: '৳200' },
+        { label: 'Outside Window Cleaning (Minimum 5 Window)', price: '৳800' }
+      ]
+    },
+    106: {
+      title: 'Thai Glass Cleaning',
+      items: [
+        { label: 'Indoor Glass', price: '৳4/Sft' },
+        { label: 'Outdoor Glass', price: '৳8/Sft' }
+      ]
+    }
+  };
+
+  const data = DETAILS[id] || { title: 'Details', items: [] };
+
+  return (
+    <div style={{ marginTop: 16, background: '#071324', padding: 12, borderRadius: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+        <button onClick={onBack} style={{ background: 'transparent', border: 'none', color: '#cfeafd', fontSize: 18, cursor: 'pointer' }}>‹ Back</button>
+        <div style={{ fontWeight: 900, fontSize: 18 }}>{data.title}</div>
+        <div style={{ width: 48 }} />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {data.items.map((it, idx) => (
+          <div key={idx} style={{ background: '#0b1b2a', padding: 12, borderRadius: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: 15, fontWeight: 700 }}>{it.label}</div>
+              {it.price && <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
