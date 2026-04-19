@@ -32,7 +32,6 @@ export default function AllServices() {
   const [detailFor, setDetailFor] = useState(null); // subservice id
   const inDetail = detailFor !== null;
   const [expandedId, setExpandedId] = useState(null);
-  const [navUnmounted, setNavUnmounted] = useState(false);
   
   // collapsed visual state when an item is expanded
   const collapsed = expandedId !== null;
@@ -59,8 +58,7 @@ export default function AllServices() {
 
       <main style={{ padding: 12 }}>
         <div className={`${styles.servicesBody} ${collapsed ? styles.servicesBodyCollapsed : ''}`}>
-          {!navUnmounted && (
-            <nav className={styles.servicesLeft}>
+          <nav className={styles.servicesLeft}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {MAIN_SERVICES.map(m => (
                 <button
@@ -73,19 +71,18 @@ export default function AllServices() {
                 </button>
               ))}
             </div>
-            </nav>
-          )}
+          </nav>
 
           <section className={`${styles.servicesRight} ${collapsed ? styles.servicesRightCollapsed : ''}`}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                {collapsed && !navUnmounted && (
+                {collapsed && (
                   <button
-                    className={styles.navToggleBtn}
-                    onClick={() => setNavUnmounted(true)}
-                    aria-label="Hide main services"
-                    style={{ marginRight: 6 }}
+                    className={styles.backBtn}
+                    onClick={() => setExpandedId(null)}
+                    aria-label="Back to services"
+                    style={{ marginRight: 8, position: 'relative', left: 0 }}
                   >
-                    Hide
+                    ‹ Back
                   </button>
                 )}
                 <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>

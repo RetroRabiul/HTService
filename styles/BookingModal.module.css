@@ -98,37 +98,7 @@
 .servicesRightCollapsed { padding-left: 18px; padding-right: 18px; }
 
 /* small header button to permanently hide nav */
-.navToggleBtn {
-  background: rgba(255,255,255,0.03);
-  color: #cfeafd;
-  border: 1px solid rgba(255,255,255,0.04);
-  padding: 6px 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
-}
-.navToggleBtn:hover { background: rgba(255,255,255,0.05); }
-
-/* floating restore nav button when nav is unmounted */
-.restoreNav {
-  position: fixed;
-  left: 12px;
-  top: 84px;
-  z-index: 4000;
-  background: #00B4D8;
-  color: #fff;
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  cursor: pointer;
-}
-.restoreNav:hover { transform: scale(1.03); }
+/* removed nav toggle and restore styles (not used) */
 
 /* Reuse .subserviceItem for right column; ensure contrast on desktop */
 .subserviceItem { background: #fff; color: #00345f; padding: 12px 14px; border-radius: 10px; border: 1px solid #e6f8ff; font-weight: 700; text-align: left; cursor: pointer; box-shadow: 0 8px 20px rgba(3,26,44,0.06); transition: transform 0.14s, box-shadow 0.14s; }
