@@ -323,20 +323,21 @@
 /* removed Other Services title - groups now render individually */
 
 .collapseBtn {
-  margin-left: 8px;
-  background: none;
-  border: 1px solid rgba(255,255,255,0.06);
-  color: #dbefff;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #9fb8d6;
   font-weight: 700;
-  width: 34px;
-  height: 28px;
-  border-radius: 6px;
+  min-width: 36px;
+  height: 34px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0 8px;
+  transition: background 140ms, transform 140ms, border-color 140ms;
 }
-.collapseBtn:hover { background: rgba(255,255,255,0.03); }
+.collapseBtn:hover { background: rgba(255,255,255,0.03); transform: translateY(-1px); }
 
 .serviceItem {
   display: flex;
@@ -366,12 +367,17 @@
 }
 
 .serviceName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
 .serviceGroupTitle {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 6px 8px;
+  padding: 8px 10px;
 }
 .serviceGroupTitle > span {
   font-size: 14px;
@@ -419,6 +425,11 @@
   transition: background 0.15s, border-color 0.15s;
   flex-shrink: 0;
 }
+
+/* caret (chevron) styles */
+.caret svg { display: block; transition: transform 220ms cubic-bezier(.2,.9,.2,1), color 160ms; transform-origin: 50% 50%; }
+.collapseBtn[aria-expanded="true"] .caret svg { transform: rotate(90deg); color: #00B4D8; }
+.collapseBtn[aria-expanded="false"] .caret svg { transform: rotate(0deg); color: #9fb8d6; }
 
 .checkboxChecked {
   background: #00B4D8;
