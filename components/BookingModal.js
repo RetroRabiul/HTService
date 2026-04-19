@@ -80,24 +80,29 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
-
-  const [showCleaningDetails, setShowCleaningDetails] = useState(false);
-
-  function prevMonth() {
-    if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
-    else setCalMonth(m => m - 1);
-  }
-  function nextMonth() {
-    if (calMonth === 11) { setCalYear(y => y + 1); setCalMonth(0); }
-    else setCalMonth(m => m + 1);
-  }
-  function toggleService(id) {
-    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-  }
-
-  // which cleaning sub-groups are open (e.g. '101', '102')
-  const [openGroups, setOpenGroups] = useState([]);
-  function toggleGroup(id) {
+                              <div className={styles.serviceDetails}>
+                                <span className={styles.serviceName}>{s.name}</span>
+                                <span className={styles.serviceDesc}>{s.desc}</span>
+                              </div>
+                              <div className={styles.serviceRight}>
+                                {/* removed top-level prices per design */}
+                                 {openMainServices.includes(String(s.id)) ? (
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                    <button
+                                      type="button"
+                                      aria-expanded={openMainServices.includes(String(s.id))}
+                                      aria-controls={`main-${s.id}`}
+                                      className={styles.serviceChevron}
+                                      onClick={(e) => { e.stopPropagation(); toggleMainService(String(s.id)); }}
+                                    >
+                                      {openMainServices.includes(String(s.id)) ? '▴' : '▾'}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                    {checked && '✓'}
+                                  </div>
+                                )}
     setOpenGroups(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   }
 
