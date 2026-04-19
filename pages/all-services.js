@@ -122,7 +122,8 @@ const DETAILS = {
   101: {
     title: 'Bathroom Deep Cleaning',
     items: [
-      { label: 'Only Bathroom = Floor + Wall + Single Basin + Single Pan/Commode + Mirror + ventilator', price: '1000' },
+      { label: 'Only Bathroom = Floor + Wall + Single Basin + Single Pan/Commode + Mirror + ventilator', price: '' },
+      { label: 'Only Bathroom', price: '1000' },
       { label: 'Bathroom With Bathtub', price: '1200' },
       { label: 'Bathroom With Shower Corner', price: '1500' },
       { label: 'Bathroom With Bathtub & Shower Corner', price: '1600' }
@@ -131,13 +132,14 @@ const DETAILS = {
   102: {
     title: 'Kitchen Deep Cleaning Service',
     items: [
-      { label: 'Only Kitchen = Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: '1500' },
+      { label: 'Only Kitchin = Floor + Wall + Sink + Outside Cabinet + Inside Window + Exist fan', price: '' },
+      { label: 'Only Kitchen', price: '1500' },
       { label: 'Kitchen Hood Basic Clean', price: '1000' },
       { label: 'Kitchen Hood Master Clean', price: '2000' }
     ]
   },
   103: {
-    title: 'Floor Deep Cleaning (4 Options)',
+    title: 'Floor Deep Cleaning',
     items: [
       { label: 'Tiles', price: '৳3/Sft' },
       { label: 'Mosaic', price: '৳4/Sft' },
@@ -148,11 +150,11 @@ const DETAILS = {
   104: {
     title: 'Full Home Deep Cleaning',
     items: [
-      { label: '800-1000 (2 bathroom+1 Balcony) ৳4,000', price: '' },
-      { label: '1001-1300 (3 Bathroom+2 balcony) ৳5,000', price: '' },
-      { label: '1301-1500 (4 bathroom+3 balcony) ৳6,000', price: '' },
-      { label: '1501-1700 (4 bathroom+4 balcony) ৳7,000', price: '' },
-      { label: '1701- (Get Quotation) ৳8,000', price: '' }
+      { label: '800-1000 (2 bathroom+1 Balcony)', price: '৳4,000' },
+      { label: '1001-1300 (3 Bathroom+2 balcony)', price: '৳5,000' },
+      { label: '1301-1500 (4 bathroom+3 balcony)', price: '৳6,000' },
+      { label: '1501-1700 (4 bathroom+4 balcony)', price: '৳7,000' },
+      { label: '1701- (Get Quotation)', price: '৳8,000' }
     ]
   },
   105: {
@@ -185,9 +187,9 @@ function DetailView({ id, onBack }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {data.items.map((it, idx) => (
           <div key={idx} style={{ background: '#0b1b2a', padding: 12, borderRadius: 8 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ fontSize: 15, fontWeight: 700 }}>{it.label}</div>
-              {it.price && <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+              <div style={{ fontSize: 15, fontWeight: it.price ? 700 : 600, color: it.price ? '#fff' : '#cfeafd', flex: 1 }}>{it.label}</div>
+              {it.price && <div style={{ color: '#00B4D8', fontWeight: 900, marginLeft: 12 }}>{it.price}</div>}
             </div>
           </div>
         ))}
