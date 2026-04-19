@@ -6,6 +6,7 @@ import newsStyles from '../styles/News.module.css';
 import BeforeAfter from '../components/BeforeAfter';
 import BookingModal from '../components/BookingModal';
 import ServicesModal from '../components/ServicesModal';
+import { useRouter } from 'next/router';
 
 const categories = [
   { icon: '🧹', label: 'Cleaning service' },
@@ -29,6 +30,7 @@ export default function Home() {
   const [initialServiceId, setInitialServiceId] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [showServicesModal, setShowServicesModal] = useState(false);
+  const router = useRouter();
 
   function handleBook(data) {
     setConfirmedBooking(data);
@@ -121,6 +123,14 @@ export default function Home() {
                 tabIndex={0}
                 onClick={() => {
                   setActiveCategory(label);
+                  // on small screens, open a full page view instead of modal
+                  if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+                    // map label to category id (same order as categories array)
+                    const idx = categories.findIndex(c => c.label === label);
+                    const categoryId = idx >= 0 ? idx + 1 : 1;
+                    router.push(`/all-services?category=${categoryId}`);
+                    return;
+                  }
                   setShowServicesModal(true);
                 }}
                 onKeyDown={e => {
