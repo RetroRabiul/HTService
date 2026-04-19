@@ -81,6 +81,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
 
+  const [showCleaningDetails, setShowCleaningDetails] = useState(false);
+
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
     else setCalMonth(m => m - 1);
@@ -228,7 +230,17 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                         <span className={styles.serviceDesc}>{s.desc}</span>
                       </div>
                       <div className={styles.serviceRight}>
-                        <span className={styles.servicePrice}>Tk {s.price.toLocaleString()}</span>
+                        {/* removed top-level prices per design */}
+                        {s.id === 1 ? (
+                          <button
+                            type="button"
+                            aria-label="Open cleaning details"
+                            className={styles.serviceChevron}
+                            onClick={(e) => { e.stopPropagation(); setShowCleaningDetails(prev => !prev); }}
+                          >
+                            {showCleaningDetails ? '▴' : '▾'}
+                          </button>
+                        ) : null}
                         <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
                           {checked && '✓'}
                         </div>
@@ -237,33 +249,34 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                   );
                 })}
               </div>
-
-              {/* All detailed service lists (from DETAILS) */}
-              <div style={{ marginTop: 18 }}>
-                {Object.entries(DETAILS).map(([subId, group]) => (
-                  <div key={subId} style={{ marginBottom: 12 }}>
-                    <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                      {group.items.map((it, idx) => {
-                        const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
-                        return (
-                          <div key={idx} className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checked} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
-                            <div className={styles.serviceDetails}>
-                              <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
-                            </div>
-                            <div className={styles.serviceRight}>
-                              <span className={styles.servicePrice}>{it.price}</span>
-                              <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                {checked && '✓'}
+              {/* Detailed service lists (from DETAILS) — only shown when toggled for cleaning */}
+              {showCleaningDetails && (
+                <div style={{ marginTop: 18 }}>
+                  {Object.entries(DETAILS).map(([subId, group]) => (
+                    <div key={subId} style={{ marginBottom: 12 }}>
+                      <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {group.items.map((it, idx) => {
+                          const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
+                          return (
+                            <div key={idx} className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checked} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
+                              <div className={styles.serviceDetails}>
+                                <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
+                              </div>
+                              <div className={styles.serviceRight}>
+                                <span className={styles.servicePrice}>{it.price}</span>
+                                <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                  {checked && '✓'}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
 
               <div className={styles.totalBar}>
                 <span className={styles.totalLabel}>Total</span>

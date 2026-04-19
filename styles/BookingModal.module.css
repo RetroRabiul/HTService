@@ -427,6 +427,19 @@
   flex-shrink: 0;
 }
 
+.serviceChevron {
+  width: 38px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  color: #cfeafd;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
 .servicePrice {
   font-size: 13px;
   font-weight: 700;
