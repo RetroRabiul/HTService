@@ -2,11 +2,43 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/BookingModal.module.css';
 
 const SERVICES = [
-  { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
-  { id: 2, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
-  { id: 3, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
-  { id: 4, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
-  { id: 5, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
+  // Cleaning service - detailed options
+  { id: 101, name: 'Bathroom Deep Clean - Only Bathroom', desc: 'Floor + Wall + Single Basin + Single Pan/Commode + Mirror + Ventilator', price: 1000 },
+  { id: 102, name: 'Bathroom Deep Clean - With Bathtub', desc: 'Includes bathtub cleaning', price: 1200 },
+  { id: 103, name: 'Bathroom Deep Clean - With Shower Corner', desc: 'Includes shower corner cleaning', price: 1500 },
+  { id: 104, name: 'Bathroom Deep Clean - Bathtub & Shower Corner', desc: 'Full bathroom deep clean with bathtub and shower corner', price: 1600 },
+
+  // Kitchen Deep Clean
+  { id: 111, name: 'Kitchen Deep Clean - Only Kitchen', desc: 'Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: 1500 },
+  { id: 112, name: 'Kitchen Hood - Basic Clean', desc: 'Basic hood degreasing and wipe down', price: 1000 },
+  { id: 113, name: 'Kitchen Hood - Master Clean', desc: 'Deep degrease + filter clean', price: 2000 },
+
+  // Floor Deep Cleaning (per sqft)
+  { id: 121, name: 'Floor Deep Clean - Tiles', desc: 'Tiles deep cleaning', pricePerSft: 3, priceLabel: 'Tk 3/Sft' },
+  { id: 122, name: 'Floor Deep Clean - Mosaic', desc: 'Mosaic deep cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
+  { id: 123, name: 'Floor Deep Clean - Marble', desc: 'Marble deep cleaning', pricePerSft: 5, priceLabel: 'Tk 5/Sft' },
+  { id: 124, name: 'Floor Deep Clean - Wooden', desc: 'Wooden floor deep cleaning', pricePerSft: 10, priceLabel: 'Tk 10/Sft' },
+
+  // Full Home Deep Cleaning (fixed packages)
+  { id: 131, name: 'Full Home Deep Clean - 800-1000 sqft (2 bathroom+1 Balcony)', desc: '', price: 4000 },
+  { id: 132, name: 'Full Home Deep Clean - 1001-1300 sqft (3 bathroom+2 Balcony)', desc: '', price: 5000 },
+  { id: 133, name: 'Full Home Deep Clean - 1301-1500 sqft (4 bathroom+3 Balcony)', desc: '', price: 6000 },
+  { id: 134, name: 'Full Home Deep Clean - 1501-1700 sqft (4 bathroom+4 Balcony)', desc: '', price: 7000 },
+  { id: 135, name: 'Full Home Deep Clean - 1701+ (Get Quotation)', desc: '', price: 8000 },
+
+  // Window Cleaning
+  { id: 141, name: 'Window Cleaning - Inside (min 5 windows)', desc: 'Inside window cleaning, minimum 5 windows', price: 200 },
+  { id: 142, name: 'Window Cleaning - Outside (min 5 windows)', desc: 'Outside window cleaning, minimum 5 windows', price: 800 },
+
+  // Thai Glass Cleaning (per sqft)
+  { id: 151, name: 'Thai Glass Cleaning - Indoor', desc: 'Indoor glass cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
+  { id: 152, name: 'Thai Glass Cleaning - Outdoor', desc: 'Outdoor glass cleaning', pricePerSft: 8, priceLabel: 'Tk 8/Sft' },
+
+  // Other services (kept for backwards compatibility)
+  { id: 201, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
+  { id: 202, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
+  { id: 203, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
+  { id: 204, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
 ];
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -59,7 +91,10 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);
   const pickedServices = SERVICES.filter(s => selectedIds.includes(s.id));
-  const total = pickedServices.reduce((sum, s) => sum + s.price, 0);
+  const total = pickedServices.reduce((sum, s) => {
+    if (typeof s.price === 'number') return sum + s.price;
+    return sum; // skip per-sqft or unknown-priced items from automatic total
+  }, 0);
 
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
@@ -208,7 +243,9 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                         <span className={styles.serviceDesc}>{s.desc}</span>
                       </div>
                       <div className={styles.serviceRight}>
-                        <span className={styles.servicePrice}>Tk {s.price.toLocaleString()}</span>
+                        <span className={styles.servicePrice}>
+                          {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                        </span>
                         <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
                           {checked && '✓'}
                         </div>
@@ -257,7 +294,9 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                 {pickedServices.map(s => (
                   <div key={s.id} className={styles.reviewRow}>
                     <span>{s.name}</span>
-                    <span className={styles.reviewPrice}>Tk {s.price.toLocaleString()}</span>
+                    <span className={styles.reviewPrice}>
+                      {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                    </span>
                   </div>
                 ))}
                 <div className={[styles.reviewRow, styles.reviewTotal].join(' ')}>
