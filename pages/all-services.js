@@ -92,7 +92,7 @@ export default function AllServices() {
                     ‹ Back
                   </button>
                 )}
-                <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05 }}>{renderLabelSplit(main.label)}</h2>
+                <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 900, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{main.label}</h2>
             </div>
 
             {/* list of subservices; show price on right, click card to open details */}
