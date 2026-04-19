@@ -100,10 +100,14 @@ export default function AllServices() {
               ))}
             </div>
 
-            {/* detail drawer */}
-            {inDetail && (
-              <DetailView id={detailFor} onBack={() => setDetailFor(null)} />
-            )}
+          </section>
+
+          {/* right-side slide-in detail panel */}
+          <div className={styles.detailPanelContainer}>
+            <div className={`${styles.detailPanel} ${inDetail ? styles.detailPanelOpen : ''}`}>
+              {inDetail && <DetailView id={detailFor} onBack={() => setDetailFor(null)} />}
+            </div>
+          </div>
           </section>
         </div>
       </main>
@@ -111,66 +115,65 @@ export default function AllServices() {
   );
 }
 
-function DetailView({ id, onBack }) {
-  // content mapping based on id
-  const DETAILS = {
-    101: {
-      title: 'Bathroom Deep Cleaning',
-      items: [
-        { label: 'Only Bathroom = Floor + Wall + Single Basin + Single Pan/Commode + Mirror + ventilator', price: '1000' },
-        { label: 'Bathroom With Bathtub', price: '1200' },
-        { label: 'Bathroom With Shower Corner', price: '1500' },
-        { label: 'Bathroom With Bathtub & Shower Corner', price: '1600' }
-      ]
-    },
-    102: {
-      title: 'Kitchen Deep Cleaning Service',
-      items: [
-        { label: 'Only Kitchen = Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: '1500' },
-        { label: 'Kitchen Hood Basic Clean', price: '1000' },
-        { label: 'Kitchen Hood Master Clean', price: '2000' }
-      ]
-    },
-    103: {
-      title: 'Floor Deep Cleaning (4 Options)',
-      items: [
-        { label: 'Tiles', price: '৳3/Sft' },
-        { label: 'Mosaic', price: '৳4/Sft' },
-        { label: 'Marble', price: '৳5/Sft' },
-        { label: 'Wooden', price: '৳10/Sft' }
-      ]
-    },
-    104: {
-      title: 'Full Home Deep Cleaning',
-      items: [
-        { label: '800-1000 (2 bathroom+1 Balcony) ৳4,000', price: '' },
-        { label: '1001-1300 (3 Bathroom+2 balcony) ৳5,000', price: '' },
-        { label: '1301-1500 (4 bathroom+3 balcony) ৳6,000', price: '' },
-        { label: '1501-1700 (4 bathroom+4 balcony) ৳7,000', price: '' },
-        { label: '1701- (Get Quotation) ৳8,000', price: '' }
-      ]
-    },
-    105: {
-      title: 'Window Cleaning',
-      items: [
-        { label: 'Inside Window Cleaning (Minimum 5 Window)', price: '৳200' },
-        { label: 'Outside Window Cleaning (Minimum 5 Window)', price: '৳800' }
-      ]
-    },
-    106: {
-      title: 'Thai Glass Cleaning',
-      items: [
-        { label: 'Indoor Glass', price: '৳4/Sft' },
-        { label: 'Outdoor Glass', price: '৳8/Sft' }
-      ]
-    }
-  };
+const DETAILS = {
+  101: {
+    title: 'Bathroom Deep Cleaning',
+    items: [
+      { label: 'Only Bathroom = Floor + Wall + Single Basin + Single Pan/Commode + Mirror + ventilator', price: '1000' },
+      { label: 'Bathroom With Bathtub', price: '1200' },
+      { label: 'Bathroom With Shower Corner', price: '1500' },
+      { label: 'Bathroom With Bathtub & Shower Corner', price: '1600' }
+    ]
+  },
+  102: {
+    title: 'Kitchen Deep Cleaning Service',
+    items: [
+      { label: 'Only Kitchen = Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: '1500' },
+      { label: 'Kitchen Hood Basic Clean', price: '1000' },
+      { label: 'Kitchen Hood Master Clean', price: '2000' }
+    ]
+  },
+  103: {
+    title: 'Floor Deep Cleaning (4 Options)',
+    items: [
+      { label: 'Tiles', price: '৳3/Sft' },
+      { label: 'Mosaic', price: '৳4/Sft' },
+      { label: 'Marble', price: '৳5/Sft' },
+      { label: 'Wooden', price: '৳10/Sft' }
+    ]
+  },
+  104: {
+    title: 'Full Home Deep Cleaning',
+    items: [
+      { label: '800-1000 (2 bathroom+1 Balcony) ৳4,000', price: '' },
+      { label: '1001-1300 (3 Bathroom+2 balcony) ৳5,000', price: '' },
+      { label: '1301-1500 (4 bathroom+3 balcony) ৳6,000', price: '' },
+      { label: '1501-1700 (4 bathroom+4 balcony) ৳7,000', price: '' },
+      { label: '1701- (Get Quotation) ৳8,000', price: '' }
+    ]
+  },
+  105: {
+    title: 'Window Cleaning',
+    items: [
+      { label: 'Inside Window Cleaning (Minimum 5 Window)', price: '৳200' },
+      { label: 'Outside Window Cleaning (Minimum 5 Window)', price: '৳800' }
+    ]
+  },
+  106: {
+    title: 'Thai Glass Cleaning',
+    items: [
+      { label: 'Indoor Glass', price: '৳4/Sft' },
+      { label: 'Outdoor Glass', price: '৳8/Sft' }
+    ]
+  }
+};
 
+function DetailView({ id, onBack }) {
   const data = DETAILS[id] || { title: 'Details', items: [] };
 
   return (
-    <div style={{ marginTop: 16, background: '#071324', padding: 12, borderRadius: 10 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+    <div style={{ minHeight: 120 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
         <button onClick={onBack} style={{ background: 'transparent', border: 'none', color: '#cfeafd', fontSize: 18, cursor: 'pointer' }}>‹ Back</button>
         <div style={{ fontWeight: 900, fontSize: 18 }}>{data.title}</div>
         <div style={{ width: 48 }} />
