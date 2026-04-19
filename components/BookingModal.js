@@ -106,6 +106,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
   const [selTime, setSelTime] = useState(null);
   const [selectedIds, setSelectedIds] = useState(initialSelected ? [initialSelected] : []);
   const [form, setForm] = useState({ name: '', phone: '', address: '', notes: '' });
+  const [cleaningOpen, setCleaningOpen] = useState(true);
 
   const formValid = form.name.trim() && form.phone.trim() && form.address.trim();
 
@@ -258,8 +259,20 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
               <p className={styles.stepHint}>Select one or more services. You can choose multiple.</p>
               <div className={styles.serviceList}>
                 <div className={styles.serviceCategory}>
-                  <div className={styles.serviceCategoryTitle}>Cleaning Service</div>
-                  <div className={styles.serviceCategoryInner}>
+                  <div className={styles.serviceCategoryTitle}>
+                    <span>Cleaning Service</span>
+                    <button
+                      className={styles.collapseBtn}
+                      onClick={() => setCleaningOpen(v => !v)}
+                      aria-expanded={cleaningOpen}
+                      aria-controls="cleaning-subgroups"
+                      type="button"
+                    >
+                      {cleaningOpen ? '\u2212' : '\u002B'}
+                    </button>
+                  </div>
+                    {cleaningOpen && (
+                      <div id="cleaning-subgroups" className={styles.serviceCategoryInner}>
                     {['bathroom','kitchen','floor','fullhome','window','thaiglass'].map(gid => {
                       const group = SERVICE_GROUPS.find(x => x.id === gid);
                       if (!group) return null;
@@ -298,7 +311,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                         </div>
                       );
                     })}
-                  </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Render remaining top-level (other) services */}
