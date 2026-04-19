@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/BookingModal.module.css';
 import { useBooking } from '../contexts/BookingContext';
+import { DETAILS } from '../data/details';
 
 const SERVICES = [
   { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
@@ -71,10 +72,13 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     return digits ? parseInt(digits, 10) : 0;
   };
 
-  const pickedServices = effectivePreselected && effectivePreselected.length
-    ? effectivePreselected.map((it, idx) => ({ id: it.subId ? `${it.subId}_${it.idx}` : `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }))
-    : SERVICES.filter(s => selectedIds.includes(s.id));
+  // combine top-level selected services and selected detail items
+  const contextItems = bookingCtx ? bookingCtx.getSelectedItems() : [];
+  const sourceItems = (effectivePreselected && effectivePreselected.length) ? effectivePreselected : contextItems;
+  const servicesFromIds = SERVICES.filter(s => selectedIds.includes(s.id)).map(s => ({ id: s.id, name: s.name, price: s.price }));
+  const itemsFromSource = (sourceItems || []).map((it, idx) => ({ id: it.subId ? `${it.subId}_${it.idx}` : `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }));
 
+  const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
 
   function prevMonth() {
@@ -232,6 +236,33 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                     </div>
                   );
                 })}
+              </div>
+
+              {/* All detailed service lists (from DETAILS) */}
+              <div style={{ marginTop: 18 }}>
+                {Object.entries(DETAILS).map(([subId, group]) => (
+                  <div key={subId} style={{ marginBottom: 12 }}>
+                    <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 8 }}>{group.title || `Service ${subId}`}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {group.items.map((it, idx) => {
+                        const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
+                        return (
+                          <div key={idx} className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checked} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
+                            <div className={styles.serviceDetails}>
+                              <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
+                            </div>
+                            <div className={styles.serviceRight}>
+                              <span className={styles.servicePrice}>{it.price}</span>
+                              <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                {checked && '✓'}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <div className={styles.totalBar}>
