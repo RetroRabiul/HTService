@@ -3,6 +3,7 @@ import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import BookingModal from '../components/BookingModal';
+import SubserviceModal from '../components/SubserviceModal';
 
 const categories = [
   { icon: '🧹', label: 'Cleaning service' },
@@ -25,6 +26,7 @@ export default function Home() {
   const [confirmedBooking, setConfirmedBooking] = useState(null);
   const [initialServiceId, setInitialServiceId] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [showSubservice, setShowSubservice] = useState(false);
 
   function handleBook(data) {
     setConfirmedBooking(data);
@@ -113,8 +115,24 @@ export default function Home() {
                 className={styles.categoryTile}
                 role="button"
                 tabIndex={0}
-                onClick={() => setActiveCategory(prev => (prev === label ? null : label))}
-                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setActiveCategory(prev => (prev === label ? null : label))}
+                onClick={() => {
+                  if (label === 'Cleaning service') {
+                    setShowSubservice(true);
+                    setActiveCategory(label);
+                  } else {
+                    setActiveCategory(prev => (prev === label ? null : label));
+                  }
+                }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    if (label === 'Cleaning service') {
+                      setShowSubservice(true);
+                      setActiveCategory(label);
+                    } else {
+                      setActiveCategory(prev => (prev === label ? null : label));
+                    }
+                  }
+                }}
                 aria-pressed={activeCategory === label}
               >
                 <div className={styles.categoryIcon}>{icon}</div>
@@ -123,23 +141,17 @@ export default function Home() {
             ))}
           </div>
         </div>
-          {/* Subservice row for Cleaning service */}
-          {activeCategory === 'Cleaning service' && (
-            <div className={styles.subserviceRow}>
-              {[
-                'Bathroom Deep Cleaning',
-                'Kitchen Deep Cleaning Service',
-                'Floor Deep Cleaning (4 Options available)',
-                'Full Home Deep Cleaning',
-                'Window Cleaning',
-                'Thai Glass Cleaning (2 Options available)'
-              ].map(item => (
-                <button key={item} className={styles.subserviceItem} onClick={() => { setInitialServiceId(1); setBooking(true); }}>
-                  {item}
-                </button>
-              ))}
-            </div>
-          )}
+        {showSubservice && (
+          <SubserviceModal
+            onClose={() => setShowSubservice(false)}
+            onSelect={name => {
+              // For now map all cleaning subservices to the main Cleaning service id
+              setInitialServiceId(1);
+              setBooking(true);
+              setShowSubservice(false);
+            }}
+          />
+        )}
 
         {/* Popular Services */}
         <section className={styles.section}>
