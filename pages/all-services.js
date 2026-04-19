@@ -141,9 +141,7 @@ export default function AllServices() {
         </div>
       </main>
 
-      {navUnmounted && (
-        <button className={styles.restoreNav} onClick={() => setNavUnmounted(false)} aria-label="Restore main services">☰</button>
-      )}
+      {/* no restore button; left nav stays mounted */}
     </div>
   );
 }
