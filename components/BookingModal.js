@@ -26,7 +26,7 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-export default function BookingModal({ onClose, onBook, initialSelected = null }) {
+export default function BookingModal({ onClose, onBook, initialSelected = null, preselectedItems = null }) {
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -36,7 +36,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prev; };
   }, []);
-  const [step, setStep] = useState(initialSelected ? 2 : 1);
+  const [step, setStep] = useState(initialSelected ? 2 : (preselectedItems && preselectedItems.length ? 2 : 1));
   const [calYear, setCalYear] = useState(now.getFullYear());
   const [calMonth, setCalMonth] = useState(now.getMonth());
   const [selDate, setSelDate] = useState({ year: now.getFullYear(), month: now.getMonth(), day: now.getDate() });
@@ -58,8 +58,19 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
 
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);
-  const pickedServices = SERVICES.filter(s => selectedIds.includes(s.id));
-  const total = pickedServices.reduce((sum, s) => sum + s.price, 0);
+  // If the parent passed `preselectedItems`, treat them as the picked services for review
+  const parsePriceNum = (p) => {
+    if (!p && p !== 0) return 0;
+    if (typeof p === 'number') return p;
+    const digits = String(p).replace(/[^0-9]/g, '');
+    return digits ? parseInt(digits, 10) : 0;
+  };
+
+  const pickedServices = preselectedItems && preselectedItems.length
+    ? preselectedItems.map((it, idx) => ({ id: `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }))
+    : SERVICES.filter(s => selectedIds.includes(s.id));
+
+  const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
 
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }

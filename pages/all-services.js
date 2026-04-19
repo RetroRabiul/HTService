@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import BookingModal from '../components/BookingModal';
 import styles from '../styles/BookingModal.module.css';
 
 const MAIN_SERVICES = [
@@ -33,6 +34,22 @@ export default function AllServices() {
   const inDetail = detailFor !== null;
   const [openIds, setOpenIds] = useState([]);
   const [navCollapsed, setNavCollapsed] = useState(false);
+  // booking selections lifted to top-level: { [subId]: Set(indices) }
+  const [bookingSelections, setBookingSelections] = useState({});
+  const toggleSelection = (subId, idx) => {
+    setBookingSelections(prev => {
+      const copy = { ...prev };
+      const setFor = new Set(copy[subId] || []);
+      if (setFor.has(idx)) setFor.delete(idx);
+      else setFor.add(idx);
+      copy[subId] = Array.from(setFor);
+      // remove empty sets
+      if (copy[subId].length === 0) delete copy[subId];
+      return copy;
+    });
+  };
+  const clearAllSelections = () => setBookingSelections({});
+  const [showBookingModal, setShowBookingModal] = useState(false);
 
   // collapsed visual state when an item is expanded (controlled separately)
   const collapsed = navCollapsed;
@@ -139,12 +156,23 @@ export default function AllServices() {
 
                     {isOpen && (
                       <div style={{ marginTop: 10 }}>
-                        <DetailInline id={s.id} />
+                        <DetailInline id={s.id} selectedMap={(bookingSelections[s.id] || []).reduce((acc, i) => (acc[i]=true, acc), {})} onToggle={(idx) => toggleSelection(s.id, idx)} />
                       </div>
                     )}
                   </div>
                 );
               })}
+            </div>
+
+            {/* Booking button below the list */}
+            <div style={{ marginTop: 18 }}>
+              <button
+                className={styles.nextBtn}
+                disabled={Object.keys(bookingSelections).length === 0}
+                onClick={() => setShowBookingModal(true)}
+              >
+                Book Selected ({Object.values(bookingSelections).reduce((sum, arr) => sum + arr.length, 0)})
+              </button>
             </div>
 
           </section>
@@ -233,38 +261,51 @@ function DetailView({ id, onBack }) {
           </div>
         ))}
       </div>
+      {showBookingModal && (
+        <BookingModal
+          onClose={() => setShowBookingModal(false)}
+          onBook={(data) => {
+            // clear selections after booking
+            clearAllSelections();
+            setShowBookingModal(false);
+            console.log('Booked:', data);
+          }}
+          preselectedItems={Object.entries(bookingSelections).flatMap(([subId, arr]) => (
+            (arr || []).map(idx => ({ subId: Number(subId), label: (DETAILS[subId] && DETAILS[subId].items[idx] && DETAILS[subId].items[idx].label) || '', price: (DETAILS[subId] && DETAILS[subId].items[idx] && DETAILS[subId].items[idx].price) || '' }))
+          ))}
+        />
+      )}
     </div>
   );
 }
 
-function DetailInline({ id }) {
+function DetailInline({ id, selectedMap = {}, onToggle = () => {} }) {
   const data = DETAILS[id] || { title: 'Details', items: [] };
-  const [checkedMap, setCheckedMap] = useState({});
-  const toggleChecked = (idx) => {
-    setCheckedMap(prev => ({ ...prev, [idx]: !prev[idx] }));
-  };
   return (
     <div style={{ background: '#041220', padding: 12, borderRadius: 10, border: '1px solid rgba(255,255,255,0.03)' }}>
       <div style={{ fontWeight: 800, marginBottom: 8 }}>{data.title}</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {data.items.map((it, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '10px 8px', borderRadius: 8, background: '#071324' }}>
-            <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600, flex: 1 }}>{it.label}</div>
-            {it.price && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-                <button
-                  type="button"
-                  onClick={() => toggleChecked(i)}
-                  aria-pressed={!!checkedMap[i]}
-                  className={checkedMap[i] ? styles.checkboxChecked : styles.checkbox}
-                >
-                  {checkedMap[i] ? '✓' : ''}
-                </button>
-                <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>
-              </div>
-            )}
-          </div>
-        ))}
+        {data.items.map((it, i) => {
+          const checked = !!selectedMap[i];
+          return (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '10px 8px', borderRadius: 8, background: '#071324' }}>
+              <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600, flex: 1 }}>{it.label}</div>
+              {it.price && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                  <button
+                    type="button"
+                    onClick={() => onToggle(i)}
+                    aria-pressed={checked}
+                    className={checked ? styles.checkboxChecked : styles.checkbox}
+                  >
+                    {checked ? '✓' : ''}
+                  </button>
+                  <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
