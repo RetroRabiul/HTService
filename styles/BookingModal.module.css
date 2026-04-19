@@ -272,6 +272,26 @@
   margin-bottom: 14px;
 }
 
+.serviceGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.serviceGroupTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #9fb8d6;
+  padding: 6px 8px;
+}
+
+.nestedList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 6px;
+}
+
 .serviceItem {
   display: flex;
   align-items: center;
