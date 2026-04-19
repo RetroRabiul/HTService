@@ -207,66 +207,13 @@
   cursor: ew-resize;
 }
 
-.baHandle {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  height: 100%;
-  width: 44px; /* larger hit area */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
-  cursor: ew-resize;
-}
-
-.baHandle::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 8px;
-  transform: translateX(-50%);
-  width: 2px;
-  height: calc(100% - 16px);
-  background: rgba(255,255,255,0.85);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-  border-radius: 1px;
-}
-
 .baHandleDot {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.9) 100%);
-  border: 2px solid rgba(0,180,216,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
-  transition: transform 0.12s, box-shadow 0.12s;
+  width: 6px;
+  height: 36px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
-
-.baHandle:hover .baHandleDot,
-.baHandle:active .baHandleDot {
-  transform: scale(1.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
-}
-
-/* small horizontal bars inside the knob to indicate draggable */
-.baHandleDot::before,
-.baHandleDot::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 2.5px;
-  background: rgba(0,180,216,0.95);
-  border-radius: 2px;
-}
-.baHandleDot::before { top: 16px; }
-.baHandleDot::after { top: 26px; }
 
 .baRange {
   position: absolute;
@@ -275,8 +222,28 @@
   bottom: 8px;
   z-index: 30;
   width: calc(100% - 24px);
-  opacity: 0.95;
+  /* Hide native range visuals but keep element for keyboard/screen-reader access */
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  opacity: 0;
+  height: 2px;
+  pointer-events: none;
 }
+
+.baRange::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 2px;
+}
+.baRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+}
+.baRange::-moz-range-track { background: transparent; height: 2px; }
+.baRange::-moz-range-thumb { width: 0; height: 0; border: none; background: transparent; }
 
 .pairImages {
   display: flex;
