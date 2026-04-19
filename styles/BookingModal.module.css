@@ -440,6 +440,22 @@
   border: 1px solid rgba(255,255,255,0.02);
 }
 
+.groupChevron {
+  width: 36px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  color: #cfeafd;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.02);
+  cursor: pointer;
+}
+.groupChevronOpen {
+  transform: rotate(180deg);
+}
+
 .servicePrice {
   font-size: 13px;
   font-weight: 700;
