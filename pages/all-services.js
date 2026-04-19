@@ -12,10 +12,10 @@ const MAIN_SERVICES = [
     subs: [
       { id: 101, name: 'Bathroom Deep Cleaning', price: 800 },
       { id: 102, name: 'Kitchen Deep Cleaning Service', price: 1200 },
-      { id: 103, name: 'Floor Deep Cleaning (4 Options available)', price: 1500 },
+      { id: 103, name: 'Floor Deep Cleaning', price: 1500 },
       { id: 104, name: 'Full Home Deep Cleaning', price: 5000 },
       { id: 105, name: 'Window Cleaning', price: 700 },
-      { id: 106, name: 'Thai Glass Cleaning (2 Options available)', price: 900 }
+      { id: 106, name: 'Thai Glass Cleaning', price: 900 }
     ]
   },
   { id: 2, icon: '🦟', label: 'Pest control service', subs: [] },
