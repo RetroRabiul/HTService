@@ -292,6 +292,27 @@
   padding-left: 6px;
 }
 
+.serviceCategory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.serviceCategoryTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: #cfe8ff;
+  padding: 8px 6px;
+}
+
+.serviceCategoryInner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 6px;
+}
+
 .serviceItem {
   display: flex;
   align-items: center;

@@ -44,12 +44,18 @@ const SERVICE_GROUPS = [
   },
   {
     id: 'window',
-    name: 'Window & Glass Cleaning',
+    name: 'Window Cleaning',
     items: [
-      { id: 141, name: 'Inside Window (min 5)', desc: 'Inside window cleaning, minimum 5 windows', price: 200 },
-      { id: 142, name: 'Outside Window (min 5)', desc: 'Outside window cleaning, minimum 5 windows', price: 800 },
-      { id: 151, name: 'Thai Glass - Indoor (per Sft)', desc: 'Indoor glass cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
-      { id: 152, name: 'Thai Glass - Outdoor (per Sft)', desc: 'Outdoor glass cleaning', pricePerSft: 8, priceLabel: 'Tk 8/Sft' },
+      { id: 141, name: 'Inside Window Cleaning (min 5)', desc: 'Inside window cleaning, minimum 5 windows', price: 200 },
+      { id: 142, name: 'Outside Window Cleaning (min 5)', desc: 'Outside window cleaning, minimum 5 windows', price: 800 },
+    ],
+  },
+  {
+    id: 'thaiglass',
+    name: 'Thai Glass Cleaning',
+    items: [
+      { id: 151, name: 'Indoor Glass (per Sft)', desc: 'Indoor glass cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
+      { id: 152, name: 'Outdoor Glass (per Sft)', desc: 'Outdoor glass cleaning', pricePerSft: 8, priceLabel: 'Tk 8/Sft' },
     ],
   },
   {
@@ -251,7 +257,52 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
             <>
               <p className={styles.stepHint}>Select one or more services. You can choose multiple.</p>
               <div className={styles.serviceList}>
-                {SERVICE_GROUPS.map(group => (
+                <div className={styles.serviceCategory}>
+                  <div className={styles.serviceCategoryTitle}>Cleaning Service</div>
+                  <div className={styles.serviceCategoryInner}>
+                    {['bathroom','kitchen','floor','fullhome','window','thaiglass'].map(gid => {
+                      const group = SERVICE_GROUPS.find(x => x.id === gid);
+                      if (!group) return null;
+                      return (
+                        <div key={group.id} className={styles.serviceGroup}>
+                          <div className={styles.serviceGroupTitle}>{group.name}</div>
+                          <div className={styles.nestedList}>
+                            {group.items.map(s => {
+                              const checked = selectedIds.includes(s.id);
+                              return (
+                                <div
+                                  key={s.id}
+                                  className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                                  onClick={() => toggleService(s.id)}
+                                  role="checkbox"
+                                  aria-checked={checked}
+                                  tabIndex={0}
+                                  onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
+                                >
+                                  <div className={styles.serviceDetails}>
+                                    <span className={styles.serviceName}>{s.name}</span>
+                                    <span className={styles.serviceDesc}>{s.desc}</span>
+                                  </div>
+                                  <div className={styles.serviceRight}>
+                                    <span className={styles.servicePrice}>
+                                      {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                                    </span>
+                                    <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                      {checked && '✓'}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Render remaining top-level (other) services */}
+                {SERVICE_GROUPS.filter(g => g.id === 'other').map(group => (
                   <div key={group.id} className={styles.serviceGroup}>
                     <div className={styles.serviceGroupTitle}>{group.name}</div>
                     <div className={styles.nestedList}>
