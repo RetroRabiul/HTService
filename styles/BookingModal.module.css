@@ -42,10 +42,10 @@
 }
 
 .modal {
-  background: #1a1b2e;
-  border-radius: 16px;
+  background: #141420;
+  border-radius: 14px;
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   max-height: 90vh;
   overflow: hidden;
   display: flex;
@@ -67,8 +67,8 @@
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
   color: #fff;
   text-align: center;
 }
@@ -117,10 +117,10 @@
 
 /* ── Calendar ────────────────────────────── */
 .calendar {
-  background: #22243a;
+  background: linear-gradient(180deg, rgba(34,36,58,0.95), rgba(22,22,36,0.95));
   border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 12px;
+  margin-bottom: 14px;
 }
 
 .calHeader {
@@ -167,26 +167,27 @@
 }
 
 .calDay {
-  background: none;
+  background: transparent;
   border: none;
   color: #c9d0e0;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  margin: 1px auto;
+  margin: 2px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, transform 120ms;
 }
 .calDay:hover:not(:disabled) { background: rgba(0, 180, 216, 0.2); color: #fff; }
 
 .calSelected {
   background: #00B4D8 !important;
-  color: #fff !important;
-  font-weight: 700;
+  color: #06232a !important;
+  font-weight: 800;
+  box-shadow: 0 6px 14px rgba(0,180,216,0.18);
 }
 
 .calPast {
@@ -205,48 +206,49 @@
 .timeGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .timeSlot {
-  background: #22243a;
-  border: 1.5px solid #2e3050;
+  background: #171724;
+  border: 1px solid rgba(255,255,255,0.03);
   color: #c9d0e0;
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 10px 4px;
-  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 6px;
+  border-radius: 10px;
   cursor: pointer;
   text-align: center;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background 160ms, border-color 160ms, transform 120ms;
 }
-.timeSlot:hover { background: rgba(0,180,216,0.12); border-color: #00B4D8; color: #fff; }
+.timeSlot:hover { background: rgba(255,255,255,0.02); transform: translateY(-2px); }
 
 .timeSelected {
   background: #00B4D8 !important;
   border-color: #00B4D8 !important;
-  color: #fff !important;
-  font-weight: 600;
+  color: #06232a !important;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(0,180,216,0.18);
 }
 
 /* ── Buttons ─────────────────────────────── */
 .nextBtn {
   display: block;
   width: 100%;
-  padding: 15px;
-  background: #00B4D8;
-  color: #fff;
+  padding: 14px 18px;
+  background: linear-gradient(180deg,#00D6F0,#00B4D8);
+  color: #021b20;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: transform 140ms, box-shadow 140ms;
   margin-bottom: 14px;
 }
-.nextBtn:hover:not(:disabled) { background: #009abd; transform: translateY(-1px); }
-.nextBtn:disabled { background: #2a2c44; color: #4a4f6a; cursor: not-allowed; transform: none; }
+.nextBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,180,216,0.18); }
+.nextBtn:disabled { background: #2a2c44; color: #4a4f6a; cursor: not-allowed; transform: none; opacity: 0.7; }
 
 /* ── Footer Note ─────────────────────────── */
 .footerNote {
