@@ -313,12 +313,7 @@
   padding-left: 6px;
 }
 
-.otherServicesTitle {
-  font-size: 14px;
-  font-weight: 800;
-  color: #cfe8ff;
-  margin: 10px 6px 6px;
-}
+/* removed Other Services title - groups now render individually */
 
 .collapseBtn {
   margin-left: 8px;
