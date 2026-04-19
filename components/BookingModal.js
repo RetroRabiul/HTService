@@ -1,99 +1,13 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/BookingModal.module.css';
 
-const SERVICE_GROUPS = [
-  {
-    id: 'bathroom',
-    name: 'Bathroom Deep Clean',
-    items: [
-      { id: 101, name: 'Only Bathroom', desc: 'Floor + Wall + Single Basin + Single Pan/Commode + Mirror + Ventilator', price: 1000 },
-      { id: 102, name: 'With Bathtub', desc: 'Bathroom with bathtub', price: 1200 },
-      { id: 103, name: 'With Shower Corner', desc: 'Bathroom with shower corner', price: 1500 },
-      { id: 104, name: 'Bathtub & Shower Corner', desc: 'Bathtub & shower corner', price: 1600 },
-    ],
-  },
-  {
-    id: 'kitchen',
-    name: 'Kitchen Deep Clean',
-    items: [
-      { id: 111, name: 'Only Kitchen', desc: 'Floor + Wall + Sink + Outside Cabinet + Inside Window + Exhaust fan', price: 1500 },
-      { id: 112, name: 'Hood - Basic Clean', desc: 'Kitchen hood basic clean', price: 1000 },
-      { id: 113, name: 'Hood - Master Clean', desc: 'Kitchen hood master clean', price: 2000 },
-    ],
-  },
-  {
-    id: 'floor',
-    name: 'Floor Deep Cleaning (per Sft)',
-    items: [
-      { id: 121, name: 'Tiles', desc: 'Tiles deep cleaning', pricePerSft: 3, priceLabel: 'Tk 3/Sft' },
-      { id: 122, name: 'Mosaic', desc: 'Mosaic deep cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
-      { id: 123, name: 'Marble', desc: 'Marble deep cleaning', pricePerSft: 5, priceLabel: 'Tk 5/Sft' },
-      { id: 124, name: 'Wooden', desc: 'Wooden floor deep cleaning', pricePerSft: 10, priceLabel: 'Tk 10/Sft' },
-    ],
-  },
-  {
-    id: 'fullhome',
-    name: 'Full Home Deep Cleaning',
-    items: [
-      { id: 131, name: '800-1000 (2 bathroom+1 Balcony)', desc: '', price: 4000 },
-      { id: 132, name: '1001-1300 (3 bathroom+2 Balcony)', desc: '', price: 5000 },
-      { id: 133, name: '1301-1500 (4 bathroom+3 Balcony)', desc: '', price: 6000 },
-      { id: 134, name: '1501-1700 (4 bathroom+4 Balcony)', desc: '', price: 7000 },
-      { id: 135, name: '1701+ (Get Quotation)', desc: '', price: 8000 },
-    ],
-  },
-  {
-    id: 'window',
-    name: 'Window Cleaning',
-    items: [
-      { id: 141, name: 'Inside Window Cleaning (min 5)', desc: 'Inside window cleaning, minimum 5 windows', price: 200 },
-      { id: 142, name: 'Outside Window Cleaning (min 5)', desc: 'Outside window cleaning, minimum 5 windows', price: 800 },
-    ],
-  },
-  {
-    id: 'thaiglass',
-    name: 'Thai Glass Cleaning',
-    items: [
-      { id: 151, name: 'Indoor Glass (per Sft)', desc: 'Indoor glass cleaning', pricePerSft: 4, priceLabel: 'Tk 4/Sft' },
-      { id: 152, name: 'Outdoor Glass (per Sft)', desc: 'Outdoor glass cleaning', pricePerSft: 8, priceLabel: 'Tk 8/Sft' },
-    ],
-  },
-  {
-    id: 'pest',
-    name: 'Pest control service',
-    items: [
-      { id: 201, name: 'Mosquito Treatment (single)', desc: 'Standard mosquito treatment for single room', price: 1200 },
-      { id: 202, name: 'Home Spray (standard)', desc: 'Whole-home spray treatment', price: 1800 },
-      { id: 203, name: 'Rodent Control', desc: 'Rodent baiting and inspection', price: 2500 },
-    ],
-  },
-  {
-    id: 'shifting',
-    name: 'Shifting Service',
-    items: [
-      { id: 211, name: 'Local Moving', desc: 'Local small-load moving', price: 2500 },
-      { id: 212, name: 'Full Packing & Shift', desc: 'Packing, loading and shifting assistance', price: 4500 },
-    ],
-  },
-  {
-    id: 'ac',
-    name: 'AC Service',
-    items: [
-      { id: 221, name: 'AC Maintenance', desc: 'AC maintenance and servicing', price: 2500 },
-      { id: 222, name: 'AC Gas Refill', desc: 'Gas refill and leak check', price: 3200 },
-    ],
-  },
-  {
-    id: 'construction',
-    name: 'Construction Service',
-    items: [
-      { id: 231, name: 'Post-construction - Small', desc: 'Light debris removal + cleaning', price: 3500 },
-      { id: 232, name: 'Post-construction - Large', desc: 'Heavy debris removal + deep clean', price: 6000 },
-    ],
-  },
+const SERVICES = [
+  { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
+  { id: 2, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
+  { id: 3, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
+  { id: 4, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
+  { id: 5, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
 ];
-
-const ALL_SERVICES = SERVICE_GROUPS.flatMap(g => g.items);
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -129,16 +43,6 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
   const [selTime, setSelTime] = useState(null);
   const [selectedIds, setSelectedIds] = useState(initialSelected ? [initialSelected] : []);
   const [form, setForm] = useState({ name: '', phone: '', address: '', notes: '' });
-  const [cleaningOpen, setCleaningOpen] = useState(true);
-  const [openGroups, setOpenGroups] = useState(() => {
-    const map = {};
-    SERVICE_GROUPS.forEach(g => { map[g.id] = true; });
-    return map;
-  });
-
-  function toggleGroup(id) {
-    setOpenGroups(prev => ({ ...prev, [id]: !prev[id] }));
-  }
 
   const formValid = form.name.trim() && form.phone.trim() && form.address.trim();
 
@@ -154,11 +58,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
 
   const numDays = getDaysInMonth(calYear, calMonth);
   const startDay = getFirstDay(calYear, calMonth);
-  const pickedServices = ALL_SERVICES.filter(s => selectedIds.includes(s.id));
-  const total = pickedServices.reduce((sum, s) => {
-    if (typeof s.price === 'number') return sum + s.price;
-    return sum; // skip per-sqft or unknown-priced items from automatic total
-  }, 0);
+  const pickedServices = SERVICES.filter(s => selectedIds.includes(s.id));
+  const total = pickedServices.reduce((sum, s) => sum + s.price, 0);
 
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
@@ -290,119 +191,31 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
             <>
               <p className={styles.stepHint}>Select one or more services. You can choose multiple.</p>
               <div className={styles.serviceList}>
-                <div className={styles.serviceCategory}>
-                  <div className={styles.serviceCategoryTitle}>
-                    <span>Cleaning Service</span>
-                    <button
-                      className={styles.collapseBtn}
-                      onClick={() => setCleaningOpen(v => !v)}
-                      aria-expanded={cleaningOpen}
-                      aria-controls="cleaning-subgroups"
-                      type="button"
+                {SERVICES.map(s => {
+                  const checked = selectedIds.includes(s.id);
+                  return (
+                    <div
+                      key={s.id}
+                      className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                      onClick={() => toggleService(s.id)}
+                      role="checkbox"
+                      aria-checked={checked}
+                      tabIndex={0}
+                      onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
                     >
-                      <span className={styles.caret} aria-hidden>
-                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <polyline points="6,4 12,10 6,16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                    {cleaningOpen && (
-                      <div id="cleaning-subgroups" className={styles.serviceCategoryInner}>
-                        {['bathroom','kitchen','floor','fullhome','window','thaiglass'].map(gid => {
-                          const group = SERVICE_GROUPS.find(x => x.id === gid);
-                          if (!group) return null;
-                          return (
-                            <div key={group.id} className={styles.serviceGroup}>
-                              <div className={styles.serviceGroupTitle}>{group.name}</div>
-                              <div className={styles.nestedList}>
-                                {group.items.map(s => {
-                                  const checked = selectedIds.includes(s.id);
-                                  return (
-                                    <div
-                                      key={s.id}
-                                      className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                                      onClick={() => toggleService(s.id)}
-                                      role="checkbox"
-                                      aria-checked={checked}
-                                      tabIndex={0}
-                                      onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
-                                    >
-                                      <div className={styles.serviceDetails}>
-                                        <span className={styles.serviceName}>{s.name}</span>
-                                        <span className={styles.serviceDesc}>{s.desc}</span>
-                                      </div>
-                                      <div className={styles.serviceRight}>
-                                        <span className={styles.servicePrice}>
-                                          {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                                        </span>
-                                        <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                          {checked && '✓'}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          );
-                        })}
+                      <div className={styles.serviceDetails}>
+                        <span className={styles.serviceName}>{s.name}</span>
+                        <span className={styles.serviceDesc}>{s.desc}</span>
                       </div>
-                    )}
-                  </div>
-
-                {/* Remaining service groups rendered below (no separate 'Other Services' title) */}
-                {SERVICE_GROUPS.filter(g => !['bathroom','kitchen','floor','fullhome','window','thaiglass'].includes(g.id)).map(group => (
-                  <div key={group.id} className={styles.serviceGroup}>
-                    <div className={styles.serviceGroupTitle}>
-                      <span>{group.name}</span>
-                      <button
-                        className={styles.collapseBtn}
-                        onClick={() => toggleGroup(group.id)}
-                        aria-expanded={!!openGroups[group.id]}
-                        aria-controls={`grp-${group.id}`}
-                        type="button"
-                      >
-                        <span className={styles.caret} aria-hidden>
-                          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <polyline points="6,4 12,10 6,16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                      </button>
+                      <div className={styles.serviceRight}>
+                        <span className={styles.servicePrice}>Tk {s.price.toLocaleString()}</span>
+                        <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                          {checked && '✓'}
+                        </div>
+                      </div>
                     </div>
-                    {openGroups[group.id] && (
-                      <div id={`grp-${group.id}`} className={styles.nestedList}>
-                        {group.items.map(s => {
-                          const checked = selectedIds.includes(s.id);
-                          return (
-                            <div
-                              key={s.id}
-                              className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                              onClick={() => toggleService(s.id)}
-                              role="checkbox"
-                              aria-checked={checked}
-                              tabIndex={0}
-                              onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
-                            >
-                              <div className={styles.serviceDetails}>
-                                <span className={styles.serviceName}>{s.name}</span>
-                                <span className={styles.serviceDesc}>{s.desc}</span>
-                              </div>
-                              <div className={styles.serviceRight}>
-                                <span className={styles.servicePrice}>
-                                  {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                                </span>
-                                <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                  {checked && '✓'}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               <div className={styles.totalBar}>
@@ -444,9 +257,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                 {pickedServices.map(s => (
                   <div key={s.id} className={styles.reviewRow}>
                     <span>{s.name}</span>
-                    <span className={styles.reviewPrice}>
-                      {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                    </span>
+                    <span className={styles.reviewPrice}>Tk {s.price.toLocaleString()}</span>
                   </div>
                 ))}
                 <div className={[styles.reviewRow, styles.reviewTotal].join(' ')}>

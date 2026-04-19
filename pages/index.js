@@ -47,9 +47,7 @@ export default function Home() {
                   {confirmedBooking.services.map(s => (
                     <li key={s.id} className={styles.bookingServiceItem}>
                       <span>{s.name}</span>
-                      <span className={styles.bookingServicePrice}>
-                        {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                      </span>
+                      <span className={styles.bookingServicePrice}>Tk {s.price.toLocaleString()}</span>
                     </li>
                   ))}
                 </ul>

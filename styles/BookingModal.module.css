@@ -42,10 +42,10 @@
 }
 
 .modal {
-  background: #141420;
-  border-radius: 14px;
+  background: #1a1b2e;
+  border-radius: 16px;
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   max-height: 90vh;
   overflow: hidden;
   display: flex;
@@ -67,8 +67,8 @@
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 700;
   color: #fff;
   text-align: center;
 }
@@ -117,10 +117,10 @@
 
 /* ── Calendar ────────────────────────────── */
 .calendar {
-  background: linear-gradient(180deg, rgba(34,36,58,0.95), rgba(22,22,36,0.95));
+  background: #22243a;
   border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
 }
 
 .calHeader {
@@ -167,27 +167,26 @@
 }
 
 .calDay {
-  background: transparent;
+  background: none;
   border: none;
   color: #c9d0e0;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  margin: 2px auto;
+  margin: 1px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s, transform 120ms;
+  transition: background 0.15s, color 0.15s;
 }
 .calDay:hover:not(:disabled) { background: rgba(0, 180, 216, 0.2); color: #fff; }
 
 .calSelected {
   background: #00B4D8 !important;
-  color: #06232a !important;
-  font-weight: 800;
-  box-shadow: 0 6px 14px rgba(0,180,216,0.18);
+  color: #fff !important;
+  font-weight: 700;
 }
 
 .calPast {
@@ -206,49 +205,48 @@
 .timeGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
 .timeSlot {
-  background: #171724;
-  border: 1px solid rgba(255,255,255,0.03);
+  background: #22243a;
+  border: 1.5px solid #2e3050;
   color: #c9d0e0;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 12px 6px;
-  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 10px 4px;
+  border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  transition: background 160ms, border-color 160ms, transform 120ms;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.timeSlot:hover { background: rgba(255,255,255,0.02); transform: translateY(-2px); }
+.timeSlot:hover { background: rgba(0,180,216,0.12); border-color: #00B4D8; color: #fff; }
 
 .timeSelected {
   background: #00B4D8 !important;
   border-color: #00B4D8 !important;
-  color: #06232a !important;
-  font-weight: 900;
-  box-shadow: 0 8px 18px rgba(0,180,216,0.18);
+  color: #fff !important;
+  font-weight: 600;
 }
 
 /* ── Buttons ─────────────────────────────── */
 .nextBtn {
   display: block;
   width: 100%;
-  padding: 14px 18px;
-  background: linear-gradient(180deg,#00D6F0,#00B4D8);
-  color: #021b20;
+  padding: 15px;
+  background: #00B4D8;
+  color: #fff;
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: transform 140ms, box-shadow 140ms;
+  transition: background 0.2s, transform 0.15s;
   margin-bottom: 14px;
 }
-.nextBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,180,216,0.18); }
-.nextBtn:disabled { background: #2a2c44; color: #4a4f6a; cursor: not-allowed; transform: none; opacity: 0.7; }
+.nextBtn:hover:not(:disabled) { background: #009abd; transform: translateY(-1px); }
+.nextBtn:disabled { background: #2a2c44; color: #4a4f6a; cursor: not-allowed; transform: none; }
 
 /* ── Footer Note ─────────────────────────── */
 .footerNote {
@@ -273,71 +271,6 @@
   gap: 8px;
   margin-bottom: 14px;
 }
-
-.serviceGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.serviceGroupTitle {
-  font-size: 13px;
-  font-weight: 700;
-  color: #9fb8d6;
-  padding: 6px 8px;
-}
-
-.nestedList {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-left: 6px;
-}
-
-.serviceCategory {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.serviceCategoryTitle {
-.serviceCategoryTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 800;
-  color: #cfe8ff;
-  padding: 8px 6px;
-}
-
-.serviceCategoryInner {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-left: 6px;
-}
-
-/* removed Other Services title - groups now render individually */
-
-.collapseBtn {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: #9fb8d6;
-  font-weight: 700;
-  min-width: 36px;
-  height: 34px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  transition: background 140ms, transform 140ms, border-color 140ms;
-}
-.collapseBtn:hover { background: rgba(255,255,255,0.03); transform: translateY(-1px); }
 
 .serviceItem {
   display: flex;
@@ -368,29 +301,10 @@
 
 .serviceName {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
 }
 
-.serviceGroupTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 10px;
-}
-.serviceGroupTitle > span {
-  font-size: 14px;
-  font-weight: 700;
-  color: #cfe8ff;
-}
-
-/* group header card look */
-.serviceCategoryTitle, .serviceGroupTitle {
-  background: rgba(255,255,255,0.02);
-  border-radius: 10px;
-  padding: 10px 12px;
-}
 .serviceDesc {
   font-size: 12px;
   color: #6b7280;
@@ -425,11 +339,6 @@
   transition: background 0.15s, border-color 0.15s;
   flex-shrink: 0;
 }
-
-/* caret (chevron) styles */
-.caret svg { display: block; transition: transform 220ms cubic-bezier(.2,.9,.2,1), color 160ms; transform-origin: 50% 50%; }
-.collapseBtn[aria-expanded="true"] .caret svg { transform: rotate(90deg); color: #00B4D8; }
-.collapseBtn[aria-expanded="false"] .caret svg { transform: rotate(0deg); color: #9fb8d6; }
 
 .checkboxChecked {
   background: #00B4D8;
@@ -668,38 +577,20 @@
   line-height: 1.6;
   margin-bottom: 28px;
   max-width: 300px;
-.collapseBtn {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: #cfe8ff;
-  min-width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  transition: background 160ms, transform 160ms;
-}
-.collapseBtn:hover { background: rgba(255,255,255,0.04); transform: translateY(-1px); }
-
-.collapseBtn:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,180,216,0.12); }
-
-.caret svg {
-  display: block;
-  color: #00B4D8;
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), color 160ms;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* rotate chevron when expanded (pointing down) */
-.collapseBtn[aria-expanded="true"] .caret svg {
-  transform: rotate(90deg);
-  color: #00B4D8;
-}
+/* ── Mobile ──────────────────────────────── */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
 
-/* smaller subtle header spacing for compact look */
-.serviceList { padding-top: 6px; }
+  .modal {
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
     width: 100%;
   }
 
