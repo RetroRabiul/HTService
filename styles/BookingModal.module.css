@@ -154,6 +154,20 @@
 }
 .backBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
+/* prominent header back shown when list is collapsed */
+.headerBackProminent {
+  background: #00B4D8;
+  color: #04232f;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,180,216,0.12);
+}
+.headerBackProminent:hover { filter: brightness(0.95); }
+
 .closeBtn {
   position: absolute;
   right: 14px;
