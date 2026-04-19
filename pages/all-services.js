@@ -40,8 +40,8 @@ export default function AllServices() {
   // title style: smaller and wraps up to two lines when two-column (nav visible),
   // medium and single-line with ellipsis when collapsed.
   const titleStyle = collapsed
-    ? { marginTop: 0, fontSize: 20, fontWeight: 800, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
-    : { marginTop: 0, fontSize: 16, fontWeight: 800, lineHeight: 1.1, whiteSpace: 'normal', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' };
+    ? { marginTop: 0, fontSize: 20, fontWeight: 800, lineHeight: 1.05, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#ffffff' }
+    : { marginTop: 0, fontSize: 16, fontWeight: 800, lineHeight: 1.1, whiteSpace: 'normal', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', color: '#cfeafd' };
 
   // helper to split label into two lines (first word and rest)
   function renderLabelSplit(label) {
