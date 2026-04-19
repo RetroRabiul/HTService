@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import BookingModal from '../components/BookingModal';
+import { useBooking } from '../contexts/BookingContext';
+import { DETAILS } from '../data/details';
 import styles from '../styles/BookingModal.module.css';
 
 const MAIN_SERVICES = [
@@ -34,21 +36,8 @@ export default function AllServices() {
   const inDetail = detailFor !== null;
   const [openIds, setOpenIds] = useState([]);
   const [navCollapsed, setNavCollapsed] = useState(false);
-  // booking selections lifted to top-level: { [subId]: Set(indices) }
-  const [bookingSelections, setBookingSelections] = useState({});
-  const toggleSelection = (subId, idx) => {
-    setBookingSelections(prev => {
-      const copy = { ...prev };
-      const setFor = new Set(copy[subId] || []);
-      if (setFor.has(idx)) setFor.delete(idx);
-      else setFor.add(idx);
-      copy[subId] = Array.from(setFor);
-      // remove empty sets
-      if (copy[subId].length === 0) delete copy[subId];
-      return copy;
-    });
-  };
-  const clearAllSelections = () => setBookingSelections({});
+  // use global booking context for persistent selections
+  const { selections: bookingSelections, toggleSelection, clearSelections, getSelectedCount, getSelectedItems } = useBooking();
   const [showBookingModal, setShowBookingModal] = useState(false);
 
   // collapsed visual state when an item is expanded (controlled separately)
@@ -168,10 +157,10 @@ export default function AllServices() {
             <div style={{ marginTop: 18 }}>
               <button
                 className={styles.nextBtn}
-                disabled={Object.keys(bookingSelections).length === 0}
+                disabled={getSelectedCount() === 0}
                 onClick={() => setShowBookingModal(true)}
               >
-                Book Selected ({Object.values(bookingSelections).reduce((sum, arr) => sum + arr.length, 0)})
+                Book Selected ({getSelectedCount()})
               </button>
             </div>
 
@@ -266,13 +255,11 @@ function DetailView({ id, onBack }) {
           onClose={() => setShowBookingModal(false)}
           onBook={(data) => {
             // clear selections after booking
-            clearAllSelections();
+            clearSelections();
             setShowBookingModal(false);
             console.log('Booked:', data);
           }}
-          preselectedItems={Object.entries(bookingSelections).flatMap(([subId, arr]) => (
-            (arr || []).map(idx => ({ subId: Number(subId), label: (DETAILS[subId] && DETAILS[subId].items[idx] && DETAILS[subId].items[idx].label) || '', price: (DETAILS[subId] && DETAILS[subId].items[idx] && DETAILS[subId].items[idx].price) || '' }))
-          ))}
+          preselectedItems={getSelectedItems()}
         />
       )}
     </div>

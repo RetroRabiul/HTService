@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/BookingModal.module.css';
+import { useBooking } from '../contexts/BookingContext';
 
 const SERVICES = [
   { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
@@ -27,6 +28,10 @@ function getFirstDay(year, month) {
 }
 
 export default function BookingModal({ onClose, onBook, initialSelected = null, preselectedItems = null }) {
+  const bookingCtx = useBooking();
+  // if parent didn't pass preselectedItems, read from context
+  const contextItems = bookingCtx ? bookingCtx.getSelectedItems() : [];
+  const effectivePreselected = (preselectedItems && preselectedItems.length) ? preselectedItems : contextItems;
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -36,7 +41,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prev; };
   }, []);
-  const [step, setStep] = useState(initialSelected ? 2 : (preselectedItems && preselectedItems.length ? 2 : 1));
+  const [step, setStep] = useState(initialSelected ? 2 : (effectivePreselected && effectivePreselected.length ? 2 : 1));
   const [calYear, setCalYear] = useState(now.getFullYear());
   const [calMonth, setCalMonth] = useState(now.getMonth());
   const [selDate, setSelDate] = useState({ year: now.getFullYear(), month: now.getMonth(), day: now.getDate() });
@@ -66,8 +71,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     return digits ? parseInt(digits, 10) : 0;
   };
 
-  const pickedServices = preselectedItems && preselectedItems.length
-    ? preselectedItems.map((it, idx) => ({ id: `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }))
+  const pickedServices = effectivePreselected && effectivePreselected.length
+    ? effectivePreselected.map((it, idx) => ({ id: it.subId ? `${it.subId}_${it.idx}` : `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }))
     : SERVICES.filter(s => selectedIds.includes(s.id));
 
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
