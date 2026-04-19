@@ -59,13 +59,36 @@ const SERVICE_GROUPS = [
     ],
   },
   {
-    id: 'other',
-    name: 'Other Services',
+    id: 'pest',
+    name: 'Pest control service',
     items: [
-      { id: 201, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
-      { id: 202, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
-      { id: 203, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
-      { id: 204, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
+      { id: 201, name: 'Mosquito Treatment (single)', desc: 'Standard mosquito treatment for single room', price: 1200 },
+      { id: 202, name: 'Home Spray (standard)', desc: 'Whole-home spray treatment', price: 1800 },
+      { id: 203, name: 'Rodent Control', desc: 'Rodent baiting and inspection', price: 2500 },
+    ],
+  },
+  {
+    id: 'shifting',
+    name: 'Shifting Service',
+    items: [
+      { id: 211, name: 'Local Moving', desc: 'Local small-load moving', price: 2500 },
+      { id: 212, name: 'Full Packing & Shift', desc: 'Packing, loading and shifting assistance', price: 4500 },
+    ],
+  },
+  {
+    id: 'ac',
+    name: 'AC Service',
+    items: [
+      { id: 221, name: 'AC Maintenance', desc: 'AC maintenance and servicing', price: 2500 },
+      { id: 222, name: 'AC Gas Refill', desc: 'Gas refill and leak check', price: 3200 },
+    ],
+  },
+  {
+    id: 'construction',
+    name: 'Construction Service',
+    items: [
+      { id: 231, name: 'Post-construction - Small', desc: 'Light debris removal + cleaning', price: 3500 },
+      { id: 232, name: 'Post-construction - Large', desc: 'Heavy debris removal + deep clean', price: 6000 },
     ],
   },
 ];
@@ -315,41 +338,46 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                   )}
                 </div>
 
-                {/* Render remaining top-level (other) services */}
-                {SERVICE_GROUPS.filter(g => g.id === 'other').map(group => (
-                  <div key={group.id} className={styles.serviceGroup}>
-                    <div className={styles.serviceGroupTitle}>{group.name}</div>
-                    <div className={styles.nestedList}>
-                      {group.items.map(s => {
-                        const checked = selectedIds.includes(s.id);
-                        return (
-                          <div
-                            key={s.id}
-                            className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                            onClick={() => toggleService(s.id)}
-                            role="checkbox"
-                            aria-checked={checked}
-                            tabIndex={0}
-                            onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
-                          >
-                            <div className={styles.serviceDetails}>
-                              <span className={styles.serviceName}>{s.name}</span>
-                              <span className={styles.serviceDesc}>{s.desc}</span>
-                            </div>
-                            <div className={styles.serviceRight}>
-                              <span className={styles.servicePrice}>
-                                {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
-                              </span>
-                              <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                {checked && '✓'}
+                {/* Render 'Other Services' section title */}
+                <div className={styles.otherServicesTitle}>Other Services</div>
+                {['pest','shifting','ac','construction'].map(gid => {
+                  const group = SERVICE_GROUPS.find(x => x.id === gid);
+                  if (!group) return null;
+                  return (
+                    <div key={group.id} className={styles.serviceGroup}>
+                      <div className={styles.serviceGroupTitle}>{group.name}</div>
+                      <div className={styles.nestedList}>
+                        {group.items.map(s => {
+                          const checked = selectedIds.includes(s.id);
+                          return (
+                            <div
+                              key={s.id}
+                              className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
+                              onClick={() => toggleService(s.id)}
+                              role="checkbox"
+                              aria-checked={checked}
+                              tabIndex={0}
+                              onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
+                            >
+                              <div className={styles.serviceDetails}>
+                                <span className={styles.serviceName}>{s.name}</span>
+                                <span className={styles.serviceDesc}>{s.desc}</span>
+                              </div>
+                              <div className={styles.serviceRight}>
+                                <span className={styles.servicePrice}>
+                                  {typeof s.price === 'number' ? `Tk ${s.price.toLocaleString()}` : (s.priceLabel || 'Price on request')}
+                                </span>
+                                <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                  {checked && '✓'}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               <div className={styles.totalBar}>
