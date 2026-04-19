@@ -41,6 +41,8 @@ export default function BeforeAfter({ beforeSrc, afterSrc, alt }) {
 
   return (
     <div className={styles.baContainer} ref={containerRef}>
+      <div className={styles.baLabelLeft} aria-hidden="true">Before</div>
+      <div className={styles.baLabelRight} aria-hidden="true">After</div>
       <div className={styles.baImageAfter}>
         <Image src={afterSrc} alt={alt + ' after'} fill style={{ objectFit: 'cover' }} />
       </div>

@@ -245,6 +245,27 @@
 .baRange::-moz-range-track { background: transparent; height: 2px; }
 .baRange::-moz-range-thumb { width: 0; height: 0; border: none; background: transparent; }
 
+/* Labels for before/after */
+.baLabelLeft,
+.baLabelRight {
+  position: absolute;
+  top: 10px;
+  z-index: 40;
+  font-size: 13px;
+  font-weight: 700;
+  color: #004080;
+  background: rgba(255,255,255,0.94);
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.07);
+}
+.baLabelLeft { left: 12px; }
+.baLabelRight { right: 12px; }
+
+@media (max-width: 640px) {
+  .baLabelLeft, .baLabelRight { font-size: 12px; padding: 5px 8px; top: 8px; }
+}
+
 .pairImages {
   display: flex;
   width: 100%;
