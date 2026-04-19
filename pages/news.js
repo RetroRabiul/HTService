@@ -1,6 +1,7 @@
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/News.module.css';
+import BeforeAfter from '../components/BeforeAfter';
 
 export default function News() {
   const articles = [
@@ -179,14 +180,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
           <div className={styles.beforeAfterGrid}>
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <div className={styles.pairImages}>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/sofa_before.png" afterSrc="/info/sofa_after.png" alt="Sofa" />
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
@@ -195,14 +189,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <div className={styles.pairImages}>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/kitchen_before.png" afterSrc="/info/kitchen_after.png" alt="Kitchen" />
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
@@ -211,14 +198,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
             <div className={styles.beforeAfterCard}>
               <div className={styles.beforeAfterImageWrap}>
-                <div className={styles.pairImages}>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={styles.pairImgWrap}>
-                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/stove_before.jpeg" afterSrc="/info/stove_after.jpeg" alt="Stove" />
               </div>
               <div className={styles.beforeAfterCaption}>
                 <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.

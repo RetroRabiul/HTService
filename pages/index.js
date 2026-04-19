@@ -3,6 +3,7 @@ import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import newsStyles from '../styles/News.module.css';
+import BeforeAfter from '../components/BeforeAfter';
 import BookingModal from '../components/BookingModal';
 import ServicesModal from '../components/ServicesModal';
 
@@ -185,14 +186,7 @@ export default function Home() {
           <div className={newsStyles.beforeAfterGrid}>
             <div className={newsStyles.beforeAfterCard}>
               <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/sofa_before.png" alt="Sofa before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/sofa_after.png" alt="Sofa after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/sofa_before.png" afterSrc="/info/sofa_after.png" alt="Sofa" />
               </div>
               <div className={newsStyles.beforeAfterCaption}>
                 <strong>Sofa Deep Clean:</strong> Stains and grime removed, fabric revitalized.
@@ -201,14 +195,7 @@ export default function Home() {
 
             <div className={newsStyles.beforeAfterCard}>
               <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/kitchen_before.png" alt="Kitchen before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/kitchen_after.png" alt="Kitchen after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/kitchen_before.png" afterSrc="/info/kitchen_after.png" alt="Kitchen" />
               </div>
               <div className={newsStyles.beforeAfterCaption}>
                 <strong>Tile & Counter Cleaning:</strong> Mold and grease cleared, surfaces sanitized.
@@ -217,14 +204,7 @@ export default function Home() {
 
             <div className={newsStyles.beforeAfterCard}>
               <div className={newsStyles.beforeAfterImageWrap}>
-                <div className={newsStyles.pairImages}>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/stove_before.jpeg" alt="Stove before" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                  <div className={newsStyles.pairImgWrap}>
-                    <Image src="/info/stove_after.jpeg" alt="Stove after" fill style={{ objectFit: 'cover' }} />
-                  </div>
-                </div>
+                <BeforeAfter beforeSrc="/info/stove_before.jpeg" afterSrc="/info/stove_after.jpeg" alt="Stove" />
               </div>
               <div className={newsStyles.beforeAfterCaption}>
                 <strong>Stove Restoration:</strong> Heavy carbon deposits removed, safe to use.
