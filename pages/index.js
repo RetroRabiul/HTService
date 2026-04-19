@@ -3,7 +3,7 @@ import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import BookingModal from '../components/BookingModal';
-import SubserviceModal from '../components/SubserviceModal';
+import ServicesModal from '../components/ServicesModal';
 
 const categories = [
   { icon: '🧹', label: 'Cleaning service' },
@@ -26,7 +26,7 @@ export default function Home() {
   const [confirmedBooking, setConfirmedBooking] = useState(null);
   const [initialServiceId, setInitialServiceId] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
-  const [showSubservice, setShowSubservice] = useState(false);
+  const [showServicesModal, setShowServicesModal] = useState(false);
 
   function handleBook(data) {
     setConfirmedBooking(data);
@@ -116,21 +116,13 @@ export default function Home() {
                 role="button"
                 tabIndex={0}
                 onClick={() => {
-                  if (label === 'Cleaning service') {
-                    setShowSubservice(true);
-                    setActiveCategory(label);
-                  } else {
-                    setActiveCategory(prev => (prev === label ? null : label));
-                  }
+                  setActiveCategory(label);
+                  setShowServicesModal(true);
                 }}
                 onKeyDown={e => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    if (label === 'Cleaning service') {
-                      setShowSubservice(true);
-                      setActiveCategory(label);
-                    } else {
-                      setActiveCategory(prev => (prev === label ? null : label));
-                    }
+                    setActiveCategory(label);
+                    setShowServicesModal(true);
                   }
                 }}
                 aria-pressed={activeCategory === label}
@@ -141,14 +133,13 @@ export default function Home() {
             ))}
           </div>
         </div>
-        {showSubservice && (
-          <SubserviceModal
-            onClose={() => setShowSubservice(false)}
+        {showServicesModal && (
+          <ServicesModal
+            onClose={() => setShowServicesModal(false)}
             onSelect={svc => {
-              // Map selected subservice to BookingModal by id
               setInitialServiceId(svc.id);
               setBooking(true);
-              setShowSubservice(false);
+              setShowServicesModal(false);
             }}
           />
         )}
