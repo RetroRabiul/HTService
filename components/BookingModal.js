@@ -300,7 +300,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                       aria-controls="cleaning-subgroups"
                       type="button"
                     >
-                      {cleaningOpen ? '\u2212' : '\u002B'}
+                      {cleaningOpen ? '▾' : '+'}
                     </button>
                   </div>
                     {cleaningOpen && (
@@ -359,7 +359,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null }
                         aria-controls={`grp-${group.id}`}
                         type="button"
                       >
-                        {openGroups[group.id] ? '\u2212' : '\u002B'}
+                        {openGroups[group.id] ? '▾' : '+'}
                       </button>
                     </div>
                     {openGroups[group.id] && (

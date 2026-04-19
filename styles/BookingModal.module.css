@@ -300,6 +300,11 @@
 }
 
 .serviceCategoryTitle {
+.serviceCategoryTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   font-size: 15px;
   font-weight: 800;
   color: #cfe8ff;
@@ -359,11 +364,18 @@
 }
 
 .serviceName {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
+.serviceGroupTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
 }
-
+.serviceGroupTitle > span {
+  font-size: 14px;
+  font-weight: 700;
+  color: #cfe8ff;
+}
 .serviceDesc {
   font-size: 12px;
   color: #6b7280;
@@ -636,20 +648,21 @@
   line-height: 1.6;
   margin-bottom: 28px;
   max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+.collapseBtn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #dbefff;
+  font-weight: 700;
+  min-width: 36px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
 }
-
-/* ── Mobile ──────────────────────────────── */
-@media (max-width: 480px) {
-  .overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-
-  .modal {
-    max-height: 92vh;
-    border-radius: 20px 20px 0 0;
+.collapseBtn:hover { background: rgba(255,255,255,0.03); }
     width: 100%;
   }
 
