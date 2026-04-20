@@ -298,15 +298,17 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                         </div>
                         <div className={styles.serviceRight}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <button
-                              type="button"
+                            <span
+                              role="button"
+                              tabIndex={0}
                               aria-label={`Toggle ${s.name} details`}
                               aria-expanded={openServices.includes(s.id)}
                               className={styles.serviceChevron}
                               onClick={(e) => { e.stopPropagation(); toggleServiceDetails(s.id); if (!selectedIds.includes(s.id)) toggleService(s.id); }}
+                              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleServiceDetails(s.id); if (!selectedIds.includes(s.id)) toggleService(s.id); } }}
                             >
                               {openServices.includes(s.id) ? '▴' : '▾'}
-                            </button>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -318,15 +320,17 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                               <div key={subId} style={{ marginBottom: 12 }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                                   <div style={{ fontWeight: 800, color: '#e6fbff' }}>{group.title || `Service ${subId}`}</div>
-                                  <button
-                                    type="button"
+                                  <span
+                                    role="button"
+                                    tabIndex={0}
                                     aria-expanded={openGroups.includes(subId)}
                                     aria-controls={`group-${subId}`}
                                     className={[styles.groupChevron, openGroups.includes(subId) ? styles.groupChevronOpen : ''].filter(Boolean).join(' ')}
                                     onClick={(e) => { e.stopPropagation(); toggleGroup(subId); }}
+                                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleGroup(subId); } }}
                                   >
                                     {openGroups.includes(subId) ? '▴' : '▾'}
-                                  </button>
+                                  </span>
                                 </div>
                                 {openGroups.includes(subId) && (
                                   <div id={`group-${subId}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
