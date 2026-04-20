@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/BookingModal.module.css';
 import { DETAILS } from '../data/details';
+import { useBooking } from '../contexts/BookingContext';
 
 function formatPrice(p) {
   if (p === undefined || p === null || p === '') return '';
@@ -35,6 +36,7 @@ const MAIN_SERVICES = [
 ];
 
 export default function ServicesModal({ onClose, onSelect }) {
+  const bookingCtx = useBooking();
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
   const [openSubs, setOpenSubs] = useState([]);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
@@ -100,12 +102,28 @@ export default function ServicesModal({ onClose, onSelect }) {
                         return (
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                             <div style={{ fontWeight: 800, color: '#e6fbff' }}>{data.title}</div>
-                            {data.items.map((it, i) => (
-                              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
-                                <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
-                                {it.price && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>{formatPrice(it.price)}</div>}
-                              </div>
-                            ))}
+                            {data.items.map((it, i) => {
+                              const hasPrice = !!it.price;
+                              const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[s.id] && bookingCtx.selections[s.id].includes(i);
+                              return (
+                                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                                  <div style={{ color: hasPrice ? '#fff' : '#cfeafd', fontWeight: hasPrice ? 700 : 600 }}>{it.label}</div>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    {hasPrice && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>{formatPrice(it.price)}</div>}
+                                    {hasPrice && (
+                                      <button
+                                        type="button"
+                                        aria-pressed={!!checked}
+                                        onClick={() => bookingCtx.toggleSelection(Number(s.id), i)}
+                                        className={checked ? styles.checkboxChecked : styles.checkbox}
+                                      >
+                                        {checked ? '✓' : ''}
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
                             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
                               <button className={styles.nextBtn} onClick={() => onSelect(s)}>Book</button>
                             </div>
