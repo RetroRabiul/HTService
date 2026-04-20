@@ -80,6 +80,9 @@ export default function Navigation({ onBookClick }) {
           <Link href="/" className={styles.link} onClick={() => setMenuOpen(false)}>
             Home
           </Link>
+          <Link href="/all-services" className={styles.link} onClick={() => setMenuOpen(false)}>
+            All Services
+          </Link>
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
           </Link>
