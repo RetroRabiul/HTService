@@ -1,5 +1,18 @@
 import { useState } from 'react';
 import styles from '../styles/BookingModal.module.css';
+import { DETAILS } from '../data/details';
+
+function formatPrice(p) {
+  if (p === undefined || p === null || p === '') return '';
+  if (typeof p === 'number') return `৳${p.toLocaleString()}`;
+  const s = String(p).trim();
+  if (s.includes('৳') || s.includes('Tk')) return s;
+  if (/^[0-9,]+$/.test(s)) {
+    const n = parseInt(s.replace(/,/g, ''), 10);
+    return `৳${n.toLocaleString()}`;
+  }
+  return s;
+}
 
 const MAIN_SERVICES = [
   {
@@ -23,6 +36,7 @@ const MAIN_SERVICES = [
 
 export default function ServicesModal({ onClose, onSelect }) {
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
+  const [selectedSub, setSelectedSub] = useState(null);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
 
   return (
@@ -53,19 +67,55 @@ export default function ServicesModal({ onClose, onSelect }) {
 
           <section className={styles.servicesRight}>
             <p className={styles.stepHint}>Choose a service to continue booking.</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {main.subs.length === 0 && (
-                <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>
-              )}
-              {main.subs.map(s => (
-                <button
-                  key={s.id}
-                  className={styles.subserviceItem}
-                  onClick={() => onSelect(s)}
-                >
-                  {s.name}
-                </button>
-              ))}
+            <div style={{ display: 'flex', gap: 16 }}>
+              <div style={{ flex: 1 }}>
+                {main.subs.length === 0 && (
+                  <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>
+                )}
+                {main.subs.map(s => (
+                  <div key={s.id} style={{ marginBottom: 8 }}>
+                    <button
+                      className={styles.subserviceItem}
+                      onClick={() => setSelectedSub(s.id)}
+                      type="button"
+                    >
+                      {s.name}
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ flex: 2 }}>
+                {selectedSub ? (
+                  (() => {
+                    const data = DETAILS[selectedSub] || { title: '', items: [] };
+                    return (
+                      <div>
+                        <h3 style={{ marginTop: 0, marginBottom: 12 }}>{data.title}</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          {data.items.map((it, i) => (
+                            <div key={i} style={{ padding: 12, background: '#071324', borderRadius: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
+                              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                {it.price && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>{formatPrice(it.price)}</div>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
+                          {/* when booking from modal, pass the subservice object back */}
+                          <button className={styles.nextBtn} onClick={() => {
+                            const subObj = main.subs.find(x => x.id === selectedSub);
+                            onSelect(subObj || { id: selectedSub });
+                          }}>Book this</button>
+                        </div>
+                      </div>
+                    );
+                  })()
+                ) : (
+                  <div style={{ color: '#9aa3c6' }}>Select a subservice to view details.</div>
+                )}
+              </div>
             </div>
           </section>
         </div>
