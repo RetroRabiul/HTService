@@ -39,10 +39,18 @@ export default function ServicesModal({ onClose, onSelect }) {
   const bookingCtx = useBooking();
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
   const [openSubs, setOpenSubs] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
 
   function toggleSub(id) {
-    setOpenSubs(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+    setOpenSubs(prev => {
+      const opening = !prev.includes(id);
+      const next = opening ? [...prev, id] : prev.filter(x => x !== id);
+      // track last selected/expanded sub for booking
+      if (opening) setSelectedSub(id);
+      else if (selectedSub === id) setSelectedSub(null);
+      return next;
+    });
   }
 
   return (
@@ -124,9 +132,7 @@ export default function ServicesModal({ onClose, onSelect }) {
                                 </div>
                               );
                             })}
-                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
-                              <button className={styles.nextBtn} onClick={() => onSelect(s)}>Book</button>
-                            </div>
+                            {/* Book button moved to modal footer; keep details read-only here */}
                           </div>
                         );
                       })()}
@@ -135,7 +141,30 @@ export default function ServicesModal({ onClose, onSelect }) {
                 </div>
               ))}
             </div>
+            {/* footer with persistent Book button */}
+            <div style={{ marginTop: 12 }} />
           </section>
+        </div>
+        {/* footer action area */}
+        <div style={{ padding: '12px 20px', borderTop: '1px solid rgba(255,255,255,0.03)', background: 'transparent' }}>
+          <div style={{ maxWidth: 720, margin: '0 auto' }}>
+            <button
+              className={styles.nextBtn}
+              disabled={!selectedSub && !(bookingCtx && Object.keys(bookingCtx.selections || {}).length)}
+              onClick={() => {
+                // prefer selected sub if present, otherwise use first selected bookingCtx selection
+                if (selectedSub) {
+                  const subObj = main.subs.find(x => x.id === selectedSub);
+                  onSelect(subObj || { id: selectedSub });
+                } else if (bookingCtx) {
+                  // if user selected specific detail items across groups, just open booking (parent handles context selections)
+                  onSelect({ id: main.id });
+                }
+              }}
+            >
+              Book Selected
+            </button>
+          </div>
         </div>
       </div>
     </div>

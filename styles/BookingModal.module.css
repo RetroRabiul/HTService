@@ -98,6 +98,8 @@
 .serviceNavItemActive { background: linear-gradient(90deg, rgba(0,180,216,0.06), rgba(0,180,216,0.02)); color: #fff; box-shadow: inset 4px 0 0 #00B4D8, 0 12px 30px rgba(0,180,216,0.12); }
 .servicesRight { padding: 20px; flex: 1; }
 
+.servicesRightInner { max-height: calc(80vh - 160px); overflow-y: auto; padding-right: 8px; }
+
 .servicesRightCollapsed { padding-left: 18px; padding-right: 18px; }
 
 /* small header button to permanently hide nav */
