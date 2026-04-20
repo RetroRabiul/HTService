@@ -145,8 +145,30 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
       body: JSON.stringify(bookingData),
     }).catch(err => console.error('Booking notification error:', err));
 
+    // persist last booking so the calendar page can read it
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        window.sessionStorage.setItem('lastBooking', JSON.stringify(bookingData));
+      }
+    } catch (e) {
+      console.error('sessionStorage error', e);
+    }
+
     onBook(bookingData);
     onClose();
+
+    // navigate to booking calendar page after closing the modal
+    // small timeout to allow modal close animation/state update
+    try {
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const router = require('next/router').default;
+          router.push('/booking-calendar');
+        }
+      }, 50);
+    } catch (e) {
+      console.error('Navigation to booking-calendar failed', e);
+    }
   }
 
   return (
