@@ -75,14 +75,14 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
   function displayPrice(p) {
     if (p === undefined || p === null || p === '') return '';
-    if (typeof p === 'number') return `Tk ${p.toLocaleString()}`;
+    if (typeof p === 'number') return `৳${p.toLocaleString()}`;
     const s = String(p).trim();
     // if string already contains a currency symbol, return as-is
     if (s.includes('৳') || s.includes('Tk')) return s;
     // if string is numeric (possibly with commas), treat as number
     if (/^[0-9,]+$/.test(s)) {
       const n = parseInt(s.replace(/,/g, ''), 10);
-      return `Tk ${n.toLocaleString()}`;
+      return `৳${n.toLocaleString()}`;
     }
     return s;
   }
@@ -335,7 +335,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
               <div className={styles.totalBar}>
                 <span className={styles.totalLabel}>Total</span>
-                <span className={styles.totalAmount}>Tk {total.toLocaleString()}</span>
+                <span className={styles.totalAmount}>৳{total.toLocaleString()}</span>
               </div>
 
               <button
@@ -372,12 +372,12 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                 {pickedServices.map(s => (
                   <div key={s.id} className={styles.reviewRow}>
                     <span>{s.name}</span>
-                    <span className={styles.reviewPrice}>Tk {s.price.toLocaleString()}</span>
+                    <span className={styles.reviewPrice}>৳{s.price.toLocaleString()}</span>
                   </div>
                 ))}
                 <div className={[styles.reviewRow, styles.reviewTotal].join(' ')}>
                   <strong>Total</strong>
-                  <strong className={styles.reviewPrice}>Tk {total.toLocaleString()}</strong>
+                  <strong className={styles.reviewPrice}>৳{total.toLocaleString()}</strong>
                 </div>
               </div>
 

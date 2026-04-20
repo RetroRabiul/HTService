@@ -9,12 +9,12 @@ import styles from '../styles/BookingModal.module.css';
 
 function formatPrice(p) {
   if (p === undefined || p === null || p === '') return '';
-  if (typeof p === 'number') return `Tk ${p.toLocaleString()}`;
+  if (typeof p === 'number') return `৳${p.toLocaleString()}`;
   const s = String(p).trim();
   if (s.includes('৳') || s.includes('Tk')) return s;
   if (/^[0-9,]+$/.test(s)) {
     const n = parseInt(s.replace(/,/g, ''), 10);
-    return `Tk ${n.toLocaleString()}`;
+    return `৳${n.toLocaleString()}`;
   }
   return s;
 }

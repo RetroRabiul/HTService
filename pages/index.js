@@ -54,7 +54,7 @@ export default function Home() {
                   {confirmedBooking.services.map(s => (
                     <li key={s.id} className={styles.bookingServiceItem}>
                       <span>{s.name}</span>
-                      <span className={styles.bookingServicePrice}>Tk {s.price.toLocaleString()}</span>
+                      <span className={styles.bookingServicePrice}>৳{s.price.toLocaleString()}</span>
                     </li>
                   ))}
                 </ul>
@@ -75,7 +75,7 @@ export default function Home() {
                   </p>
                 ) : null}
                 <p className={styles.bookingTotal}>
-                  Total: <strong>Tk {confirmedBooking.total.toLocaleString()}</strong>
+                  Total: <strong>৳{confirmedBooking.total.toLocaleString()}</strong>
                 </p>
               </div>
               <button className={styles.bookingDismiss} onClick={() => setConfirmedBooking(null)} aria-label="Dismiss">

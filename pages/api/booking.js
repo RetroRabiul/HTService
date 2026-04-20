@@ -42,7 +42,7 @@ export default async function handler(req, res) {
   }
 
   const serviceLines = services
-    .map(s => `  • ${s.name} — Tk ${Number(s.price).toLocaleString()}`)
+    .map(s => `  • ${s.name} — ৳${Number(s.price).toLocaleString()}`)
     .join('\n');
 
   const messageText = [
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
     '🧹 Services Requested:',
     serviceLines,
     '',
-    `💰 Total: Tk ${Number(total).toLocaleString()}`,
+    `💰 Total: ৳${Number(total).toLocaleString()}`,
     notes && notes.trim() ? `\n📝 Notes: ${notes.trim()}` : '',
   ].filter(line => line !== null && line !== undefined).join('\n').trim();
 
