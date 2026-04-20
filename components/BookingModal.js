@@ -284,13 +284,10 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                   const checked = selectedIds.includes(s.id);
                   return (
                     <div key={s.id}>
-                      <div
+                      <button
                         className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
-                        onClick={() => toggleService(s.id)}
-                        role="button"
+                        onClick={() => { toggleService(s.id); toggleServiceDetails(s.id); }}
                         aria-pressed={checked}
-                        tabIndex={0}
-                        onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
                       >
                         <div className={styles.serviceDetails}>
                           <span className={styles.serviceName}>{s.name}</span>
@@ -298,20 +295,12 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                         </div>
                         <div className={styles.serviceRight}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <span
-                              role="button"
-                              tabIndex={0}
-                              aria-label={`Toggle ${s.name} details`}
-                              aria-expanded={openServices.includes(s.id)}
-                              className={styles.serviceChevron}
-                              onClick={(e) => { e.stopPropagation(); toggleServiceDetails(s.id); if (!selectedIds.includes(s.id)) toggleService(s.id); }}
-                              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleServiceDetails(s.id); if (!selectedIds.includes(s.id)) toggleService(s.id); } }}
-                            >
+                            <span className={styles.serviceChevron} aria-hidden>
                               {openServices.includes(s.id) ? '▴' : '▾'}
                             </span>
                           </div>
                         </div>
-                      </div>
+                      </button>
 
                       {openServices.includes(s.id) && (
                         <div style={{ marginTop: 10, paddingLeft: 8 }}>
