@@ -75,7 +75,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
   // combine top-level selected services and selected detail items
   const sourceItems = (effectivePreselected && effectivePreselected.length) ? effectivePreselected : contextItems;
-  const servicesFromIds = SERVICES.filter(s => selectedIds.includes(s.id)).map(s => ({ id: s.id, name: s.name, price: s.price }));
+  // Top-level services should not contribute price; only sub-item prices count
+  const servicesFromIds = SERVICES.filter(s => selectedIds.includes(s.id)).map(s => ({ id: s.id, name: s.name, price: 0 }));
   const itemsFromSource = (sourceItems || []).map((it, idx) => ({ id: it.subId ? `${it.subId}_${it.idx}` : `pre_${idx}`, name: it.label, price: parsePriceNum(it.price) }));
 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
