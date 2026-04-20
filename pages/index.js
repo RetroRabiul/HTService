@@ -28,6 +28,8 @@ export default function Home() {
   const [booking, setBooking] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
   const [initialServiceId, setInitialServiceId] = useState(null);
+  const [preselectedItems, setPreselectedItems] = useState(null);
+  const [startStep, setStartStep] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [showServicesModal, setShowServicesModal] = useState(false);
   const router = useRouter();
@@ -151,7 +153,16 @@ export default function Home() {
           <ServicesModal
             onClose={() => setShowServicesModal(false)}
             onSelect={svc => {
-              setInitialServiceId(svc.id);
+              // if svc contains preselectedItems, forward them to BookingModal and open calendar
+              if (svc && svc.preselectedItems) {
+                setPreselectedItems(svc.preselectedItems);
+                setStartStep(svc.startStep || 1);
+                setInitialServiceId(null);
+              } else {
+                setPreselectedItems(null);
+                setStartStep(null);
+                setInitialServiceId(svc && svc.id ? svc.id : null);
+              }
               setBooking(true);
               setShowServicesModal(false);
             }}
@@ -259,9 +270,11 @@ export default function Home() {
       </main>
       {booking && (
         <BookingModal
-          onClose={() => { setBooking(false); setInitialServiceId(null); }}
+          onClose={() => { setBooking(false); setInitialServiceId(null); setPreselectedItems(null); setStartStep(null); }}
           onBook={handleBook}
           initialSelected={initialServiceId}
+          preselectedItems={preselectedItems}
+          startStep={startStep}
         />
       )}
     </>

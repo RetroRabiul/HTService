@@ -150,12 +150,15 @@ export default function ServicesModal({ onClose, onSelect }) {
                 <button
                   className={styles.nextBtn}
                   style={{ width: 220 }}
-                  disabled={!selectedSub && !(bookingCtx && Object.keys(bookingCtx.selections || {}).length)}
+                  disabled={!(selectedSub || (bookingCtx && bookingCtx.getSelectedCount && bookingCtx.getSelectedCount() > 0))}
                   onClick={() => {
-                    if (selectedSub) {
+                    const selectedItems = bookingCtx && bookingCtx.getSelectedItems ? bookingCtx.getSelectedItems() : [];
+                    if (selectedItems && selectedItems.length > 0) {
+                      onSelect({ preselectedItems: selectedItems, startStep: 1 });
+                    } else if (selectedSub) {
                       const subObj = main.subs.find(x => x.id === selectedSub);
                       onSelect(subObj || { id: selectedSub });
-                    } else if (bookingCtx) {
+                    } else {
                       onSelect({ id: main.id });
                     }
                   }}
