@@ -81,7 +81,8 @@ export default function ServicesModal({ onClose, onSelect }) {
 
           <section className={styles.servicesRight}>
             <p className={styles.stepHint}>Choose a service to continue booking.</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div className={styles.servicesRightInner}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {main.subs.length === 0 && (
                 <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>
               )}
@@ -140,32 +141,32 @@ export default function ServicesModal({ onClose, onSelect }) {
                   )}
                 </div>
               ))}
+              </div>
             </div>
-            {/* footer with persistent Book button */}
-            <div style={{ marginTop: 12 }} />
+
+            {/* Book button inside right column (below scrollable content) */}
+            <div style={{ marginTop: 12, paddingTop: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  className={styles.nextBtn}
+                  style={{ width: 220 }}
+                  disabled={!selectedSub && !(bookingCtx && Object.keys(bookingCtx.selections || {}).length)}
+                  onClick={() => {
+                    if (selectedSub) {
+                      const subObj = main.subs.find(x => x.id === selectedSub);
+                      onSelect(subObj || { id: selectedSub });
+                    } else if (bookingCtx) {
+                      onSelect({ id: main.id });
+                    }
+                  }}
+                >
+                  Book Selected
+                </button>
+              </div>
+            </div>
           </section>
         </div>
-        {/* footer action area */}
-        <div style={{ padding: '12px 20px', borderTop: '1px solid rgba(255,255,255,0.03)', background: 'transparent' }}>
-          <div style={{ maxWidth: 720, margin: '0 auto' }}>
-            <button
-              className={styles.nextBtn}
-              disabled={!selectedSub && !(bookingCtx && Object.keys(bookingCtx.selections || {}).length)}
-              onClick={() => {
-                // prefer selected sub if present, otherwise use first selected bookingCtx selection
-                if (selectedSub) {
-                  const subObj = main.subs.find(x => x.id === selectedSub);
-                  onSelect(subObj || { id: selectedSub });
-                } else if (bookingCtx) {
-                  // if user selected specific detail items across groups, just open booking (parent handles context selections)
-                  onSelect({ id: main.id });
-                }
-              }}
-            >
-              Book Selected
-            </button>
-          </div>
-        </div>
+        
       </div>
     </div>
   );
