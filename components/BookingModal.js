@@ -281,6 +281,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                                             <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
                                           </div>
                                           <div className={styles.serviceRight}>
+                                            {it.price && <span className={styles.servicePrice}>{it.price}</span>}
                                             <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
                                               {checkedDetail && '✓'}
                                             </div>
