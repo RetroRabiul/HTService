@@ -389,7 +389,7 @@
   background: #22243a;
   border: 1.5px solid transparent;
   border-radius: 10px;
-  padding: 13px 12px;
+  padding: 14px 16px;
   cursor: pointer;
   gap: 12px;
   transition: border-color 0.15s, background 0.15s;
@@ -423,8 +423,9 @@
 
 .serviceRight {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
   gap: 6px;
   flex-shrink: 0;
 }
@@ -474,10 +475,14 @@
 /* when chevron is inside a button as a span, ensure it displays inline */
 .groupChevron[aria-hidden] { display: inline-flex; align-items: center; justify-content: center; }
 
-/* ensure chevrons render visually inside their parent buttons */
+/* ensure buttons render the same size */
 .serviceItem, .subserviceItem, .serviceNavItem {
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  min-height: 64px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .serviceItem .serviceChevron, .subserviceItem .groupChevron, .serviceNavItem .groupChevron {
