@@ -81,7 +81,11 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
 
-  const [showCleaningDetails, setShowCleaningDetails] = useState(false);
+  const [openServices, setOpenServices] = useState([]);
+
+  function toggleServiceDetails(id) {
+    setOpenServices(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  }
 
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
@@ -222,13 +226,12 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                 {SERVICES.map(s => {
                   const checked = selectedIds.includes(s.id);
                   return (
-                    <>
+                    <div key={s.id}>
                       <div
-                        key={s.id}
                         className={[styles.serviceItem, checked && styles.serviceSelected].filter(Boolean).join(' ')}
                         onClick={() => toggleService(s.id)}
-                        role="checkbox"
-                        aria-checked={checked}
+                        role="button"
+                        aria-pressed={checked}
                         tabIndex={0}
                         onKeyDown={e => e.key === 'Enter' && toggleService(s.id)}
                       >
@@ -237,66 +240,68 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                           <span className={styles.serviceDesc}>{s.desc}</span>
                         </div>
                         <div className={styles.serviceRight}>
-                          {/* removed top-level prices per design */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <button
+                              type="button"
+                              aria-label={`Toggle ${s.name} details`}
+                              aria-expanded={openServices.includes(s.id)}
+                              className={styles.serviceChevron}
+                              onClick={(e) => { e.stopPropagation(); toggleServiceDetails(s.id); }}
+                            >
+                              {openServices.includes(s.id) ? '▴' : '▾'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {openServices.includes(s.id) && (
+                        <div style={{ marginTop: 10, paddingLeft: 8 }}>
                           {s.id === 1 ? (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <button
-                                type="button"
-                                aria-label="Open cleaning details"
-                                className={styles.serviceChevron}
-                                onClick={(e) => { e.stopPropagation(); setShowCleaningDetails(prev => !prev); }}
-                              >
-                                {showCleaningDetails ? '▴' : '▾'}
-                              </button>
-                            </div>
+                            Object.entries(DETAILS).map(([subId, group]) => (
+                              <div key={subId} style={{ marginBottom: 12 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                                  <div style={{ fontWeight: 800, color: '#e6fbff' }}>{group.title || `Service ${subId}`}</div>
+                                  <button
+                                    type="button"
+                                    aria-expanded={openGroups.includes(subId)}
+                                    aria-controls={`group-${subId}`}
+                                    className={[styles.groupChevron, openGroups.includes(subId) ? styles.groupChevronOpen : ''].filter(Boolean).join(' ')}
+                                    onClick={(e) => { e.stopPropagation(); toggleGroup(subId); }}
+                                  >
+                                    {openGroups.includes(subId) ? '▴' : '▾'}
+                                  </button>
+                                </div>
+                                {openGroups.includes(subId) && (
+                                  <div id={`group-${subId}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                    {group.items.map((it, idx) => {
+                                      const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
+                                      return (
+                                        <div key={idx} className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checkedDetail} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
+                                          <div className={styles.serviceDetails}>
+                                            <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
+                                          </div>
+                                          <div className={styles.serviceRight}>
+                                            <span className={styles.servicePrice}>{it.price}</span>
+                                            <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                              {checkedDetail && '✓'}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
+                            ))
                           ) : (
-                            <div className={[styles.checkbox, checked && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                              {checked && '✓'}
+                            <div style={{ padding: 10, background: '#071324', borderRadius: 8 }}>
+                              <div style={{ color: '#cfeafd', marginBottom: 6 }}>{s.desc}</div>
+                              {s.price && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>Starting at: Tk {s.price.toLocaleString()}</div>}
                             </div>
                           )}
                         </div>
-                      </div>
-                      {s.id === 1 && showCleaningDetails && (
-                        <div style={{ marginTop: 10, paddingLeft: 8 }}>
-                          {Object.entries(DETAILS).map(([subId, group]) => (
-                            <div key={subId} style={{ marginBottom: 12 }}>
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                                <div style={{ fontWeight: 800, color: '#e6fbff' }}>{group.title || `Service ${subId}`}</div>
-                                <button
-                                  type="button"
-                                  aria-expanded={openGroups.includes(subId)}
-                                  aria-controls={`group-${subId}`}
-                                  className={[styles.groupChevron, openGroups.includes(subId) ? styles.groupChevronOpen : ''].filter(Boolean).join(' ')}
-                                  onClick={(e) => { e.stopPropagation(); toggleGroup(subId); }}
-                                >
-                                  {openGroups.includes(subId) ? '▴' : '▾'}
-                                </button>
-                              </div>
-                              {openGroups.includes(subId) && (
-                                <div id={`group-${subId}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                                  {group.items.map((it, idx) => {
-                                    const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
-                                    return (
-                                      <div key={idx} className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')} style={{ background: '#071324' }} onClick={() => bookingCtx.toggleSelection(Number(subId), idx)} role="checkbox" aria-checked={!!checkedDetail} tabIndex={0} onKeyDown={e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)}>
-                                        <div className={styles.serviceDetails}>
-                                          <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
-                                        </div>
-                                        <div className={styles.serviceRight}>
-                                          <span className={styles.servicePrice}>{it.price}</span>
-                                          <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                            {checkedDetail && '✓'}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
                       )}
-                    </>
+                    </div>
                   );
                 })}
               </div>
