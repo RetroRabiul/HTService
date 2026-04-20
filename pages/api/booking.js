@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, notified: false });
   }
 
-  const serviceLines = services
+  const serviceLines = (services || []).filter(s => (Number(s.price) || 0) > 0)
     .map(s => `  • ${s.name} — ৳${Number(s.price).toLocaleString()}`)
     .join('\n');
 

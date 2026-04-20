@@ -95,6 +95,8 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
+  // only services with a positive price should be shown in review/confirmation
+  const pricedPickedServices = pickedServices.filter(s => (s.price || 0) > 0);
 
   const [openServices, setOpenServices] = useState([]);
 
@@ -132,7 +134,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
       notes: form.notes.trim(),
       time: selTime,
       date: friendlyDate,
-      services: pickedServices,
+      services: pricedPickedServices,
       total,
     };
 
@@ -369,7 +371,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
               <div className={styles.reviewSection}>
                 <h3 className={styles.reviewSectionTitle}>Services</h3>
-                {pickedServices.map(s => (
+                {pricedPickedServices.map(s => (
                   <div key={s.id} className={styles.reviewRow}>
                     <span>{s.name}</span>
                     <span className={styles.reviewPrice}>৳{s.price.toLocaleString()}</span>

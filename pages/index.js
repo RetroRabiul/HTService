@@ -51,7 +51,7 @@ export default function Home() {
                   <strong>{confirmedBooking.name || 'A customer'}</strong> has requested the following services:
                 </p>
                 <ul className={styles.bookingServiceList}>
-                  {confirmedBooking.services.map(s => (
+                  {confirmedBooking.services && confirmedBooking.services.filter(s => (s.price || 0) > 0).map(s => (
                     <li key={s.id} className={styles.bookingServiceItem}>
                       <span>{s.name}</span>
                       <span className={styles.bookingServicePrice}>৳{s.price.toLocaleString()}</span>
