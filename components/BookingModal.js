@@ -364,7 +364,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
               <button
                 className={styles.nextBtn}
-                disabled={selectedIds.length === 0}
+                disabled={(total || 0) === 0}
                 onClick={() => setStep(3)}
               >
                 Next
