@@ -438,7 +438,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 6px;
   border: 1px solid rgba(255,255,255,0.02);
 }
 
@@ -474,6 +473,16 @@
 
 /* when chevron is inside a button as a span, ensure it displays inline */
 .groupChevron[aria-hidden] { display: inline-flex; align-items: center; justify-content: center; }
+
+/* ensure chevrons render visually inside their parent buttons */
+.serviceItem, .subserviceItem, .serviceNavItem {
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceItem .serviceChevron, .subserviceItem .groupChevron, .serviceNavItem .groupChevron {
+  margin-left: 12px;
+}
 
 .servicePrice {
   font-size: 13px;
