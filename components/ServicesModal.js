@@ -78,27 +78,19 @@ export default function ServicesModal({ onClose, onSelect }) {
 
               {main.subs.map(s => (
                 <div key={s.id}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                    <div style={{ flex: 1 }}>
-                      <button
-                        className={styles.subserviceItem}
-                        type="button"
-                        aria-expanded={openSubs.includes(s.id)}
-                        onClick={() => toggleSub(s.id)}
-                      >
-                        {s.name}
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        type="button"
-                        className={styles.groupChevron}
-                        aria-expanded={openSubs.includes(s.id)}
-                        onClick={() => toggleSub(s.id)}
-                      >
+                  <div style={{ marginBottom: 6 }}>
+                    <button
+                      className={styles.subserviceItem}
+                      type="button"
+                      aria-expanded={openSubs.includes(s.id)}
+                      onClick={() => toggleSub(s.id)}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}
+                    >
+                      <span style={{ textAlign: 'left', flex: 1 }}>{s.name}</span>
+                      <span className={styles.groupChevron} aria-hidden style={{ marginLeft: 12 }}>
                         {openSubs.includes(s.id) ? '▴' : '▾'}
-                      </button>
-                    </div>
+                      </span>
+                    </button>
                   </div>
 
                   {openSubs.includes(s.id) && (
