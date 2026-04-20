@@ -246,7 +246,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                               aria-label={`Toggle ${s.name} details`}
                               aria-expanded={openServices.includes(s.id)}
                               className={styles.serviceChevron}
-                              onClick={(e) => { e.stopPropagation(); toggleServiceDetails(s.id); }}
+                              onClick={(e) => { e.stopPropagation(); toggleServiceDetails(s.id); if (!selectedIds.includes(s.id)) toggleService(s.id); }}
                             >
                               {openServices.includes(s.id) ? '▴' : '▾'}
                             </button>
