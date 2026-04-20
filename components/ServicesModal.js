@@ -36,8 +36,12 @@ const MAIN_SERVICES = [
 
 export default function ServicesModal({ onClose, onSelect }) {
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
-  const [selectedSub, setSelectedSub] = useState(null);
+  const [openSubs, setOpenSubs] = useState([]);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
+
+  function toggleSub(id) {
+    setOpenSubs(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -67,55 +71,52 @@ export default function ServicesModal({ onClose, onSelect }) {
 
           <section className={styles.servicesRight}>
             <p className={styles.stepHint}>Choose a service to continue booking.</p>
-            <div style={{ display: 'flex', gap: 16 }}>
-              <div style={{ flex: 1 }}>
-                {main.subs.length === 0 && (
-                  <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>
-                )}
-                {main.subs.map(s => (
-                  <div key={s.id} style={{ marginBottom: 8 }}>
-                    <button
-                      className={styles.subserviceItem}
-                      onClick={() => setSelectedSub(s.id)}
-                      type="button"
-                    >
-                      {s.name}
-                    </button>
-                  </div>
-                ))}
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {main.subs.length === 0 && (
+                <div style={{ color: '#9aa3c6' }}>No services listed yet for this category.</div>
+              )}
 
-              <div style={{ flex: 2 }}>
-                {selectedSub ? (
-                  (() => {
-                    const data = DETAILS[selectedSub] || { title: '', items: [] };
-                    return (
-                      <div>
-                        <h3 style={{ marginTop: 0, marginBottom: 12 }}>{data.title}</h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                          {data.items.map((it, i) => (
-                            <div key={i} style={{ padding: 12, background: '#071324', borderRadius: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
-                              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              {main.subs.map(s => (
+                <div key={s.id}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <div style={{ flex: 1 }}>
+                      <button className={styles.subserviceItem} type="button" onClick={() => onSelect(s)}>{s.name}</button>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        className={styles.groupChevron}
+                        aria-expanded={openSubs.includes(s.id)}
+                        onClick={() => toggleSub(s.id)}
+                      >
+                        {openSubs.includes(s.id) ? '▴' : '▾'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {openSubs.includes(s.id) && (
+                    <div style={{ marginTop: 8, padding: 12, background: '#071324', borderRadius: 8 }}>
+                      {(() => {
+                        const data = DETAILS[s.id] || { title: '', items: [] };
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            <div style={{ fontWeight: 800, color: '#e6fbff' }}>{data.title}</div>
+                            {data.items.map((it, i) => (
+                              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                                <div style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</div>
                                 {it.price && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>{formatPrice(it.price)}</div>}
                               </div>
+                            ))}
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
+                              <button className={styles.nextBtn} onClick={() => onSelect(s)}>Book</button>
                             </div>
-                          ))}
-                        </div>
-                        <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
-                          {/* when booking from modal, pass the subservice object back */}
-                          <button className={styles.nextBtn} onClick={() => {
-                            const subObj = main.subs.find(x => x.id === selectedSub);
-                            onSelect(subObj || { id: selectedSub });
-                          }}>Book this</button>
-                        </div>
-                      </div>
-                    );
-                  })()
-                ) : (
-                  <div style={{ color: '#9aa3c6' }}>Select a subservice to view details.</div>
-                )}
-              </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         </div>
