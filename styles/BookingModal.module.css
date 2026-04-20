@@ -489,10 +489,14 @@
   min-height: 64px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  /* extra right padding so chevron sits inset from the button edge */
+  padding-right: 22px;
 }
 
 .serviceItem .serviceChevron, .subserviceItem .groupChevron, .serviceNavItem .groupChevron {
   margin-left: 12px;
+  /* small right gap inside the button */
+  margin-right: 6px;
 }
 
 .servicePrice {
