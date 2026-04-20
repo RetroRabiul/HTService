@@ -81,11 +81,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
   const pickedServices = [...servicesFromIds, ...itemsFromSource];
   const total = pickedServices.reduce((sum, s) => sum + (s.price || 0), 0);
 
-  // which DETAIL groups are open (e.g. '101', '102')
-  const [openGroups, setOpenGroups] = useState([]);
-  function toggleGroup(id) {
-    setOpenGroups(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-  }
+  const [showCleaningDetails, setShowCleaningDetails] = useState(false);
 
   function prevMonth() {
     if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
@@ -99,10 +95,10 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   }
 
-  // which main services are expanded to show their detail groups
-  const [openMainServices, setOpenMainServices] = useState([]);
-  function toggleMainService(id) {
-    setOpenMainServices(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  // which cleaning sub-groups are open (e.g. '101', '102')
+  const [openGroups, setOpenGroups] = useState([]);
+  function toggleGroup(id) {
+    setOpenGroups(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   }
 
   const friendlyDate = selDate
