@@ -498,6 +498,14 @@
   padding-right: 22px;
 }
 
+/* make service rows match the visual width of the Total/Next area */
+.serviceItem {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 44px);
+}
+
 .serviceItem .serviceChevron, .subserviceItem .groupChevron, .serviceNavItem .groupChevron {
   margin-left: 12px;
   /* small right gap inside the button */
@@ -539,6 +547,13 @@
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 16px;
+}
+
+/* center Total and Next to match service buttons */
+.totalBar, .nextBtn {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .totalLabel {
