@@ -32,7 +32,25 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
   const bookingCtx = useBooking();
   // if parent didn't pass preselectedItems, read from context
   const contextItems = bookingCtx ? bookingCtx.getSelectedItems() : [];
-  const effectivePreselected = (preselectedItems && preselectedItems.length) ? preselectedItems : contextItems;
+  // If parent provided preselectedItems (from ServicesModal), seed the booking context
+  // so the modal reflects and updates selections live. After seeding, always
+  // use the context items as the source so unchecking updates the Total.
+  useEffect(() => {
+    if (preselectedItems && preselectedItems.length && bookingCtx) {
+      // add each preselected item into booking context if not already present
+      preselectedItems.forEach(it => {
+        try {
+          const existing = bookingCtx.selections && bookingCtx.selections[it.subId] && bookingCtx.selections[it.subId].includes(it.idx);
+          if (!existing) bookingCtx.toggleSelection(Number(it.subId), it.idx);
+        } catch (e) {
+          // ignore
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preselectedItems]);
+
+  const effectivePreselected = contextItems;
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
