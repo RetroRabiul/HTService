@@ -388,17 +388,22 @@
   justify-content: space-between;
   background: #22243a;
   border: 1.5px solid transparent;
-  border-radius: 10px;
-  padding: 14px 16px;
+  border-radius: 12px;
+  padding: 15px 22px;
   cursor: pointer;
   gap: 12px;
   transition: border-color 0.15s, background 0.15s;
 }
 .serviceItem:hover { background: #252742; border-color: rgba(0,180,216,0.3); }
-
 .serviceSelected {
   border-color: #00B4D8 !important;
   background: rgba(0,180,216,0.07) !important;
+}
+
+/* make service buttons visually match Total/Next: subtle inset shadow */
+.serviceItem {
+  box-shadow: 0 6px 18px rgba(0,180,216,0.06);
+  border: 1px solid rgba(255,255,255,0.02);
 }
 
 .serviceDetails {
