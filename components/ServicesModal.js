@@ -80,7 +80,14 @@ export default function ServicesModal({ onClose, onSelect }) {
                 <div key={s.id}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                     <div style={{ flex: 1 }}>
-                      <button className={styles.subserviceItem} type="button" onClick={() => onSelect(s)}>{s.name}</button>
+                      <button
+                        className={styles.subserviceItem}
+                        type="button"
+                        aria-expanded={openSubs.includes(s.id)}
+                        onClick={() => toggleSub(s.id)}
+                      >
+                        {s.name}
+                      </button>
                     </div>
                     <div>
                       <button
