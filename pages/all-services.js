@@ -7,6 +7,18 @@ import { useBooking } from '../contexts/BookingContext';
 import { DETAILS } from '../data/details';
 import styles from '../styles/BookingModal.module.css';
 
+function formatPrice(p) {
+  if (p === undefined || p === null || p === '') return '';
+  if (typeof p === 'number') return `Tk ${p.toLocaleString()}`;
+  const s = String(p).trim();
+  if (s.includes('৳') || s.includes('Tk')) return s;
+  if (/^[0-9,]+$/.test(s)) {
+    const n = parseInt(s.replace(/,/g, ''), 10);
+    return `Tk ${n.toLocaleString()}`;
+  }
+  return s;
+}
+
 const MAIN_SERVICES = [
   {
     id: 1,
@@ -210,11 +222,11 @@ function DetailView({ id, onBack }) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {data.items.map((it, idx) => (
+              {data.items.map((it, idx) => (
           <div key={idx} style={{ background: '#0b1b2a', padding: 12, borderRadius: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
               <div style={{ fontSize: 15, fontWeight: it.price ? 700 : 600, color: it.price ? '#fff' : '#cfeafd', flex: 1 }}>{it.label}</div>
-              {it.price && <div style={{ color: '#00B4D8', fontWeight: 900, marginLeft: 12 }}>{it.price}</div>}
+              {it.price && <div style={{ color: '#00B4D8', fontWeight: 900, marginLeft: 12 }}>{formatPrice(it.price)}</div>}
             </div>
           </div>
         ))}
@@ -245,7 +257,7 @@ function DetailInline({ id, selectedMap = {}, onToggle = () => {} }) {
                   >
                     {checked ? '✓' : ''}
                   </button>
-                  <div style={{ color: '#00B4D8', fontWeight: 900 }}>{it.price}</div>
+                  <div style={{ color: '#00B4D8', fontWeight: 900 }}>{formatPrice(it.price)}</div>
                 </div>
               )}
             </div>

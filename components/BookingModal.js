@@ -73,6 +73,20 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     return digits ? parseInt(digits, 10) : 0;
   };
 
+  function displayPrice(p) {
+    if (p === undefined || p === null || p === '') return '';
+    if (typeof p === 'number') return `Tk ${p.toLocaleString()}`;
+    const s = String(p).trim();
+    // if string already contains a currency symbol, return as-is
+    if (s.includes('৳') || s.includes('Tk')) return s;
+    // if string is numeric (possibly with commas), treat as number
+    if (/^[0-9,]+$/.test(s)) {
+      const n = parseInt(s.replace(/,/g, ''), 10);
+      return `Tk ${n.toLocaleString()}`;
+    }
+    return s;
+  }
+
   // combine top-level selected services and selected detail items
   const sourceItems = (effectivePreselected && effectivePreselected.length) ? effectivePreselected : contextItems;
   // Top-level services should not contribute price; only sub-item prices count
@@ -292,7 +306,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                                           <span className={styles.serviceName} style={{ color: hasPrice ? '#fff' : '#cfeafd', fontWeight: hasPrice ? 700 : 600 }}>{it.label}</span>
                                         </div>
                                         <div className={styles.serviceRight}>
-                                          {hasPrice && <span className={styles.servicePrice}>{it.price}</span>}
+                                          {hasPrice && <span className={styles.servicePrice}>{displayPrice(it.price)}</span>}
                                           {hasPrice && (
                                             <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
                                               {checkedDetail && '✓'}
