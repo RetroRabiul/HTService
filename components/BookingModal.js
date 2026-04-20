@@ -281,7 +281,6 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                                             <span className={styles.serviceName} style={{ color: it.price ? '#fff' : '#cfeafd', fontWeight: it.price ? 700 : 600 }}>{it.label}</span>
                                           </div>
                                           <div className={styles.serviceRight}>
-                                            <span className={styles.servicePrice}>{it.price}</span>
                                             <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
                                               {checkedDetail && '✓'}
                                             </div>
@@ -296,7 +295,6 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
                           ) : (
                             <div style={{ padding: 10, background: '#071324', borderRadius: 8 }}>
                               <div style={{ color: '#cfeafd', marginBottom: 6 }}>{s.desc}</div>
-                              {s.price && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>Starting at: Tk {s.price.toLocaleString()}</div>}
                             </div>
                           )}
                         </div>
