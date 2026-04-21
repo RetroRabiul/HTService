@@ -49,6 +49,42 @@
   }
   .header { padding: 18px 16px; }
   .body { padding: 16px; }
+
+  /* Make services modal a vertical bottom-sheet with stacked content */
+  .servicesBody { flex-direction: column; gap: 0; }
+
+  /* Convert left nav into horizontal overflowable tabs */
+  .servicesLeft {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 10px 12px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: center;
+  }
+
+  .serviceNavItem {
+    flex: 0 0 auto;
+    min-width: 140px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .serviceNavItemActive { box-shadow: none; }
+
+  /* Right column becomes content area below the horizontal tabs */
+  .servicesRight { padding: 14px; }
+  .servicesRightInner { max-height: calc(60vh); overflow-y: auto; }
+
+  /* Make book buttons full-width and easier to tap */
+  .nextBtn { width: 100%; max-width: none; }
+  .subserviceItem { padding: 14px 16px; font-size: 15px; }
 }
 
 @keyframes slideUpModal {
