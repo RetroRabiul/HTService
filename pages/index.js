@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -34,27 +34,13 @@ export default function Home() {
   const [showServicesModal, setShowServicesModal] = useState(false);
   const router = useRouter();
 
-  // If navigated with ?openServices=1&category=X open the modal
-  useEffect(() => {
-    const { openServices, category } = router.query || {};
-    if (!openServices) return;
-    const cat = Number(category) || 1;
-    setActiveCategory(categories[cat - 1] ? categories[cat - 1].label : categories[0].label);
-    setShowServicesModal(true);
-    // remove query from URL
-    router.replace('/', undefined, { shallow: true });
-  }, [router.query]);
-
   function handleBook(data) {
     setConfirmedBooking(data);
     setBooking(false);
   }
   return (
     <>
-      <Navigation
-        onBookClick={() => { setInitialServiceId(null); setBooking(true); }}
-        onOpenServices={() => setShowServicesModal(true)}
-      />
+      <Navigation onBookClick={() => { setInitialServiceId(null); setBooking(true); }} />
       <main className={styles.main}>
 
         {/* Booking Confirmation */}
@@ -137,8 +123,6 @@ export default function Home() {
                 className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
                 role="button"
                 tabIndex={0}
-  
-                
                 onClick={() => {
                   setActiveCategory(label);
                   // on small screens, open a full page view instead of modal

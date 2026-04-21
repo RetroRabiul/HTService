@@ -1,11 +1,9 @@
 import Navigation from '../components/Navigation';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../styles/News.module.css';
 import BeforeAfter from '../components/BeforeAfter';
 
 export default function News() {
-  const router = useRouter();
   const articles = [
     {
       id: 1,
@@ -166,7 +164,7 @@ Remember: Prevention through cleanliness is always more effective and less expen
 
   return (
     <>
-      <Navigation onOpenServices={() => router.push('/?openServices=1')} />
+      <Navigation />
       <main className={styles.main}>
 
         {/* Page Header */}

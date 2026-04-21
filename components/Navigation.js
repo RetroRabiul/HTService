@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Navigation.module.css';
 
-export default function Navigation({ onBookClick, onOpenServices }) {
+export default function Navigation({ onBookClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBookNow, setShowBookNow] = useState(false);
   const [bookNowState, setBookNowState] = useState('hidden'); // 'hidden' | 'showing' | 'hiding'
-  const router = useRouter();
 
   useEffect(() => {
     function checkHeroButton() {
@@ -83,18 +81,18 @@ export default function Navigation({ onBookClick, onOpenServices }) {
             Home
           </Link>
 
-          { /* All Services opens modal when `onOpenServices` provided, otherwise navigates */ }
-          <button
-            type="button"
-            className={styles.link}
-            onClick={() => {
-              setMenuOpen(false);
-              if (onOpenServices) return onOpenServices();
-              router.push('/all-services');
-            }}
-          >
-            All Services
-          </button>
+          <div className={styles.dropdown}>
+            <Link href="/all-services" className={`${styles.link} ${styles.dropdownToggle}`} onClick={() => setMenuOpen(false)}>
+              All Services
+            </Link>
+            <div className={styles.dropdownMenu} role="menu">
+              <Link href="/all-services?category=1" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Cleaning service</Link>
+              <Link href="/all-services?category=2" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Pest control service</Link>
+              <Link href="/all-services?category=3" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Shifting Service</Link>
+              <Link href="/all-services?category=4" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>AC Service</Link>
+              <Link href="/all-services?category=5" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Construction Service</Link>
+            </div>
+          </div>
 
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
