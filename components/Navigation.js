@@ -81,18 +81,9 @@ export default function Navigation({ onBookClick }) {
             Home
           </Link>
 
-          <div className={styles.dropdown}>
-            <Link href="/all-services" className={`${styles.link} ${styles.dropdownToggle}`} onClick={() => setMenuOpen(false)}>
-              All Services
-            </Link>
-            <div className={styles.dropdownMenu} role="menu">
-              <Link href="/all-services?category=1" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Cleaning service</Link>
-              <Link href="/all-services?category=2" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Pest control service</Link>
-              <Link href="/all-services?category=3" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Shifting Service</Link>
-              <Link href="/all-services?category=4" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>AC Service</Link>
-              <Link href="/all-services?category=5" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Construction Service</Link>
-            </div>
-          </div>
+          <Link href="/all-services" className={styles.link} onClick={() => setMenuOpen(false)}>
+            All Services
+          </Link>
 
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
