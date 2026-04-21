@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Navigation.module.css';
 
-export default function Navigation({ onBookClick }) {
+export default function Navigation({ onBookClick, onOpenServices }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
   const [showBookNow, setShowBookNow] = useState(false);
   const [bookNowState, setBookNowState] = useState('hidden'); // 'hidden' | 'showing' | 'hiding'
 
@@ -86,11 +88,31 @@ export default function Navigation({ onBookClick }) {
               All Services
             </Link>
             <div className={styles.dropdownMenu} role="menu">
-              <Link href="/all-services?category=1" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Cleaning service</Link>
-              <Link href="/all-services?category=2" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Pest control service</Link>
-              <Link href="/all-services?category=3" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Shifting Service</Link>
-              <Link href="/all-services?category=4" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>AC Service</Link>
-              <Link href="/all-services?category=5" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>Construction Service</Link>
+              <a href="/all-services?category=1" className={styles.dropdownItem} onClick={(e) => {
+                e.preventDefault(); setMenuOpen(false);
+                if (onOpenServices) return onOpenServices(1);
+                router.push('/?openServices=1&category=1');
+              }}>Cleaning service</a>
+              <a href="/all-services?category=2" className={styles.dropdownItem} onClick={(e) => {
+                e.preventDefault(); setMenuOpen(false);
+                if (onOpenServices) return onOpenServices(2);
+                router.push('/?openServices=1&category=2');
+              }}>Pest control service</a>
+              <a href="/all-services?category=3" className={styles.dropdownItem} onClick={(e) => {
+                e.preventDefault(); setMenuOpen(false);
+                if (onOpenServices) return onOpenServices(3);
+                router.push('/?openServices=1&category=3');
+              }}>Shifting Service</a>
+              <a href="/all-services?category=4" className={styles.dropdownItem} onClick={(e) => {
+                e.preventDefault(); setMenuOpen(false);
+                if (onOpenServices) return onOpenServices(4);
+                router.push('/?openServices=1&category=4');
+              }}>AC Service</a>
+              <a href="/all-services?category=5" className={styles.dropdownItem} onClick={(e) => {
+                e.preventDefault(); setMenuOpen(false);
+                if (onOpenServices) return onOpenServices(5);
+                router.push('/?openServices=1&category=5');
+              }}>Construction Service</a>
             </div>
           </div>
 
