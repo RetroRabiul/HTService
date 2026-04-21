@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -123,6 +124,17 @@ export default function Home() {
                 className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
                 role="button"
                 tabIndex={0}
+  
+                // If navigated with ?openServices=1&category=X open the modal
+                useEffect(() => {
+                  const { openServices, category } = router.query || {};
+                  if (!openServices) return;
+                  const cat = Number(category) || 1;
+                  setActiveCategory(categories[cat - 1] ? categories[cat - 1].label : categories[0].label);
+                  setShowServicesModal(true);
+                  // remove query from URL
+                  router.replace('/', undefined, { shallow: true });
+                }, [router.query]);
                 onClick={() => {
                   setActiveCategory(label);
                   // on small screens, open a full page view instead of modal
@@ -131,6 +143,11 @@ export default function Home() {
                     const idx = categories.findIndex(c => c.label === label);
                     const categoryId = idx >= 0 ? idx + 1 : 1;
                     router.push(`/all-services?category=${categoryId}`);
+                      onOpenServices={() => {
+                        // open the services modal and default to first category
+                        setActiveCategory(categories[0].label);
+                        setShowServicesModal(true);
+                      }}
                     return;
                   }
                   setShowServicesModal(true);

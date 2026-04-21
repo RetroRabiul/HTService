@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Navigation.module.css';
 
-export default function Navigation({ onBookClick }) {
+export default function Navigation({ onBookClick, onOpenServices }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBookNow, setShowBookNow] = useState(false);
   const [bookNowState, setBookNowState] = useState('hidden'); // 'hidden' | 'showing' | 'hiding'
@@ -81,9 +82,19 @@ export default function Navigation({ onBookClick }) {
             Home
           </Link>
 
-          <Link href="/all-services" className={styles.link} onClick={() => setMenuOpen(false)}>
+          { /* All Services opens modal when `onOpenServices` provided, otherwise navigates */ }
+          <button
+            type="button"
+            className={styles.link}
+            onClick={() => {
+              setMenuOpen(false);
+              if (onOpenServices) return onOpenServices();
+              const router = useRouter();
+              router.push('/all-services');
+            }}
+          >
             All Services
-          </Link>
+          </button>
 
           <Link href="/news" className={styles.link} onClick={() => setMenuOpen(false)}>
             News &amp; Tips
