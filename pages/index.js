@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -34,41 +34,13 @@ export default function Home() {
   const [showServicesModal, setShowServicesModal] = useState(false);
   const router = useRouter();
 
-  // open services modal when navigated with query ?openServices=1&category=X
-  useEffect(() => {
-    const { openServices, category } = router.query || {};
-    if (!openServices) return;
-    const cat = Number(category) || 1;
-    const label = categories[cat - 1] ? categories[cat - 1].label : categories[0].label;
-    setActiveCategory(label);
-    if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-      router.replace(`/all-services?category=${cat}`, undefined, { shallow: true });
-      return;
-    }
-    setShowServicesModal(true);
-    // remove the query from URL
-    router.replace('/', undefined, { shallow: true });
-  }, [router.query]);
-
   function handleBook(data) {
     setConfirmedBooking(data);
     setBooking(false);
   }
   return (
     <>
-      <Navigation
-        onBookClick={() => { setInitialServiceId(null); setBooking(true); }}
-        onOpenServices={(id) => {
-          const cat = Number(id) || 1;
-          const label = categories[cat - 1] ? categories[cat - 1].label : categories[0].label;
-          setActiveCategory(label);
-          if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-            router.push(`/all-services?category=${cat}`);
-            return;
-          }
-          setShowServicesModal(true);
-        }}
-      />
+      <Navigation onBookClick={() => { setInitialServiceId(null); setBooking(true); }} />
       <main className={styles.main}>
 
         {/* Booking Confirmation */}
