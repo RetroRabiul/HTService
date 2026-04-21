@@ -88,8 +88,12 @@ export default function Navigation({ onBookClick, onOpenServices }) {
             className={styles.link}
             onClick={() => {
               setMenuOpen(false);
+              // On small screens, navigate to the All Services page instead of opening modal
+              if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+                router.push('/all-services');
+                return;
+              }
               if (onOpenServices) return onOpenServices();
-              const router = useRouter();
               router.push('/?openServices=1');
             }}
           >
