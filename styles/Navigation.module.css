@@ -207,7 +207,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   }
 
-  /* ensure menu content aligns to right on mobile */
+  /* ensure menu content aligns to left on mobile; Contact button handled separately */
   .links { padding-left: 0; padding-right: 0; }
 
   .linksOpen {
@@ -219,9 +219,17 @@
     font-size: 16px;
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: right;
-    padding-right: 28px;
+    text-align: left;
   }
+
+  /* align contact button to right inside the menu on mobile */
+  .ctaWrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 20px;
+  }
+
+  .contactBtn { margin: 0; }
 
   /* On mobile the dropdown menu should be part of the normal links layout (no absolute menu) */
   .dropdownMenu { display: none !important; }
