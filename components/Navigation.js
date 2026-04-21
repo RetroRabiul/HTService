@@ -8,6 +8,7 @@ export default function Navigation({ onBookClick, onOpenServices }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBookNow, setShowBookNow] = useState(false);
   const [bookNowState, setBookNowState] = useState('hidden'); // 'hidden' | 'showing' | 'hiding'
+  const router = useRouter();
 
   useEffect(() => {
     function checkHeroButton() {
