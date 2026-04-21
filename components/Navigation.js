@@ -90,7 +90,6 @@ export default function Navigation({ onBookClick, onOpenServices }) {
             onClick={() => {
               setMenuOpen(false);
               if (onOpenServices) return onOpenServices();
-              const router = useRouter();
               router.push('/all-services');
             }}
           >
