@@ -176,17 +176,17 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     onBook(bookingData);
     onClose();
 
-    // navigate to booking calendar page after closing the modal
+    // navigate to home page after closing the modal
     // small timeout to allow modal close animation/state update
     try {
       setTimeout(() => {
         if (typeof window !== 'undefined') {
           const router = require('next/router').default;
-          router.push('/booking-calendar');
+          router.push('/');
         }
       }, 50);
     } catch (e) {
-      console.error('Navigation to booking-calendar failed', e);
+      console.error('Navigation to home failed', e);
     }
   }
 
