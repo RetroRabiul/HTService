@@ -32,6 +32,14 @@
 /* Make modal full-screen / bottom sheet on small mobile devices */
 @media (max-width: 640px) {
   .overlay {
+
+/* Also add the same top gap to the review screen so the logo is visible */
+@media (max-width: 640px) {
+  .reviewTopRow,
+  .reviewSection {
+    margin-top: 56px !important;
+  }
+}
     align-items: flex-end;
     padding: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.52));
