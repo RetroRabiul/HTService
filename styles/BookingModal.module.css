@@ -190,11 +190,11 @@
   }
   .servicesLeft {
     width: 100%;
-    padding: 18px 12px 12px; /* add extra top padding for header space */
+    padding: 30px 12px 12px; /* increased top padding for header space */
     box-sizing: border-box;
   }
   .serviceNavItem:first-child {
-    margin-top: 6px; /* small extra gap for the first item */
+    margin-top: 12px; /* increased extra gap for the first item */
   }
   .servicesRight {
     padding: 12px;
