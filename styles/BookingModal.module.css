@@ -889,6 +889,14 @@
   }
 }
 
+/* Also apply same top gap to the Review step so review content
+   (Review request) is visible below the sticky header on mobile */
+@media (max-width: 640px) {
+  .reviewSection {
+    margin-top: 56px !important;
+  }
+}
+
 /* detail panel slides in from right */
 .detailPanelContainer { position: relative; }
 .detailPanel {
