@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "node ./scripts/copy-favicons.js && next build",
+    "start": "next start",
+    "copy-favicons": "node ./scripts/copy-favicons.js",
+    "postinstall": "node ./scripts/copy-favicons.js"
   },
   "dependencies": {
     "next": "latest",
