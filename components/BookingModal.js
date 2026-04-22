@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from '../styles/BookingModal.module.css';
 import { useBooking } from '../contexts/BookingContext';
 import { DETAILS } from '../data/details';
@@ -387,7 +388,9 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
           {step === 3 && (
             <>
               <div className={styles.reviewTopRow}>
-                <div className={styles.reviewLogo}>HT</div>
+                <div className={styles.reviewLogo}>
+                  <Image src="/home_page/logo.jpg" alt="HT Service" width={56} height={56} className={styles.reviewLogoImg} />
+                </div>
                 <span className={styles.reviewBrand}>HT Service</span>
               </div>
 

@@ -584,17 +584,19 @@
 }
 
 .reviewLogo {
-  width: 40px;
-  height: 40px;
-  background: #004080;
-  border-radius: 10px;
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
-  font-weight: 800;
-  color: #fff;
   flex-shrink: 0;
+}
+
+.reviewLogoImg {
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .reviewBrand {
