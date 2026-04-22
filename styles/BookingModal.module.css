@@ -179,6 +179,28 @@
   text-shadow: 0 1px 0 rgba(0,0,0,0.6);
 }
 
+/* Mobile tweaks: ensure the left services column has a top gap so
+   the first service (e.g. "Cleaning service") isn't hidden under
+   the modal header on small screens. */
+@media (max-width: 640px) {
+  .servicesBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .servicesLeft {
+    width: 100%;
+    padding: 18px 12px 12px; /* add extra top padding for header space */
+    box-sizing: border-box;
+  }
+  .serviceNavItem:first-child {
+    margin-top: 6px; /* small extra gap for the first item */
+  }
+  .servicesRight {
+    padding: 12px;
+  }
+}
+
 .backBtn {
   position: absolute;
   left: 14px;
