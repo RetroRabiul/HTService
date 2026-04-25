@@ -298,19 +298,21 @@
   /* Mobile: 3-up grid with blue borders like the reference image */
   .categoriesWrap { background: #1e4ca8; }
   /* outer inset border and padding to create the thick blue frame */
-  .categoriesWrap { background: #1e4ca8; padding: 10px; border-radius: 12px; box-shadow: inset 0 0 0 8px #153b7a; }
-  .categoriesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; justify-items: stretch; align-items: stretch; }
+  /* tuned outer frame: slightly larger radius and inset stroke for the blue frame */
+  .categoriesWrap { background: #1e4ca8; padding: 12px; border-radius: 16px; box-shadow: inset 0 0 0 10px #153b7a; }
+  .categoriesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; justify-items: stretch; align-items: stretch; }
   .categoriesGrid > .categoryTile { box-sizing: border-box; margin: 0; }
   /* second row will naturally fill columns 1-3 so no special placement needed */
-  .categoryTile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:14px 6px; min-height:110px; background:#ffffff; border-radius:8px; box-shadow:none; border: none; box-sizing: border-box; }
+  .categoryTile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:14px 6px; min-height:110px; background:#ffffff; border-radius:10px; box-shadow:none; border: none; box-sizing: border-box; }
   .categoryIcon { width:56px; height:56px; font-size:26px; border-radius:6px; background: transparent; box-shadow: none; border: none; display:flex; align-items:center; justify-content:center; }
-  .categoryLabel { font-size:13px; margin-top:6px; color:#062033; font-weight:700; }
+  .categoryLabel { font-size:13px; margin-top:6px; color:#022233; font-weight:800; letter-spacing:0.12px; }
   /* Corner rounding for outer tiles to create the 'cutout' look */
-  .categoriesGrid > .categoryTile:nth-child(1) { border-top-left-radius: 12px; }
-  .categoriesGrid > .categoryTile:nth-child(3) { border-top-right-radius: 12px; }
-  .categoriesGrid > .categoryTile:nth-child(4) { border-bottom-left-radius: 12px; }
-  .categoriesGrid > .categoryTile:nth-child(6) { border-bottom-right-radius: 12px; }
-  /* Slightly smaller radius for inner tiles to keep consistent rhythm */
+  /* corner adjustments for the six-tile grid to match the cutout look */
+  .categoriesGrid > .categoryTile:nth-child(1) { border-top-left-radius: 6px; }
+  .categoriesGrid > .categoryTile:nth-child(3) { border-top-right-radius: 6px; }
+  .categoriesGrid > .categoryTile:nth-child(4) { border-bottom-left-radius: 6px; }
+  .categoriesGrid > .categoryTile:nth-child(6) { border-bottom-right-radius: 6px; }
+  /* keep inner tiles slightly rounded but subtler */
   .categoriesGrid > .categoryTile:nth-child(2), .categoriesGrid > .categoryTile:nth-child(5) { border-radius:8px; }
   .subserviceItem { padding: 8px 10px; font-size: 13px; }
   .popularGrid { grid-template-columns: repeat(2, 1fr); gap:10px; }
