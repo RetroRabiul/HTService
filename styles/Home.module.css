@@ -273,6 +273,7 @@
   .section, .sectionAlt { padding: 48px 24px; }
 }
 
+@media (max-width: 768px) {
   /* Use 3-up grid on phone with bold blue borders like the reference image */
   .heroTitle { font-size:36px; }
   .categoriesWrap { margin: -32px 12px 0; padding:20px 16px; }
