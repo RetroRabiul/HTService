@@ -133,7 +133,7 @@ export default function Home() {
           <div className={styles.categoriesGrid}>
             {(() => {
               // create a display order so 'See All' appears as the 4th tile (first of second row)
-              const display = [categories[0], categories[1], categories[2], { icon: '', label: 'See All', seeAll: true }, categories[3], categories[4]];
+              const display = [categories[0], categories[1], categories[2], categories[3], categories[4], { icon: '', label: 'See All', seeAll: true }];
               return display.map((item, idx) => {
                 if (item.seeAll) {
                   return (
