@@ -296,11 +296,12 @@
   .categoriesWrap { margin: -28px 8px 0; padding:8px 6px; border-radius:6px; }
 
   /* Mobile: 3-up grid with blue borders like the reference image */
-  .categoriesGrid { display: flex; flex-wrap: wrap; gap: 0; justify-content: center; }
-  .categoriesGrid > .categoryTile { flex: 0 0 33.3333%; max-width: 33.3333%; box-sizing: border-box; margin: 0; }
-  /* center the 4th item so the second row appears centered */
-  .categoriesGrid > .categoryTile:nth-child(4) { margin-left: 16.6666%; }
-  .categoryTile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:18px 6px; min-height:100px; background:#ffffff; border-radius:0; box-shadow:none; border:2px solid #1e4ca8; }
+  .categoriesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; justify-items: stretch; align-items: stretch; }
+  .categoriesGrid > .categoryTile { box-sizing: border-box; margin: 0; }
+  /* place 4th and 5th items into columns 2 and 3 so second row centers nicely */
+  .categoriesGrid > .categoryTile:nth-child(4) { grid-column: 2; }
+  .categoriesGrid > .categoryTile:nth-child(5) { grid-column: 3; }
+  .categoryTile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:18px 6px; min-height:110px; background:#ffffff; border-radius:0; box-shadow:none; border:2px solid #1e4ca8; box-sizing: border-box; }
   .categoryIcon { width:56px; height:56px; font-size:26px; border-radius:6px; background: transparent; box-shadow: none; border: none; display:flex; align-items:center; justify-content:center; }
   .categoryLabel { font-size:13px; margin-top:6px; color:#0b1b2a; }
   .subserviceItem { padding: 8px 10px; font-size: 13px; }
