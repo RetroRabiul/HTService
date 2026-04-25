@@ -144,30 +144,29 @@
   position: relative;
   z-index: 10;
 }
-  .categoriesGrid { display: flex; flex-wrap: wrap; gap: 0; justify-content: center; border-top: 1px solid #eef2f5; border-left: 1px solid #eef2f5; }
-  .categoriesGrid > .categoryTile { flex: 0 0 25%; max-width: 25%; box-sizing: border-box; margin: 0; }
-  /* ensure consistent 3-column-ish layout on very small screens if space is tight */
-  @media (max-width: 420px) {
-    .categoriesGrid > .categoryTile { flex: 0 0 33.3333%; max-width: 33.3333%; }
-  }
+  /* Use 3-up grid on phone with bold blue borders like the reference image */
+  .categoriesGrid { display: flex; flex-wrap: wrap; gap: 0; justify-content: center; }
+  .categoriesGrid > .categoryTile { flex: 0 0 33.3333%; max-width: 33.3333%; box-sizing: border-box; margin: 0; }
+  /* center last two tiles on the second row by offsetting the 4th item */
+  .categoriesGrid > .categoryTile:nth-child(4) { margin-left: 16.6666%; }
   .categoryTile {
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    gap:6px;
-    padding:16px 6px;
-    min-height:96px;
+    gap:8px;
+    padding:18px 8px;
+    min-height:110px;
     background: #ffffff;
     border-radius: 0;
     box-shadow: none;
-    border-right: 1px solid #eef2f5;
-    border-bottom: 1px solid #eef2f5;
+    border: 3px solid #1e4ca8;
   }
   .categoryTile + .categoryTile { }
-  .categoryIcon { width: auto; height: auto; font-size:22px; border-radius:0; background: transparent; box-shadow: none; border: none; display:block; }
-  .categoryLabel { font-size:11px; margin-top:6px; }
+  /* remove any inner icon border; keep icon centered */
+  .categoryIcon { width: 56px; height: 56px; font-size:26px; border-radius:6px; background: transparent; box-shadow: none; border: none; display:flex; align-items:center; justify-content:center; }
+  .categoryLabel { font-size:13px; margin-top:6px; color: #0b1b2a; }
   .subserviceItem { padding: 8px 10px; font-size: 13px; }
   .popularGrid { grid-template-columns: repeat(2, 1fr); gap:10px; }
 
