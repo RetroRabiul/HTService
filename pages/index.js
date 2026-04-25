@@ -131,36 +131,56 @@ export default function Home() {
         {/* Category Tiles */}
         <div className={styles.categoriesWrap}>
           <div className={styles.categoriesGrid}>
-            {categories.map(({ icon, label }) => (
-              <div
-                key={label}
-                className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
-                role="button"
-                tabIndex={0}
-                onClick={() => {
-                  setActiveCategory(label);
-                  // on small screens, open a full page view instead of modal
-                  if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-                    // map label to category id (same order as categories array)
-                    const idx = categories.findIndex(c => c.label === label);
-                    const categoryId = idx >= 0 ? idx + 1 : 1;
-                    router.push(`/all-services?category=${categoryId}`);
-                    return;
-                  }
-                  setShowServicesModal(true);
-                }}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    setActiveCategory(label);
-                    setShowServicesModal(true);
-                  }
-                }}
-                aria-pressed={activeCategory === label}
-              >
-                <div className={styles.categoryIcon}>{icon}</div>
-                <span className={styles.categoryLabel}>{label}</span>
-              </div>
-            ))}
+            {(() => {
+              // create a display order so 'See All' appears as the 4th tile (first of second row)
+              const display = [categories[0], categories[1], categories[2], { icon: '', label: 'See All', seeAll: true }, categories[3], categories[4]];
+              return display.map((item, idx) => {
+                if (item.seeAll) {
+                  return (
+                    <div
+                      key="see-all"
+                      className={styles.categoryTile}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => router.push('/all-services')}
+                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') router.push('/all-services'); }}
+                      aria-label="See all services"
+                    >
+                      <span className={styles.categoryLabel} style={{ fontWeight: 700 }}>See all</span>
+                    </div>
+                  );
+                }
+                const { icon, label } = item;
+                return (
+                  <div
+                    key={label}
+                    className={[styles.categoryTile, activeCategory === label ? styles.categoryTileActive : ''].filter(Boolean).join(' ')}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      setActiveCategory(label);
+                      if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+                        const idx2 = categories.findIndex(c => c.label === label);
+                        const categoryId = idx2 >= 0 ? idx2 + 1 : 1;
+                        router.push(`/all-services?category=${categoryId}`);
+                        return;
+                      }
+                      setShowServicesModal(true);
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        setActiveCategory(label);
+                        setShowServicesModal(true);
+                      }
+                    }}
+                    aria-pressed={activeCategory === label}
+                  >
+                    <div className={styles.categoryIcon}>{icon}</div>
+                    <span className={styles.categoryLabel}>{label}</span>
+                  </div>
+                );
+              });
+            })()}
           </div>
         </div>
         {showServicesModal && (
