@@ -302,6 +302,13 @@
   .categoryTile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:18px 6px; min-height:110px; background:#ffffff; border-radius:0; box-shadow:none; border:2px solid #1e4ca8; box-sizing: border-box; }
   .categoryIcon { width:56px; height:56px; font-size:26px; border-radius:6px; background: transparent; box-shadow: none; border: none; display:flex; align-items:center; justify-content:center; }
   .categoryLabel { font-size:13px; margin-top:6px; color:#0b1b2a; }
+
+  /* See All tile variant */
+  .seeAllTile {
+    background: #1e4ca8 !important;
+    border-color: #1e4ca8 !important;
+  }
+  .seeAllTile .categoryLabel { color: #ffffff !important; font-weight: 700; }
   .subserviceItem { padding: 8px 10px; font-size: 13px; }
   .popularGrid { grid-template-columns: repeat(2, 1fr); gap:10px; }
 }

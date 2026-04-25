@@ -139,7 +139,7 @@ export default function Home() {
                   return (
                     <div
                       key="see-all"
-                      className={styles.categoryTile}
+                      className={[styles.categoryTile, styles.seeAllTile].filter(Boolean).join(' ')}
                       role="button"
                       tabIndex={0}
                       onClick={() => router.push('/all-services')}
