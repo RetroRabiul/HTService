@@ -161,7 +161,7 @@
     background: #ffffff;
     border-radius: 0;
     box-shadow: none;
-    border: 3px solid #1e4ca8;
+    border: 2px solid #1e4ca8;
   }
   .categoryTile + .categoryTile { }
   /* remove any inner icon border; keep icon centered */
@@ -273,7 +273,7 @@
   .section, .sectionAlt { padding: 48px 24px; }
 }
 
-@media (max-width: 768px) {
+  /* Use 3-up grid on phone with bold blue borders like the reference image */
   .heroTitle { font-size:36px; }
   .categoriesWrap { margin: -32px 12px 0; padding:20px 16px; }
   .categoriesGrid { grid-template-columns: repeat(4, 1fr); gap:8px; }
@@ -320,4 +320,29 @@
   }
   .subserviceItem { padding: 8px 10px; font-size: 13px; }
   .popularGrid { grid-template-columns: repeat(2, 1fr); gap:10px; }
+}
+
+/* Desktop: remove tile borders and restore original desktop visuals */
+@media (min-width: 641px) {
+  .categoriesGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px 28px; justify-items: center; align-items: center; }
+  .categoryTile {
+    padding: 6px 12px;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 10px;
+    box-shadow: 0 18px 48px rgba(0,64,128,0.06);
+  }
+  .categoryIcon {
+    width:64px;
+    height:64px;
+    border-radius:14px;
+    border:1.5px solid rgba(0,64,128,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+    box-shadow: 0 18px 48px rgba(0,64,128,0.14), inset 0 6px 16px rgba(255,255,255,0.6);
+  }
+  .categoryLabel { font-size:13px; font-weight:600; color:#2b3b4f; }
 }
