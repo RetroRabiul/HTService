@@ -21,18 +21,54 @@ const MAIN_SERVICES = [
     icon: '🧹',
     label: 'Cleaning service',
     subs: [
-      { id: 101, name: 'Bathroom Deep Cleaning', price: 800 },
-      { id: 102, name: 'Kitchen Deep Cleaning Service', price: 1200 },
-      { id: 103, name: 'Floor Deep Cleaning', price: 1500 },
-      { id: 104, name: 'Full Home Deep Cleaning', price: 5000 },
-      { id: 105, name: 'Window Cleaning', price: 700 },
-      { id: 106, name: 'Thai Glass Cleaning', price: 900 }
-    ]
+      { id: 101, name: 'Bathroom Deep Cleaning', price: 1000 },
+      { id: 102, name: 'Kitchen Deep Cleaning Service', price: 1500 },
+      { id: 103, name: 'Floor Deep Cleaning', price: 3 },
+      { id: 104, name: 'Full Home Deep Cleaning', price: 4000 },
+      { id: 105, name: 'Window Cleaning', price: 200 },
+      { id: 106, name: 'Thai Glass Cleaning', price: 4 },
+      { id: 107, name: 'Furniture & Carpet Cleaning', price: 8 },
+      { id: 108, name: 'Marble & Mosaic Cutting and Polish', price: 30 },
+      { id: 109, name: 'Appliance Cleaning', price: 200 },
+      { id: 110, name: 'Tank & Pipe Cleaning', price: 1500 },
+      { id: 111, name: 'Monthly Service', price: 14000 },
+    ],
   },
-  { id: 2, icon: '🦟', label: 'Pest control service', subs: [] },
-  { id: 3, icon: '🚚', label: 'Shifting Service', subs: [] },
-  { id: 4, icon: '❄️', label: 'AC Service', subs: [] },
-  { id: 5, icon: '🏗️', label: 'Construction Service', subs: [] }
+  {
+    id: 2,
+    icon: '🦟',
+    label: 'Pest control service',
+    subs: [
+      { id: 201, name: 'Cockroaches Control', price: 3000 },
+      { id: 202, name: 'Bed Bugs Control', price: 2000 },
+      { id: 203, name: 'Termite Control', price: 250 },
+      { id: 204, name: 'Rodent Control Premium Service', price: 250 },
+    ],
+  },
+  {
+    id: 3,
+    icon: '🚚',
+    label: 'Shifting Service',
+    subs: [
+      { id: 301, name: 'Family Home Shifting', price: 250 },
+      { id: 302, name: 'Bachelor Home Shifting', price: 250 },
+      { id: 303, name: 'Office Shifting', price: 250 },
+    ],
+  },
+  {
+    id: 4,
+    icon: '❄️',
+    label: 'AC Service',
+    subs: [
+      { id: 401, name: 'AC Check Up', price: 300 },
+      { id: 402, name: 'AC Gas Checkup Service', price: 400 },
+      { id: 403, name: 'AC Jet Wash', price: 800 },
+      { id: 404, name: 'AC Master Service', price: 1300 },
+      { id: 405, name: 'AC Foam Wash', price: 1500 },
+      { id: 406, name: 'AC Water Drop Solution', price: 1200 },
+    ],
+  },
+  { id: 5, icon: '🏗️', label: 'Construction Service', subs: [] },
 ];
 
 export default function ServicesModal({ onClose, onSelect }) {
