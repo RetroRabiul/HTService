@@ -1,6 +1,6 @@
 .nav {
   background: #ffffff;
-  padding: 14px 40px;
+  padding: 10px 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border-bottom: 1px solid #e8edf2;
   position: sticky;
@@ -24,7 +24,7 @@
 }
 
 .logo img {
-  height: 64px;
+  height: 48px;
   width: auto;
 }
 
