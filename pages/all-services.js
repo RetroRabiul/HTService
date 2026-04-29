@@ -192,8 +192,17 @@ export default function AllServices() {
                     </div>
 
                     {isOpen && (
-                      <div style={{ marginTop: 10 }}>
-                        <DetailInline id={s.id} selectedMap={(bookingSelections[s.id] || []).reduce((acc, i) => (acc[i]=true, acc), {})} onToggle={(idx) => toggleSelection(s.id, idx)} />
+                      <div style={{ marginTop: 10, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                        <div style={{ flex: 1 }}>
+                          <DetailInline id={s.id} selectedMap={(bookingSelections[s.id] || []).reduce((acc, i) => (acc[i]=true, acc), {})} onToggle={(idx) => toggleSelection(s.id, idx)} />
+                        </div>
+                        {s.name === 'Bathroom Deep Cleaning' && (
+                          <div style={{ marginTop: 8 }}>
+                            <Link href="/bathroom-deep-cleaning" style={{ background: '#0077c8', color: '#fff', padding: '8px 12px', borderRadius: 8, textDecoration: 'none', display: 'inline-block' }}>
+                              Open Page
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
