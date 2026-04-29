@@ -168,6 +168,10 @@ export default function AllServices() {
                       role="button"
                       tabIndex={0}
                       onClick={() => {
+                        if (s.name === 'Bathroom Deep Cleaning') {
+                          router.push('/bathroom-deep-cleaning');
+                          return;
+                        }
                         if (!isOpen) {
                           setOpenIds(prev => [...prev, s.id]);
                           setNavCollapsed(true);
@@ -178,6 +182,10 @@ export default function AllServices() {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
+                          if (s.name === 'Bathroom Deep Cleaning') {
+                            router.push('/bathroom-deep-cleaning');
+                            return;
+                          }
                           if (!isOpen) {
                             setOpenIds(prev => [...prev, s.id]);
                             setNavCollapsed(true);
