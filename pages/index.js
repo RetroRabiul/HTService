@@ -17,11 +17,12 @@ const categories = [
 ];
 
 const popularServices = [
-  { id: 1, title: 'Cleaning service', desc: 'General cleaning for homes & offices', color: '#0077c8' },
-  { id: 2, title: 'Pest control service', desc: 'Mosquito and pest treatment', color: '#005fa3' },
-  { id: 3, title: 'Shifting Service', desc: 'Packing, loading and moving assistance', color: '#00a3b4' },
-  { id: 4, title: 'AC Service', desc: 'AC maintenance, cleaning and repair', color: '#00B4D8' },
-  { id: 5, title: 'Construction Service', desc: 'Post-construction cleaning & debris removal', color: '#004080' },
+  { slug: 'bathroom-deep-cleaning',      title: 'Bathroom Deep Cleaning',            desc: 'Thorough scrubbing and sanitization of your bathroom', color: '#0077c8' },
+  { slug: 'kitchen-deep-cleaning',        title: 'Kitchen Deep Cleaning',             desc: 'Degrease, clean and sanitize your entire kitchen',      color: '#005fa3' },
+  { slug: 'full-home-deep-cleaning',      title: 'Full Home Deep Cleaning',           desc: 'Complete top-to-bottom cleaning for your whole home',   color: '#00a3b4' },
+  { slug: 'ac-jet-wash',                  title: 'AC Jet Wash',                       desc: 'High-pressure wash for peak AC performance',           color: '#00B4D8' },
+  { slug: 'cockroaches-control',          title: 'Cockroaches Control',               desc: 'Targeted treatment to eliminate cockroach infestations', color: '#004f8a' },
+  { slug: 'furniture-carpet-cleaning',    title: 'Furniture & Carpet Cleaning',       desc: 'Deep clean sofas, chairs and carpets to like-new condition', color: '#004080' },
 ];
 
 export default function Home() {
@@ -210,16 +211,16 @@ export default function Home() {
             <a href="#contact" className={styles.viewAll}>View All</a>
           </div>
           <div className={styles.popularGrid}>
-            {popularServices.map(({ id, title, desc, color }) => (
+            {popularServices.map(({ slug, title, desc, color }) => (
               <div
-                key={title}
+                key={slug}
                 className={styles.popularCard}
                 style={{ background: color }}
                 role="button"
                 tabIndex={0}
-                onClick={() => { setInitialServiceId(id); setBooking(true); }}
-                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (setInitialServiceId(id), setBooking(true))}
-                aria-label={`Book ${title}`}
+                onClick={() => router.push(`/services/${slug}`)}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && router.push(`/services/${slug}`)}
+                aria-label={title}
               >
                 <div className={styles.popularBg}>
                   <Image src="/home_page/ht_bg.png" alt={title} fill style={{ objectFit: 'cover', opacity: 0.18 }} />
