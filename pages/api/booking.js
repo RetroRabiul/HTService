@@ -34,11 +34,31 @@ export default async function handler(req, res) {
 
   const token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
   const adminPsid = process.env.FACEBOOK_ADMIN_PSID;
+  const configuredTag = process.env.FACEBOOK_MESSAGE_TAG;
 
   function getFbErrorSummary(fbData) {
     const message = fbData && fbData.error && fbData.error.message ? fbData.error.message : 'Unknown Facebook API error';
     const code = fbData && fbData.error && fbData.error.code ? ` (code: ${fbData.error.code})` : '';
     return `${message}${code}`;
+  }
+
+  async function sendWithTag(endpoint, messageText, recipientId, tag) {
+    const fbResponse = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        recipient: { id: recipientId },
+        message: { text: messageText },
+        messaging_type: 'MESSAGE_TAG',
+        tag,
+      }),
+    });
+
+    const fbData = await fbResponse.json();
+    return { fbResponse, fbData, tag };
   }
 
   if (!token || !adminPsid) {
@@ -70,26 +90,36 @@ export default async function handler(req, res) {
   try {
     const endpoint = `https://graph.facebook.com/v19.0/me/messages?access_token=${encodeURIComponent(token)}`;
 
-    const fbResponse = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        recipient: { id: adminPsid },
-        message: { text: messageText },
-        messaging_type: 'MESSAGE_TAG',
-        tag: 'CONFIRMED_EVENT_UPDATE',
-      }),
-    });
+    const tagsToTry = Array.from(new Set([
+      configuredTag,
+      'POST_PURCHASE_UPDATE',
+      'CONFIRMED_EVENT_UPDATE',
+      'ACCOUNT_UPDATE',
+    ].filter(Boolean)));
 
-    const fbData = await fbResponse.json();
+    let sendResult = null;
+    for (const tag of tagsToTry) {
+      // Try multiple approved tags because policies can differ by use-case.
+      sendResult = await sendWithTag(endpoint, messageText, adminPsid, tag);
+      if (sendResult.fbResponse.ok) break;
+    }
 
-    if (!fbResponse.ok) {
+    if (!sendResult || !sendResult.fbResponse.ok) {
+      const fbData = sendResult ? sendResult.fbData : null;
       console.error('Facebook API error:', JSON.stringify(fbData));
+
+      const fbCode = fbData && fbData.error ? fbData.error.code : null;
+      const policyHint = fbCode === 10
+        ? 'Meta policy blocked delivery. Send one message from your personal Facebook account to your Page inbox, then retry booking within 24 hours.'
+        : null;
+
       // Don't return 500 — booking still succeeded, only notification failed
-      return res.status(200).json({ success: true, notified: false, reason: getFbErrorSummary(fbData), fbError: fbData.error?.message });
+      return res.status(200).json({
+        success: true,
+        notified: false,
+        reason: policyHint || getFbErrorSummary(fbData),
+        fbError: fbData && fbData.error ? fbData.error.message : undefined,
+      });
     }
 
     return res.status(200).json({ success: true, notified: true });
