@@ -77,13 +77,6 @@ export default function BathroomDeepCleaning() {
           </div>
           <div className={homeStyles.heroOverlay} />
           <div className={homeStyles.heroContent}>
-            <div className={pageStyles.heroCrumb}>
-              <span className={pageStyles.crumbLink} onClick={() => router.push('/')}>Home</span>
-              <span className={pageStyles.crumbSep}>/</span>
-              <span className={pageStyles.crumbLink} onClick={() => router.push('/all-services')}>All Services</span>
-              <span className={pageStyles.crumbSep}>/</span>
-              <span className={pageStyles.crumbCurrent}>Bathroom Deep Cleaning</span>
-            </div>
             <h1 className={homeStyles.heroTitle}>Your Deep cleaning Service Partner</h1>
             <p className={homeStyles.heroSubtitle}>
               Professional bathroom deep cleaning — floors, walls, basins, commodes, mirrors &amp; ventilators.
