@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from '../styles/BookingModal.module.css';
 import { DETAILS } from '../data/details';
 import { useBooking } from '../contexts/BookingContext';
@@ -74,31 +73,21 @@ const MAIN_SERVICES = [
 
 export default function ServicesModal({ onClose, onSelect }) {
   const bookingCtx = useBooking();
-  const router = useRouter();
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
-  const [slugMap, setSlugMap] = useState({});
+  const [openSubs, setOpenSubs] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
 
-  useEffect(() => {
-    async function loadSlugs() {
-      try {
-        const res = await fetch('/info/services.json');
-        const data = await res.json();
-        const map = {};
-        (data.business_services || []).forEach(bs => {
-          (bs.subcategories || []).forEach(sc => {
-            if (sc && sc.name && sc.slug) {
-              map[String(sc.name).trim().toLowerCase()] = String(sc.slug).trim();
-            }
-          });
-        });
-        setSlugMap(map);
-      } catch (e) {
-        // ignore
-      }
-    }
-    loadSlugs();
-  }, []);
+  function toggleSub(id) {
+    setOpenSubs(prev => {
+      const opening = !prev.includes(id);
+      const next = opening ? [...prev, id] : prev.filter(x => x !== id);
+      // track last selected/expanded sub for booking
+      if (opening) setSelectedSub(id);
+      else if (selectedSub === id) setSelectedSub(null);
+      return next;
+    });
+  }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -140,20 +129,52 @@ export default function ServicesModal({ onClose, onSelect }) {
                     <button
                       className={styles.subserviceItem}
                       type="button"
-                      onClick={() => {
-                        const slug = slugMap[String(s.name).trim().toLowerCase()];
-                        if (slug) {
-                          router.push(`/${slug}`);
-                          onClose && onClose();
-                          return;
-                        }
-                        // fallback: do nothing
-                      }}
-                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%' }}
+                      aria-expanded={openSubs.includes(s.id)}
+                      onClick={() => toggleSub(s.id)}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}
                     >
                       <span style={{ textAlign: 'left', flex: 1 }}>{s.name}</span>
+                      <span className={styles.groupChevron} aria-hidden style={{ marginLeft: 12 }}>
+                        {openSubs.includes(s.id) ? '▴' : '▾'}
+                      </span>
                     </button>
                   </div>
+
+                  {openSubs.includes(s.id) && (
+                    <div style={{ marginTop: 8, padding: 12, background: '#071324', borderRadius: 8 }}>
+                      {(() => {
+                        const data = DETAILS[s.id] || { title: '', items: [] };
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            <div style={{ fontWeight: 800, color: '#e6fbff' }}>{data.title}</div>
+                            {data.items.map((it, i) => {
+                              const hasPrice = !!it.price;
+                              const checked = bookingCtx && bookingCtx.selections && bookingCtx.selections[s.id] && bookingCtx.selections[s.id].includes(i);
+                              return (
+                                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                                  <div style={{ color: hasPrice ? '#fff' : '#cfeafd', fontWeight: hasPrice ? 700 : 600 }}>{it.label}</div>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    {hasPrice && <div style={{ color: '#8ef0d6', fontWeight: 700 }}>{formatPrice(it.price)}</div>}
+                                    {hasPrice && (
+                                      <button
+                                        type="button"
+                                        aria-pressed={!!checked}
+                                        onClick={() => bookingCtx.toggleSelection(Number(s.id), i)}
+                                        className={checked ? styles.checkboxChecked : styles.checkbox}
+                                      >
+                                        {checked ? '✓' : ''}
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                            {/* Book button moved to modal footer; keep details read-only here */}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </div>
               ))}
               </div>
