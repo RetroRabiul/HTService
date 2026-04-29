@@ -58,6 +58,33 @@ const MAIN_SERVICES = [
   { id: 5, icon: '🏗️', label: 'Construction Service', subs: [] },
 ];
 
+const SERVICE_PAGES = {
+  101: '/services/bathroom-deep-cleaning',
+  102: '/services/kitchen-deep-cleaning',
+  103: '/services/floor-deep-cleaning',
+  104: '/services/full-home-deep-cleaning',
+  105: '/services/window-cleaning',
+  106: '/services/thai-glass-cleaning',
+  107: '/services/furniture-carpet-cleaning',
+  108: '/services/marble-mosaic-polish',
+  109: '/services/appliance-cleaning',
+  110: '/services/tank-pipe-cleaning',
+  111: '/services/monthly-service',
+  201: '/services/cockroaches-control',
+  202: '/services/bed-bugs-control',
+  203: '/services/termite-control',
+  204: '/services/rodent-control',
+  301: '/services/family-home-shifting',
+  302: '/services/bachelor-home-shifting',
+  303: '/services/office-shifting',
+  401: '/services/ac-check-up',
+  402: '/services/ac-gas-checkup',
+  403: '/services/ac-jet-wash',
+  404: '/services/ac-master-service',
+  405: '/services/ac-foam-wash',
+  406: '/services/ac-water-drop-solution',
+};
+
 export default function AllServices() {
   const router = useRouter();
   const { category } = router.query;
