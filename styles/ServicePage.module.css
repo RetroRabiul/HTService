@@ -1,0 +1,260 @@
+/* ── Page Layout ── */
+.main {
+  font-family: 'Inter', system-ui, Arial;
+  min-height: 100vh;
+  background: #020814;
+  color: #e6fbff;
+  overflow-x: hidden;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #071324 0%, #0b2240 50%, #071324 100%);
+  padding: 100px 24px 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 180, 216, 0.12), transparent);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.heroIcon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.heroCrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.crumbLink {
+  color: #00B4D8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.crumbLink:hover { color: #8ef0d6; }
+
+.crumbSep { color: #4a5568; }
+
+.crumbCurrent { color: #9aa3c6; }
+
+.heroTitle {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  color: #e6fbff;
+  margin: 0 0 12px;
+  line-height: 1.15;
+}
+
+.heroTagline {
+  font-size: clamp(14px, 2vw, 18px);
+  color: #9aa3c6;
+  margin: 0 0 32px;
+  line-height: 1.6;
+}
+
+.heroBookBtn {
+  background: #00B4D8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0, 180, 216, 0.35);
+}
+.heroBookBtn:hover {
+  background: #0099bb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 180, 216, 0.5);
+}
+
+/* ── Content ── */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Section ── */
+.section {}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: #e6fbff;
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(0, 180, 216, 0.25);
+}
+
+.sectionText {
+  font-size: 15px;
+  color: #9aa3c6;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Includes List ── */
+.includesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.includesItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 180, 216, 0.07);
+  border: 1px solid rgba(0, 180, 216, 0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #cfeafd;
+  font-weight: 500;
+}
+
+.checkIcon {
+  color: #00B4D8;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Packages Grid ── */
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.packageCard {
+  background: linear-gradient(160deg, #0b1b2a, #071324);
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  border-radius: 14px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.packageCard:hover {
+  border-color: rgba(0, 180, 216, 0.55);
+  transform: translateY(-3px);
+}
+
+.packageLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e6fbff;
+}
+
+.packageDesc {
+  font-size: 13px;
+  color: #9aa3c6;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.packagePrice {
+  font-size: 22px;
+  font-weight: 800;
+  color: #00B4D8;
+  margin: 8px 0 4px;
+}
+
+.packageBookBtn {
+  background: #00B4D8;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 4px;
+}
+.packageBookBtn:hover {
+  background: #0099bb;
+  transform: translateY(-1px);
+}
+
+/* ── FAQ ── */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faqItem {
+  background: #071324;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.faqQuestion {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #e6fbff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  gap: 12px;
+  transition: background 0.15s;
+}
+.faqQuestion:hover { background: rgba(255,255,255,0.04); }
+
+.faqChevron {
+  font-size: 12px;
+  color: #9aa3c6;
+  flex-shrink: 0;
+}
+
+.faqAnswer {
+  padding: 0 20px 16px;
+  font-size: 14px;
+  color: #9aa3c6;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .hero { padding: 80px 16px 48px; }
+  .packagesGrid { grid-template-columns: 1fr; }
+  .includesList { grid-template-columns: 1fr; }
+}

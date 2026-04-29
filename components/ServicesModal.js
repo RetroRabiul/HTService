@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/BookingModal.module.css';
 import { DETAILS } from '../data/details';
 import { useBooking } from '../contexts/BookingContext';
@@ -73,10 +74,13 @@ const MAIN_SERVICES = [
 
 export default function ServicesModal({ onClose, onSelect }) {
   const bookingCtx = useBooking();
+  const router = useRouter();
   const [activeMain, setActiveMain] = useState(MAIN_SERVICES[0].id);
   const [openSubs, setOpenSubs] = useState([]);
   const [selectedSub, setSelectedSub] = useState(null);
   const main = MAIN_SERVICES.find(m => m.id === activeMain) || MAIN_SERVICES[0];
+
+  const SERVICE_PAGES = { 101: '/services/bathroom-deep-cleaning' };
 
   function toggleSub(id) {
     setOpenSubs(prev => {
@@ -130,13 +134,17 @@ export default function ServicesModal({ onClose, onSelect }) {
                       className={styles.subserviceItem}
                       type="button"
                       aria-expanded={openSubs.includes(s.id)}
-                      onClick={() => toggleSub(s.id)}
+                      onClick={() => {
+                        if (SERVICE_PAGES[s.id]) {
+                          onClose();
+                          router.push(SERVICE_PAGES[s.id]);
+                        } else {
+                          toggleSub(s.id);
+                        }
+                      }}
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}
                     >
                       <span style={{ textAlign: 'left', flex: 1 }}>{s.name}</span>
-                      <span className={styles.groupChevron} aria-hidden style={{ marginLeft: 12 }}>
-                        {openSubs.includes(s.id) ? '▴' : '▾'}
-                      </span>
                     </button>
                   </div>
 
