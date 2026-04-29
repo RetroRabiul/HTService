@@ -719,6 +719,27 @@ export default function ServicePage() {
             </div>
           </section>
         </div>
+
+        {/* ── Contact ── */}
+        <section id="contact" className={homeStyles.contactSection}>
+          <h2 className={homeStyles.contactTitle}>Ready to Get Started?</h2>
+          <p className={homeStyles.contactSubtitle}>Contact HT Service today for a free consultation and quote.</p>
+          <div className={homeStyles.contactCard}>
+            <h3 className={homeStyles.contactCardTitle}>HT Service</h3>
+            <p className={homeStyles.contactInfo}>📍 Dhaka, Bangladesh</p>
+            <p className={homeStyles.contactInfo}>📞 01795180400</p>
+            <p className={homeStyles.contactInfo}>✉️ info@htservice.com</p>
+          </div>
+          <div className={homeStyles.contactBtns}>
+            <a href="tel:+8801795180400" className={homeStyles.btnPrimary}>Call Now</a>
+            <a href="mailto:info@htservice.com" className={homeStyles.btnSecondary}>Email Us</a>
+          </div>
+        </section>
+
+        <footer className={homeStyles.footer}>
+          <p className={homeStyles.footerText}>HT Service - Honest &amp; Trusted service by Bipul</p>
+          <small>&copy; 2026 HT Service. All rights reserved. Serving Dhaka, Bangladesh.</small>
+        </footer>
       </main>
 
       {showBooking && (
