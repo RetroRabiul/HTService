@@ -77,6 +77,7 @@ const MAIN_SERVICES = [
 
 export default function AllServices() {
   const router = useRouter();
+  const [slugMap, setSlugMap] = useState({});
   const { category } = router.query;
   const activeId = Number(category) || 1;
   const main = MAIN_SERVICES.find(m => m.id === activeId) || MAIN_SERVICES[0];
@@ -109,6 +110,27 @@ export default function AllServices() {
       </div>
     );
   }
+
+  useEffect(() => {
+    async function loadSlugs() {
+      try {
+        const res = await fetch('/info/services.json');
+        const data = await res.json();
+        const map = {};
+        (data.business_services || []).forEach(bs => {
+          (bs.subcategories || []).forEach(sc => {
+            if (sc && sc.name && sc.slug) {
+              map[String(sc.name).trim().toLowerCase()] = String(sc.slug).trim();
+            }
+          });
+        });
+        setSlugMap(map);
+      } catch (e) {
+        // ignore
+      }
+    }
+    loadSlugs();
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', background: '#0f1626', color: '#fff', overflowX: 'hidden' }}>
@@ -168,8 +190,9 @@ export default function AllServices() {
                       role="button"
                       tabIndex={0}
                       onClick={() => {
-                        if (s.name === 'Bathroom Deep Cleaning') {
-                          router.push('/bathroom-deep-cleaning');
+                        const slug = slugMap[String(s.name).trim().toLowerCase()];
+                        if (slug) {
+                          router.push(`/${slug}`);
                           return;
                         }
                         if (!isOpen) {
@@ -182,8 +205,9 @@ export default function AllServices() {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
-                          if (s.name === 'Bathroom Deep Cleaning') {
-                            router.push('/bathroom-deep-cleaning');
+                          const slug = slugMap[String(s.name).trim().toLowerCase()];
+                          if (slug) {
+                            router.push(`/${slug}`);
                             return;
                           }
                           if (!isOpen) {
@@ -204,13 +228,17 @@ export default function AllServices() {
                         <div style={{ flex: 1 }}>
                           <DetailInline id={s.id} selectedMap={(bookingSelections[s.id] || []).reduce((acc, i) => (acc[i]=true, acc), {})} onToggle={(idx) => toggleSelection(s.id, idx)} />
                         </div>
-                        {s.name === 'Bathroom Deep Cleaning' && (
-                          <div style={{ marginTop: 8 }}>
-                            <Link href="/bathroom-deep-cleaning" style={{ background: '#0077c8', color: '#fff', padding: '8px 12px', borderRadius: 8, textDecoration: 'none', display: 'inline-block' }}>
-                              Open Page
-                            </Link>
-                          </div>
-                        )}
+                        {(() => {
+                          const slug = slugMap[String(s.name).trim().toLowerCase()];
+                          if (!slug) return null;
+                          return (
+                            <div style={{ marginTop: 8 }}>
+                              <Link href={`/${slug}`} style={{ background: '#0077c8', color: '#fff', padding: '8px 12px', borderRadius: 8, textDecoration: 'none', display: 'inline-block' }}>
+                                Open Page
+                              </Link>
+                            </div>
+                          );
+                        })()}
                       </div>
                     )}
                   </div>
