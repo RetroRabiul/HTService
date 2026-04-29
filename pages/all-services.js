@@ -196,7 +196,7 @@ export default function AllServices() {
                       }}
                     >
                       <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                      <div className={styles.cardChevron} aria-hidden style={{ fontSize: 18, color: 'rgba(207,234,253,0.9)' }}>{isOpen ? '▴' : '▾'}</div>
+                      <div style={{ width: 48 }} aria-hidden />
                     </div>
 
                     {isOpen && (
