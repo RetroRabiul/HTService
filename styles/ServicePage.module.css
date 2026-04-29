@@ -270,8 +270,40 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 600px) {
-  .hero { padding: 80px 16px 48px; }
-  .packagesGrid { grid-template-columns: 1fr; }
-  .includesList { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .content { padding: 32px 16px 64px; gap: 36px; }
+  .sectionTitle { font-size: 19px; }
+  .packagesGrid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .packageCard { padding: 18px 16px; }
+  .packagePrice { font-size: 20px; }
+}
+
+@media (max-width: 480px) {
+  .content { padding: 24px 14px 56px; gap: 28px; }
+
+  /* Hero — tighten up the home-style hero on mobile */
+  .pagebody .hero,
+  .main .hero { padding: 72px 16px 44px; min-height: 320px; }
+
+  .sectionTitle { font-size: 17px; margin-bottom: 14px; padding-bottom: 8px; }
+  .sectionText { font-size: 14px; }
+
+  /* Includes — single column pill list */
+  .includesList { grid-template-columns: 1fr; gap: 8px; }
+  .includesItem { font-size: 13px; padding: 10px 14px; }
+
+  /* Packages — single column stacked cards */
+  .packagesGrid { grid-template-columns: 1fr; gap: 10px; }
+  .packageCard { padding: 16px 14px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .packageLabel { flex: 1 1 60%; font-size: 14px; }
+  .packageDesc { flex: 1 1 100%; font-size: 12px; order: 3; }
+  .packagePrice { flex: 0 0 auto; font-size: 18px; order: 2; }
+  .packageBookBtn { flex: 1 1 100%; order: 4; padding: 11px 12px; font-size: 14px; margin-top: 2px; }
+
+  /* FAQ */
+  .faqQuestion { font-size: 14px; padding: 14px 16px; }
+  .faqAnswer { font-size: 13px; padding: 0 16px 14px; }
+
+  /* Pricing note */
+  .pricingNote { font-size: 12px; }
 }

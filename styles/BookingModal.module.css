@@ -100,13 +100,53 @@
 /* Services modal specific layout (two-column on desktop) */
 .servicesModal { max-width: 920px; width: calc(100% - 40px); box-shadow: 0 30px 80px rgba(0,64,128,0.22); }
 .servicesBody { display: flex; gap: 0; min-height: 360px; }
-.servicesLeft { width: 260px; background: #0f1626; border-right: 1px solid rgba(255,255,255,0.03); padding: 12px; display:flex; flex-direction:column; gap:8px; }
-.serviceNavItem { text-align:left; padding: 12px; border-radius: 8px; background: transparent; border: none; color: #cbd5e1; cursor: pointer; transition: background 0.14s, transform 0.12s, box-shadow 0.12s; }
+.servicesLeft { width: 260px; background: #0f1626; border-right: 1px solid rgba(255,255,255,0.03); padding: 12px; display:flex; flex-direction:column; gap:8px; flex-shrink: 0; }
+.serviceNavItem { text-align:left; padding: 12px; border-radius: 8px; background: transparent; border: none; color: #cbd5e1; cursor: pointer; transition: background 0.14s, transform 0.12s, box-shadow 0.12s; width: 100%; }
 .serviceNavItem:hover { background: rgba(255,255,255,0.02); transform: translateX(2px); }
 .serviceNavItemActive { background: linear-gradient(90deg, rgba(0,180,216,0.06), rgba(0,180,216,0.02)); color: #fff; box-shadow: inset 4px 0 0 #00B4D8, 0 12px 30px rgba(0,180,216,0.12); }
-.servicesRight { padding: 20px; flex: 1; }
+.servicesRight { padding: 20px; flex: 1; min-width: 0; }
 
 .servicesRightInner { max-height: calc(80vh - 160px); overflow-y: auto; padding-right: 8px; }
+
+/* ── Services modal mobile: stack nav above list ── */
+@media (max-width: 600px) {
+  .servicesModal { width: 100%; max-width: 100%; margin: 0; border-radius: 20px 20px 0 0; max-height: 92vh; }
+  .servicesBody { flex-direction: column; min-height: unset; }
+  .servicesLeft {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 10px;
+    gap: 6px;
+    scrollbar-width: none;
+  }
+  .servicesLeft::-webkit-scrollbar { display: none; }
+  .serviceNavItem {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid rgba(255,255,255,0.08);
+    background: #0f1626;
+    width: auto;
+  }
+  .serviceNavItemActive {
+    background: rgba(0,180,216,0.14);
+    border-color: #00B4D8;
+    color: #e6fbff;
+    box-shadow: none;
+  }
+  .servicesRight { padding: 14px 14px 80px; }
+  .servicesRightInner { max-height: calc(92vh - 180px); padding-right: 4px; }
+  .subserviceItem { padding: 12px 12px; font-size: 13px; }
+}
 
 .servicesRightCollapsed { padding-left: 18px; padding-right: 18px; }
 
@@ -508,7 +548,7 @@
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
-  width: calc(100% - 44px);
+  width: 100%;
 }
 
 .serviceItem .serviceChevron, .subserviceItem .groupChevron, .serviceNavItem .groupChevron {
@@ -559,6 +599,8 @@
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .totalLabel {
@@ -835,26 +877,62 @@
     padding: 11px 4px;
   }
 
+  /* Full-width items on mobile — no auto side margins */
   .serviceItem {
-    padding: 11px 10px;
+    padding: 11px 12px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: 52px;
+    box-sizing: border-box;
   }
 
-  .serviceName {
-    font-size: 13px;
+  .serviceName { font-size: 13px; }
+  .serviceDesc { font-size: 11px; }
+  .servicePrice { font-size: 12px; }
+
+  .serviceChevron,
+  .groupChevron {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
   }
 
-  .serviceDesc {
+  /* Time grid: 3 columns on mobile */
+  .timeGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .timeSlot {
     font-size: 11px;
+    padding: 10px 2px;
   }
 
-  .servicePrice {
-    font-size: 12px;
+  /* Total bar full width */
+  .totalBar {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
   }
 
   .nextBtn {
     font-size: 15px;
     padding: 14px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
   }
+
+  /* Review rows wrap on small screens */
+  .reviewRow {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* Inputs fill full width comfortably */
+  .input { font-size: 15px; padding: 13px 12px; }
 }
 
 /* ── Collapsible two-column animation for services page ── */
@@ -891,13 +969,7 @@
   .servicesBodyCollapsed .servicesRight { width: 100% !important; }
 }
 
-/* Ensure BookingModal 'Select services' content has a top gap on small screens
-   so the first service (Cleaning service) is not covered by the header. */
-@media (max-width: 640px) {
-  .serviceList {
-    margin-top: 56px !important;
-  }
-}
+/* No forced top margin — header is sticky so content sits below it naturally */
 
 /* detail panel slides in from right */
 .detailPanelContainer { position: relative; }
