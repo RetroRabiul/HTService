@@ -35,10 +35,16 @@ export default async function handler(req, res) {
   const token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
   const adminPsid = process.env.FACEBOOK_ADMIN_PSID;
 
+  function getFbErrorSummary(fbData) {
+    const message = fbData && fbData.error && fbData.error.message ? fbData.error.message : 'Unknown Facebook API error';
+    const code = fbData && fbData.error && fbData.error.code ? ` (code: ${fbData.error.code})` : '';
+    return `${message}${code}`;
+  }
+
   if (!token || !adminPsid) {
     // Don't break the booking if env vars aren't set — just log it
     console.warn('Facebook notification skipped: env vars not configured');
-    return res.status(200).json({ success: true, notified: false });
+    return res.status(200).json({ success: true, notified: false, reason: 'Missing FACEBOOK_PAGE_ACCESS_TOKEN or FACEBOOK_ADMIN_PSID' });
   }
 
   const serviceLines = (services || []).filter(s => (Number(s.price) || 0) > 0)
@@ -62,7 +68,9 @@ export default async function handler(req, res) {
   ].filter(line => line !== null && line !== undefined).join('\n').trim();
 
   try {
-    const fbResponse = await fetch('https://graph.facebook.com/v19.0/me/messages', {
+    const endpoint = `https://graph.facebook.com/v19.0/me/messages?access_token=${encodeURIComponent(token)}`;
+
+    const fbResponse = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,12 +89,12 @@ export default async function handler(req, res) {
     if (!fbResponse.ok) {
       console.error('Facebook API error:', JSON.stringify(fbData));
       // Don't return 500 — booking still succeeded, only notification failed
-      return res.status(200).json({ success: true, notified: false, fbError: fbData.error?.message });
+      return res.status(200).json({ success: true, notified: false, reason: getFbErrorSummary(fbData), fbError: fbData.error?.message });
     }
 
     return res.status(200).json({ success: true, notified: true });
   } catch (err) {
     console.error('Error sending Facebook notification:', err);
-    return res.status(200).json({ success: true, notified: false });
+    return res.status(200).json({ success: true, notified: false, reason: err && err.message ? err.message : 'Network error while calling Facebook API' });
   }
 }

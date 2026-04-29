@@ -145,7 +145,7 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
     ? `${DAY_NAMES[new Date(selDate.year, selDate.month, selDate.day).getDay()]}, ${MONTHS[selDate.month].slice(0, 3)} ${selDate.day}, ${selDate.year}`
     : '';
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const bookingData = {
       name: form.name.trim(),
       phone: form.phone.trim(),
@@ -157,12 +157,27 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
       total,
     };
 
-    // Fire Facebook Messenger notification in the background (non-blocking)
-    fetch('/api/booking', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bookingData),
-    }).catch(err => console.error('Booking notification error:', err));
+    // Try sending Messenger notification and surface non-fatal delivery failures.
+    try {
+      const resp = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData),
+      });
+      const data = await resp.json();
+      if (!data || data.notified === false) {
+        const reason = data && data.reason ? data.reason : 'Unknown reason';
+        console.warn('Messenger notification was not sent:', reason);
+        if (typeof window !== 'undefined') {
+          window.alert(`Booking saved, but Messenger notification failed: ${reason}`);
+        }
+      }
+    } catch (err) {
+      console.error('Booking notification error:', err);
+      if (typeof window !== 'undefined') {
+        window.alert('Booking saved, but Messenger notification failed due to a network error.');
+      }
+    }
 
     // persist last booking so the calendar page can read it
     try {
