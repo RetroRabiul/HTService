@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { useBooking } from '../contexts/BookingContext';
 import { DETAILS } from '../data/details';
