@@ -5,11 +5,11 @@ import { useBooking } from '../contexts/BookingContext';
 import { DETAILS } from '../data/details';
 
 const SERVICES = [
-  { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000 },
-  { id: 2, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800 },
-  { id: 3, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500 },
-  { id: 4, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500 },
-  { id: 5, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000 },
+  { id: 1, name: 'Cleaning service', desc: 'General cleaning services for homes and offices', price: 2000, subIds: [101,102,103,104,105,106,107,108,109,110,111] },
+  { id: 2, name: 'Pest control service', desc: 'Mosquito and pest control treatments', price: 1800, subIds: [201,202,203,204] },
+  { id: 3, name: 'Shifting Service', desc: 'Packing, loading and shifting assistance', price: 3500, subIds: [301,302,303] },
+  { id: 4, name: 'AC Service', desc: 'AC maintenance and servicing', price: 2500, subIds: [401,402,403,404,405,406] },
+  { id: 5, name: 'Construction Service', desc: 'Post-construction cleaning and debris removal', price: 4000, subIds: [] },
 ];
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -305,60 +305,65 @@ export default function BookingModal({ onClose, onBook, initialSelected = null, 
 
                       {openServices.includes(s.id) && (
                         <div style={{ marginTop: 10, paddingLeft: 8 }}>
-                          {s.id === 1 ? (
-                            Object.entries(DETAILS).map(([subId, group]) => (
-                              <div key={subId} style={{ marginBottom: 12 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                                  <div style={{ fontWeight: 800, color: '#e6fbff' }}>{group.title || `Service ${subId}`}</div>
-                                  <span
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-expanded={openGroups.includes(subId)}
-                                    aria-controls={`group-${subId}`}
-                                    className={[styles.groupChevron, openGroups.includes(subId) ? styles.groupChevronOpen : ''].filter(Boolean).join(' ')}
-                                    onClick={(e) => { e.stopPropagation(); toggleGroup(subId); }}
-                                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleGroup(subId); } }}
-                                  >
-                                    {openGroups.includes(subId) ? '▴' : '▾'}
-                                  </span>
-                                </div>
-                                {openGroups.includes(subId) && (
-                                  <div id={`group-${subId}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                                    {group.items.map((it, idx) => {
-                                    const hasPrice = !!it.price;
-                                    const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
-                                    return (
-                                      <div
-                                        key={idx}
-                                        className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')}
-                                        style={{ background: '#071324' }}
-                                        onClick={hasPrice ? () => bookingCtx.toggleSelection(Number(subId), idx) : undefined}
-                                        role={hasPrice ? 'checkbox' : undefined}
-                                        aria-checked={hasPrice ? !!checkedDetail : undefined}
-                                        tabIndex={hasPrice ? 0 : undefined}
-                                        onKeyDown={hasPrice ? (e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)) : undefined}
-                                      >
-                                        <div className={styles.serviceDetails}>
-                                          <span className={styles.serviceName} style={{ color: hasPrice ? '#fff' : '#cfeafd', fontWeight: hasPrice ? 700 : 600 }}>{it.label}</span>
-                                        </div>
-                                        <div className={styles.serviceRight}>
-                                          {hasPrice && <span className={styles.servicePrice}>{displayPrice(it.price)}</span>}
-                                          {hasPrice && (
-                                            <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
-                                              {checkedDetail && '✓'}
-                                            </div>
-                                          )}
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
+                          {s.subIds && s.subIds.length > 0 ? (
+                            s.subIds.map(subId => {
+                              const group = DETAILS[subId];
+                              if (!group) return null;
+                              return (
+                                <div key={subId} style={{ marginBottom: 12 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                                    <div style={{ fontWeight: 800, color: '#e6fbff' }}>{group.title}</div>
+                                    <span
+                                      role="button"
+                                      tabIndex={0}
+                                      aria-expanded={openGroups.includes(String(subId))}
+                                      aria-controls={`group-${subId}`}
+                                      className={[styles.groupChevron, openGroups.includes(String(subId)) ? styles.groupChevronOpen : ''].filter(Boolean).join(' ')}
+                                      onClick={(e) => { e.stopPropagation(); toggleGroup(String(subId)); }}
+                                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleGroup(String(subId)); } }}
+                                    >
+                                      {openGroups.includes(String(subId)) ? '▴' : '▾'}
+                                    </span>
                                   </div>
-                                )}
-                              </div>
-                            ))
+                                  {openGroups.includes(String(subId)) && (
+                                    <div id={`group-${subId}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                      {group.items.map((it, idx) => {
+                                        const hasPrice = !!it.price;
+                                        const checkedDetail = bookingCtx && bookingCtx.selections && bookingCtx.selections[subId] && bookingCtx.selections[subId].includes(idx);
+                                        return (
+                                          <div
+                                            key={idx}
+                                            className={[styles.serviceItem, checkedDetail && styles.serviceSelected].filter(Boolean).join(' ')}
+                                            style={{ background: '#071324' }}
+                                            onClick={hasPrice ? () => bookingCtx.toggleSelection(Number(subId), idx) : undefined}
+                                            role={hasPrice ? 'checkbox' : undefined}
+                                            aria-checked={hasPrice ? !!checkedDetail : undefined}
+                                            tabIndex={hasPrice ? 0 : undefined}
+                                            onKeyDown={hasPrice ? (e => e.key === 'Enter' && bookingCtx.toggleSelection(Number(subId), idx)) : undefined}
+                                          >
+                                            <div className={styles.serviceDetails}>
+                                              <span className={styles.serviceName} style={{ color: hasPrice ? '#fff' : '#cfeafd', fontWeight: hasPrice ? 700 : 600 }}>{it.label}</span>
+                                            </div>
+                                            <div className={styles.serviceRight}>
+                                              {hasPrice && <span className={styles.servicePrice}>{displayPrice(it.price)}</span>}
+                                              {hasPrice && (
+                                                <div className={[styles.checkbox, checkedDetail && styles.checkboxChecked].filter(Boolean).join(' ')}>
+                                                  {checkedDetail && '✓'}
+                                                </div>
+                                              )}
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })
                           ) : (
                             <div style={{ padding: 10, background: '#071324', borderRadius: 8 }}>
                               <div style={{ color: '#cfeafd', marginBottom: 6 }}>{s.desc}</div>
+                              <div style={{ color: '#9aa3c6', fontSize: 13 }}>Contact us for a custom quote.</div>
                             </div>
                           )}
                         </div>
