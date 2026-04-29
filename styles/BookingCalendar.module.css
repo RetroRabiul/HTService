@@ -1,0 +1,301 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  padding: 32px 20px 44px;
+  background: linear-gradient(180deg, #f7fcff 0%, #eef6ff 100%);
+  overflow: hidden;
+}
+
+.bgGlowTop,
+.bgGlowBottom {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+.bgGlowTop {
+  top: -140px;
+  right: -120px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.26) 0%, rgba(0, 180, 216, 0) 70%);
+}
+
+.bgGlowBottom {
+  bottom: -160px;
+  left: -100px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(0, 128, 255, 0.2) 0%, rgba(0, 128, 255, 0) 72%);
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.title {
+  margin: 0 0 10px;
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #00345f;
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 760px;
+  font-size: 16px;
+  color: #335670;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card,
+.cardWide,
+.emptyState {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #d9edf7;
+  border-radius: 18px;
+  box-shadow: 0 16px 38px rgba(0, 64, 128, 0.1);
+}
+
+.card {
+  padding: 20px;
+}
+
+.cardWide {
+  grid-column: 1 / -1;
+  padding: 20px;
+}
+
+.cardTitle {
+  margin: 0 0 12px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #004080;
+}
+
+.slotTime {
+  font-size: 24px;
+  font-weight: 800;
+  color: #00345f;
+}
+
+.slotDate {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #4d6e83;
+}
+
+.sectionBlock {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e6f3fb;
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #026b93;
+}
+
+.line {
+  margin: 0 0 5px;
+  font-size: 15px;
+  color: #26475f;
+  line-height: 1.5;
+}
+
+.serviceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.serviceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #f5fbff;
+  border: 1px solid #e1f2fb;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.serviceName {
+  color: #2c4f66;
+  font-size: 14px;
+}
+
+.servicePrice {
+  color: #004080;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.totalRow {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #d7ebf7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #00345f;
+  font-size: 16px;
+}
+
+.dateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #004080 0%, #00a8cf 100%);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.dayNumber {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.monthYear {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.weekday {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.92;
+}
+
+.infoText {
+  margin: 14px 0 0;
+  font-size: 15px;
+  color: #2f5268;
+}
+
+.phoneLink {
+  color: #0076a8;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  margin-top: 18px;
+}
+
+.primaryBtn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(135deg, #00b4d8 0%, #0089b6 100%);
+  box-shadow: 0 10px 22px rgba(0, 128, 166, 0.3);
+  transition: transform 0.16s, box-shadow 0.16s, opacity 0.16s;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(0, 128, 166, 0.36);
+  opacity: 0.95;
+}
+
+.emptyState {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 90px auto 0;
+  padding: 30px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 10px;
+  color: #00345f;
+  font-size: 30px;
+}
+
+.emptyText {
+  margin: 0 0 16px;
+  color: #48687e;
+  font-size: 16px;
+}
+
+.muted {
+  margin: 6px 0 0;
+  color: #6b8aa0;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .title {
+    font-size: 30px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 20px 14px 34px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .card,
+  .cardWide,
+  .emptyState {
+    border-radius: 14px;
+  }
+
+  .card,
+  .cardWide {
+    padding: 16px;
+  }
+
+  .dayNumber {
+    font-size: 30px;
+  }
+
+  .monthYear {
+    font-size: 16px;
+  }
+}

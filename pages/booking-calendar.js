@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/BookingCalendar.module.css';
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -44,85 +44,87 @@ export default function BookingCalendarPage() {
 
   if (!booking) {
     return (
-      <div className={styles.main} style={{ padding: 40 }}>
-        <h2>No booking found</h2>
-        <p>We couldn't find a recent booking. Please make a booking first.</p>
-        <p>
-          <Link href="/">Return home</Link>
-        </p>
+      <div className={styles.page}>
+        <div className={styles.bgGlowTop} aria-hidden="true" />
+        <div className={styles.bgGlowBottom} aria-hidden="true" />
+        <div className={styles.emptyState}>
+          <h2 className={styles.emptyTitle}>No booking found</h2>
+          <p className={styles.emptyText}>We could not find a recent booking in this browser session.</p>
+          <Link href="/" className={styles.primaryBtn}>Return home</Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={styles.main} style={{ padding: 24 }}>
-      <div style={{ maxWidth: 920, margin: '0 auto' }}>
-        <h1 style={{ marginBottom: 6 }}>Booking calendar</h1>
-        <p style={{ color: '#6b8aa0', marginBottom: 20 }}>Your recent request is shown below. HT Service will confirm the appointment.</p>
+    <div className={styles.page}>
+      <div className={styles.bgGlowTop} aria-hidden="true" />
+      <div className={styles.bgGlowBottom} aria-hidden="true" />
 
-        <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
-          <div style={{ flex: '0 0 360px' }}>
-            <div style={{ padding: 16, borderRadius: 8, background: '#022233' }}>
-              <div style={{ color: '#cfeafd', fontWeight: 800, marginBottom: 8 }}>Requested slot</div>
-              <div style={{ fontSize: 18, fontWeight: 700 }}>{booking.time || '-'}</div>
-              <div style={{ marginTop: 6 }}>{booking.date || '-'}</div>
-              <div style={{ marginTop: 12 }}>
-                <div style={{ color: '#cfeafd', fontWeight: 800 }}>Contact</div>
-                <div style={{ marginTop: 6 }}>{booking.name}</div>
-                <div>{booking.phone}</div>
-                <div style={{ marginTop: 8 }}>{booking.address}</div>
-              </div>
+      <main className={styles.wrap}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Booking Request Received</h1>
+          <p className={styles.subtitle}>Your latest booking details are shown below. HT Service will confirm your appointment by phone.</p>
+        </header>
+
+        <section className={styles.grid}>
+          <article className={styles.card}>
+            <h2 className={styles.cardTitle}>Requested Slot</h2>
+            <div className={styles.slotTime}>{booking.time || '-'}</div>
+            <div className={styles.slotDate}>{booking.date || '-'}</div>
+
+            <div className={styles.sectionBlock}>
+              <h3 className={styles.sectionTitle}>Contact</h3>
+              <p className={styles.line}>{booking.name}</p>
+              <p className={styles.line}>{booking.phone}</p>
+              <p className={styles.line}>{booking.address}</p>
             </div>
+          </article>
 
-            <div style={{ marginTop: 18, padding: 12, borderRadius: 8, background: '#071324' }}>
-              <div style={{ fontWeight: 800, color: '#e6fbff', marginBottom: 6 }}>Services</div>
-              {booking.services && booking.services.length ? (
-                <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                  {booking.services.map(s => (
-                    <li key={s.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0' }}>
-                      <span>{s.name}</span>
-                      <span>৳{(s.price||0).toLocaleString()}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : <div style={{ color: '#6b8aa0' }}>No priced services selected.</div>}
+          <article className={styles.card}>
+            <h2 className={styles.cardTitle}>Services & Total</h2>
+            {booking.services && booking.services.length ? (
+              <ul className={styles.serviceList}>
+                {booking.services.map(s => (
+                  <li key={s.id} className={styles.serviceItem}>
+                    <span className={styles.serviceName}>{s.name}</span>
+                    <span className={styles.servicePrice}>৳{(s.price || 0).toLocaleString()}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.muted}>No priced services selected.</p>
+            )}
 
-              <div style={{ marginTop: 10, display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
-                <div>Total</div>
-                <div>৳{(booking.total||0).toLocaleString()}</div>
-              </div>
+            <div className={styles.totalRow}>
+              <span>Total</span>
+              <strong>৳{(booking.total || 0).toLocaleString()}</strong>
             </div>
+          </article>
 
-          </div>
-
-          <div style={{ flex: 1 }}>
-            <div style={{ padding: 16, borderRadius: 8, background: '#021827' }}>
-              <div style={{ color: '#cfeafd', fontWeight: 800, marginBottom: 10 }}>Calendar</div>
+          <article className={styles.cardWide}>
+            <div className={styles.dateBadge}>
               {dateObj ? (
-                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                  <div style={{ fontSize: 28, fontWeight: 800 }}>{dateObj.getDate()}</div>
+                <>
+                  <div className={styles.dayNumber}>{dateObj.getDate()}</div>
                   <div>
-                    <div style={{ fontWeight: 700 }}>{MONTHS[dateObj.getMonth()]} {dateObj.getFullYear()}</div>
-                    <div style={{ color: '#6b8aa0' }}>{DAY_NAMES[dateObj.getDay()]}</div>
+                    <div className={styles.monthYear}>{MONTHS[dateObj.getMonth()]} {dateObj.getFullYear()}</div>
+                    <div className={styles.weekday}>{DAY_NAMES[dateObj.getDay()]}</div>
                   </div>
-                </div>
+                </>
               ) : (
-                <div style={{ color: '#6b8aa0' }}>No date selected</div>
+                <p className={styles.muted}>No date selected</p>
               )}
-
-              <div style={{ marginTop: 18 }}>
-                <p style={{ color: '#6b8aa0' }}>HT Service will review your request and confirm via phone.</p>
-                <p>If you need to change your booking, contact: <a href="tel:+8801795180400">+8801795180400</a></p>
-              </div>
-
-              <div style={{ marginTop: 14 }}>
-                <Link href="/" className="btn">Back to home</Link>
-              </div>
             </div>
-          </div>
-        </div>
 
-      </div>
+            <p className={styles.infoText}>If you need to change your booking, call <a href="tel:+8801795180400" className={styles.phoneLink}>+8801795180400</a>.</p>
+
+            <div className={styles.actions}>
+              <Link href="/" className={styles.primaryBtn}>Back to home</Link>
+            </div>
+          </article>
+        </section>
+      </main>
     </div>
   );
 }
