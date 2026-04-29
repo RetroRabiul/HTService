@@ -7,6 +7,15 @@
   overflow-x: hidden;
 }
 
+/* Wrapper used when the hero is shared from Home.module.css */
+.pagebody {
+  font-family: 'Inter', system-ui, Arial;
+  min-height: 100vh;
+  background: #020814;
+  color: #e6fbff;
+  overflow-x: hidden;
+}
+
 /* ── Hero ── */
 .hero {
   background: linear-gradient(135deg, #071324 0%, #0b2240 50%, #071324 100%);

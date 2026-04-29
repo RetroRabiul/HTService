@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Navigation from '../../components/Navigation';
 import BookingModal from '../../components/BookingModal';
 import ServicesModal from '../../components/ServicesModal';
 import { useBooking } from '../../contexts/BookingContext';
-import styles from '../../styles/Home.module.css';
+import homeStyles from '../../styles/Home.module.css';
 import pageStyles from '../../styles/ServicePage.module.css';
 
 const SERVICE = {
@@ -68,11 +69,14 @@ export default function BathroomDeepCleaning() {
         onOpenServices={() => setShowServices(true)}
       />
 
-      <main className={pageStyles.main}>
-        {/* ── Hero ── */}
-        <section className={pageStyles.hero}>
-          <div className={pageStyles.heroContent}>
-            <div className={pageStyles.heroIcon}>{SERVICE.icon}</div>
+      <main className={pageStyles.pagebody}>
+        {/* ── Hero — identical structure to home page ── */}
+        <section className={homeStyles.hero}>
+          <div className={homeStyles.heroBg}>
+            <Image src="/home_page/ht_bg.png" alt="Bathroom deep cleaning background" fill style={{ objectFit: 'cover' }} />
+          </div>
+          <div className={homeStyles.heroOverlay} />
+          <div className={homeStyles.heroContent}>
             <div className={pageStyles.heroCrumb}>
               <span className={pageStyles.crumbLink} onClick={() => router.push('/')}>Home</span>
               <span className={pageStyles.crumbSep}>/</span>
@@ -80,11 +84,21 @@ export default function BathroomDeepCleaning() {
               <span className={pageStyles.crumbSep}>/</span>
               <span className={pageStyles.crumbCurrent}>Bathroom Deep Cleaning</span>
             </div>
-            <h1 className={pageStyles.heroTitle}>{SERVICE.name}</h1>
-            <p className={pageStyles.heroTagline}>{SERVICE.tagline}</p>
-            <button className={pageStyles.heroBookBtn} onClick={() => setShowBooking(true)}>
-              Book Now
-            </button>
+            <h1 className={homeStyles.heroTitle}>Your Deep cleaning Service Partner</h1>
+            <p className={homeStyles.heroSubtitle}>
+              Professional bathroom deep cleaning — floors, walls, basins, commodes, mirrors &amp; ventilators.
+            </p>
+            <p className={homeStyles.heroSubtitle}>
+              Reliable, fast and available 24/7 for your home and office needs.
+            </p>
+            <div className={homeStyles.heroActions}>
+              <button className={homeStyles.bookBtn} onClick={() => setShowBooking(true)}>
+                Book a Service
+              </button>
+              <a href="tel:+8801795180400" className={homeStyles.callBtn}>
+                Call Now
+              </a>
+            </div>
           </div>
         </section>
 
